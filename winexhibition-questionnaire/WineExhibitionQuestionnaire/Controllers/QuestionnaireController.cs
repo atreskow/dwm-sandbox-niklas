@@ -26,17 +26,18 @@ namespace WineExhibitionQuestionnaire.Controllers
     {
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
-            ChangeCulture("en-EN");
+            ChangeCulture("de-DE");
             return base.BeginExecuteCore(callback, state);
         }
 
         [HttpGet]
-        public ActionResult Index()
+        public ActionResult Index(ExhibitorModel data, string language)
         {
-            var model = new ExhibitorModel();
-            using (var ctx = new WineExhibitionQuestionnaireEntities())
+            var model = data ?? new ExhibitorModel();
+            if (language != null)
             {
-                
+                ViewData["language"] = language;
+                ChangeCulture(language);
             }
 
             return View(model);     
@@ -83,15 +84,23 @@ namespace WineExhibitionQuestionnaire.Controllers
 
                     ctx.SaveChanges();
 
-                    return RedirectToAction("Success", new { orderId = entity.ID });
+                    var lang = Thread.CurrentThread.CurrentUICulture.Name;
+
+                    return RedirectToAction("Success", new { orderId = entity.ID, language = lang });
                 }
             }
 
             return View(model);
         }
 
-        public ActionResult Success(Guid orderId)
+        public ActionResult Success(Guid orderId, string language)
         {
+            if (language != null)
+            {
+                ViewData["language"] = language;
+                ChangeCulture(language);
+            }
+
             using (var ctx = new WineExhibitionQuestionnaireEntities())
             {
                 var entity = ctx.CLIENT_DATA.First(x => x.ID == orderId);

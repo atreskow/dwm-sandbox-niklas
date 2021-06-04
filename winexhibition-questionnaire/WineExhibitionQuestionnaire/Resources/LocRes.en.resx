@@ -211,13 +211,13 @@
     <value>Expression of interest for participation at the "Weinmesse 2022"</value>
   </data>
   <data name="Not" xml:space="preserve">
-    <value>won't</value>
+    <value> won't</value>
   </data>
   <data name="Success_Header" xml:space="preserve">
     <value>Thank you for submitting your information</value>
   </data>
   <data name="Success_Participate" xml:space="preserve">
-    <value>You{0] take part at the "Weinmesse" from 18.-20. February 2022.</value>
+    <value>You{0} take part at the "Weinmesse" from 18.-20. February 2022.</value>
   </data>
   <data name="Success_Similar" xml:space="preserve">
     <value>similar to the stand of the last participation</value>

@@ -77,4 +77,10 @@
             $('#sizeinput').prop("disabled", true);
         }
     });
+
+    $("#language").on("change", function () {
+        var lang = $(this).val();
+
+        window.location.href = '@Url.Action("Index", "Questionnaire")' + '?language=' + lang;
+    });
 </script>
