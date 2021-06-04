@@ -26,10 +26,7 @@ namespace WineExhibitionQuestionnaire.Controllers
     {
         protected override IAsyncResult BeginExecuteCore(AsyncCallback callback, object state)
         {
-            CultureInfo culture = new CultureInfo("de-DE", true);
-            culture.NumberFormat.NumberDecimalSeparator = ",";
-            Thread.CurrentThread.CurrentCulture = culture;
-            Thread.CurrentThread.CurrentUICulture = culture;
+            ChangeCulture("en-EN");
             return base.BeginExecuteCore(callback, state);
         }
 
@@ -100,6 +97,14 @@ namespace WineExhibitionQuestionnaire.Controllers
                 var entity = ctx.CLIENT_DATA.First(x => x.ID == orderId);
                 return View(entity);
             }
+        }
+
+        public void ChangeCulture(string countryCode)
+        {
+            CultureInfo culture = new CultureInfo(countryCode, true);
+            culture.NumberFormat.NumberDecimalSeparator = ",";
+            Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
         }
 
         static async Task SendEmail(CLIENT_DATA model, string subject)

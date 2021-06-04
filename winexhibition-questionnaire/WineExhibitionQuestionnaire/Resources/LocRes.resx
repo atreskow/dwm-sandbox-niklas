@@ -118,114 +118,114 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="City" xml:space="preserve">
-    <value>City</value>
+    <value>Stadt</value>
   </data>
   <data name="Country" xml:space="preserve">
-    <value>Country</value>
+    <value>Land</value>
   </data>
   <data name="AT" xml:space="preserve">
-    <value>Austria</value>
+    <value>Österreich</value>
   </data>
   <data name="DE" xml:space="preserve">
-    <value>Germany</value>
+    <value>Deutschland</value>
   </data>
   <data name="EMail" xml:space="preserve">
     <value>E-Mail</value>
   </data>
   <data name="Error_Captcha_01" xml:space="preserve">
-    <value>You have to fill out the captcha.</value>
+    <value>Sie müssen das Captcha ausfüllen.</value>
   </data>
   <data name="Error_Captcha_02" xml:space="preserve">
-    <value>Wrong captcha answer.</value>
+    <value>Falsche Captcha Antwort.</value>
   </data>
   <data name="FirstName" xml:space="preserve">
-    <value>First Name</value>
+    <value>Vorname</value>
   </data>
   <data name="Index_Contact" xml:space="preserve">
-    <value>Your Data</value>
+    <value>Ihre Daten</value>
   </data>
   <data name="Index_Submit" xml:space="preserve">
-    <value>Submit order</value>
+    <value>Bestellung abschicken</value>
   </data>
   <data name="LastName" xml:space="preserve">
-    <value>Last Name</value>
+    <value>Nachname</value>
   </data>
   <data name="Nr" xml:space="preserve">
-    <value>House Number</value>
+    <value>Hausnummer</value>
   </data>
   <data name="Phone" xml:space="preserve">
-    <value>Phone</value>
+    <value>Telefon</value>
   </data>
   <data name="Street" xml:space="preserve">
-    <value>Street</value>
+    <value>Straße</value>
   </data>
   <data name="Zip" xml:space="preserve">
-    <value>Zip</value>
+    <value>Postleitzahl</value>
   </data>
   <data name="Invoice_Amount" xml:space="preserve">
-    <value>Amount</value>
+    <value>Menge</value>
   </data>
   <data name="Invoice_Filename" xml:space="preserve">
-    <value>Invoice.pdf</value>
+    <value>Rechnung.pdf</value>
   </data>
   <data name="Invoice_ObjectNumber" xml:space="preserve">
-    <value>Object</value>
+    <value>Objekt</value>
   </data>
   <data name="Invoice_Paragraph" xml:space="preserve">
-    <value>Invoice for Winebox</value>
+    <value>Rechnung für Kartonbestellung</value>
   </data>
   <data name="Invoice_Price" xml:space="preserve">
-    <value>Price</value>
+    <value>Kosten</value>
   </data>
   <data name="Invoice_Price_Unit" xml:space="preserve">
-    <value>Price Per Unit</value>
+    <value>Stückpreis</value>
   </data>
   <data name="Invoice_Shipping" xml:space="preserve">
-    <value>Shipping</value>
+    <value>Versand</value>
   </data>
   <data name="Invoice_Transferral_Text" xml:space="preserve">
-    <value>Please transfer the total amount of {0} € to the following account and state the order number {1} as the purpose. {2}</value>
+    <value>Den Gesamtbetrag von {0} € bitte an folgendes Konto überweisen und als Verwendungszweck die Bestellnummer {1} angeben. {2}</value>
   </data>
   <data name="Email_Title" xml:space="preserve">
-    <value>Participation "Weinmesse 2022"</value>
+    <value>Teilnahme Weinmesse 2022</value>
   </data>
   <data name="CompanyName" xml:space="preserve">
-    <value>Company Name</value>
+    <value>Firmenname</value>
   </data>
   <data name="Participate" xml:space="preserve">
-    <value>I want to participate</value>
+    <value>Ich möchte teilnehmen</value>
   </data>
   <data name="Answer_No" xml:space="preserve">
-    <value>No</value>
+    <value>Nein</value>
   </data>
   <data name="Answer_Yes" xml:space="preserve">
-    <value>Yes, with the same stand in roughly the same place</value>
+    <value>Ja, mit dem gleichen Stand an der ungefähr gleichen Stelle</value>
   </data>
   <data name="Answer_Yes_But" xml:space="preserve">
-    <value>Yes, with a different stand of size:</value>
+    <value>Ja, mit einem anderen Stand der Größe:</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Date: 18th-20th February 2022</value>
+    <value>Datum: 18.-20. Februar 2022</value>
   </data>
   <data name="Index_Header" xml:space="preserve">
-    <value>Expression of interest for participation at the "Weinmesse 2022"</value>
+    <value>Interessensbekundung für die Teilnahme an der Weinmesse 2022</value>
   </data>
   <data name="Not" xml:space="preserve">
-    <value>won't</value>
+    <value> nicht</value>
   </data>
   <data name="Success_Header" xml:space="preserve">
-    <value>Thank you for submitting your information</value>
+    <value>Vielen Dank für Ihre Angaben</value>
   </data>
   <data name="Success_Participate" xml:space="preserve">
-    <value>You{0] take part at the "Weinmesse" from 18.-20. February 2022.</value>
+    <value>Sie nehmen{0} an der Weinmesse vom 18.-20. Februar 2022 teil.</value>
   </data>
   <data name="Success_Similar" xml:space="preserve">
-    <value>similar to the stand of the last participation</value>
+    <value>ähnlich des Stands der letzten Teilnahme</value>
   </data>
   <data name="Success_Size" xml:space="preserve">
-    <value>Your stand: {0}.</value>
+    <value>Ihre Stand: {0}.</value>
   </data>
   <data name="Success_Text" xml:space="preserve">
-    <value>Your data:</value>
+    <value>Ihre Daten:</value>
   </data>
 </root>

@@ -61,7 +61,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to Nein.
         /// </summary>
         public static string Answer_No {
             get {
@@ -70,7 +70,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes, with the same stand in roughly the same place.
+        ///   Looks up a localized string similar to Ja, mit dem gleichen Stand an der ungefähr gleichen Stelle.
         /// </summary>
         public static string Answer_Yes {
             get {
@@ -79,7 +79,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes, with a different stand of size:.
+        ///   Looks up a localized string similar to Ja, mit einem anderen Stand der Größe:.
         /// </summary>
         public static string Answer_Yes_But {
             get {
@@ -88,7 +88,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Austria.
+        ///   Looks up a localized string similar to Österreich.
         /// </summary>
         public static string AT {
             get {
@@ -97,7 +97,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to City.
+        ///   Looks up a localized string similar to Stadt.
         /// </summary>
         public static string City {
             get {
@@ -106,7 +106,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Company Name.
+        ///   Looks up a localized string similar to Firmenname.
         /// </summary>
         public static string CompanyName {
             get {
@@ -115,7 +115,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Country.
+        ///   Looks up a localized string similar to Land.
         /// </summary>
         public static string Country {
             get {
@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date: 18th-20th February 2022.
+        ///   Looks up a localized string similar to Datum: 18.-20. Februar 2022.
         /// </summary>
         public static string Date {
             get {
@@ -133,7 +133,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Germany.
+        ///   Looks up a localized string similar to Deutschland.
         /// </summary>
         public static string DE {
             get {
@@ -151,7 +151,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Participation &quot;Weinmesse 2022&quot;.
+        ///   Looks up a localized string similar to Teilnahme Weinmesse 2022.
         /// </summary>
         public static string Email_Title {
             get {
@@ -160,7 +160,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You have to fill out the captcha..
+        ///   Looks up a localized string similar to Sie müssen das Captcha ausfüllen..
         /// </summary>
         public static string Error_Captcha_01 {
             get {
@@ -169,7 +169,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong captcha answer..
+        ///   Looks up a localized string similar to Falsche Captcha Antwort..
         /// </summary>
         public static string Error_Captcha_02 {
             get {
@@ -178,7 +178,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First Name.
+        ///   Looks up a localized string similar to Vorname.
         /// </summary>
         public static string FirstName {
             get {
@@ -187,7 +187,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your Data.
+        ///   Looks up a localized string similar to Ihre Daten.
         /// </summary>
         public static string Index_Contact {
             get {
@@ -196,7 +196,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Expression of interest for participation at the &quot;Weinmesse 2022&quot;.
+        ///   Looks up a localized string similar to Interessensbekundung für die Teilnahme an der Weinmesse 2022.
         /// </summary>
         public static string Index_Header {
             get {
@@ -205,7 +205,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Submit order.
+        ///   Looks up a localized string similar to Bestellung abschicken.
         /// </summary>
         public static string Index_Submit {
             get {
@@ -214,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Amount.
+        ///   Looks up a localized string similar to Menge.
         /// </summary>
         public static string Invoice_Amount {
             get {
@@ -223,7 +223,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoice.pdf.
+        ///   Looks up a localized string similar to Rechnung.pdf.
         /// </summary>
         public static string Invoice_Filename {
             get {
@@ -232,7 +232,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Object.
+        ///   Looks up a localized string similar to Objekt.
         /// </summary>
         public static string Invoice_ObjectNumber {
             get {
@@ -241,7 +241,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invoice for Winebox.
+        ///   Looks up a localized string similar to Rechnung für Kartonbestellung.
         /// </summary>
         public static string Invoice_Paragraph {
             get {
@@ -250,7 +250,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Price.
+        ///   Looks up a localized string similar to Kosten.
         /// </summary>
         public static string Invoice_Price {
             get {
@@ -259,7 +259,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Price Per Unit.
+        ///   Looks up a localized string similar to Stückpreis.
         /// </summary>
         public static string Invoice_Price_Unit {
             get {
@@ -268,7 +268,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shipping.
+        ///   Looks up a localized string similar to Versand.
         /// </summary>
         public static string Invoice_Shipping {
             get {
@@ -277,7 +277,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please transfer the total amount of {0} € to the following account and state the order number {1} as the purpose. {2}.
+        ///   Looks up a localized string similar to Den Gesamtbetrag von {0} € bitte an folgendes Konto überweisen und als Verwendungszweck die Bestellnummer {1} angeben. {2}.
         /// </summary>
         public static string Invoice_Transferral_Text {
             get {
@@ -286,7 +286,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last Name.
+        ///   Looks up a localized string similar to Nachname.
         /// </summary>
         public static string LastName {
             get {
@@ -295,7 +295,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to won&apos;t.
+        ///   Looks up a localized string similar to  nicht.
         /// </summary>
         public static string Not {
             get {
@@ -304,7 +304,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to House Number.
+        ///   Looks up a localized string similar to Hausnummer.
         /// </summary>
         public static string Nr {
             get {
@@ -313,7 +313,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to I want to participate.
+        ///   Looks up a localized string similar to Ich möchte teilnehmen.
         /// </summary>
         public static string Participate {
             get {
@@ -322,7 +322,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Phone.
+        ///   Looks up a localized string similar to Telefon.
         /// </summary>
         public static string Phone {
             get {
@@ -331,7 +331,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Street.
+        ///   Looks up a localized string similar to Straße.
         /// </summary>
         public static string Street {
             get {
@@ -340,7 +340,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thank you for submitting your information.
+        ///   Looks up a localized string similar to Vielen Dank für Ihre Angaben.
         /// </summary>
         public static string Success_Header {
             get {
@@ -349,7 +349,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You{0] take part at the &quot;Weinmesse&quot; from 18.-20. February 2022..
+        ///   Looks up a localized string similar to Sie nehmen{0} an der Weinmesse vom 18.-20. Februar 2022 teil..
         /// </summary>
         public static string Success_Participate {
             get {
@@ -358,7 +358,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to similar to the stand of the last participation.
+        ///   Looks up a localized string similar to ähnlich des Stands der letzten Teilnahme.
         /// </summary>
         public static string Success_Similar {
             get {
@@ -367,7 +367,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your stand: {0}..
+        ///   Looks up a localized string similar to Ihre Stand: {0}..
         /// </summary>
         public static string Success_Size {
             get {
@@ -376,7 +376,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Your data:.
+        ///   Looks up a localized string similar to Ihre Daten:.
         /// </summary>
         public static string Success_Text {
             get {
@@ -385,7 +385,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zip.
+        ///   Looks up a localized string similar to Postleitzahl.
         /// </summary>
         public static string Zip {
             get {
