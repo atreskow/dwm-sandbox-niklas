@@ -1,0 +1,80 @@
+﻿@using Recaptcha.Web.Mvc;
+@model WineExhibitionQuestionnaire.Models.ExhibitorModel
+
+<script src="@Url.Content("~/Scripts/jquery-1.10.2.js")" type="text/javascript"></script>
+
+<h2>@Resources.LocRes.Index_Header</h2>
+<h5>@Resources.LocRes.Date</h5>
+
+@using (Html.BeginForm("Index", "Questionnaire", FormMethod.Post))
+{
+    <h3>@Resources.LocRes.Index_Contact</h3>
+    <br />
+    <div class="form-group row">
+        <label for="CompanyName" class="col-sm-3 col-form-label">@Resources.LocRes.CompanyName<span class="required-marker">*</span></label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="CompanyName" required minlength="1" value="@Model.CompanyName" placeholder="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="FirstName" class="col-sm-3 col-form-label">@Resources.LocRes.FirstName<span class="required-marker">*</span></label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="FirstName" required minlength="1" value="@Model.FirstName" placeholder="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="LastName" class="col-sm-3 col-form-label">@Resources.LocRes.LastName<span class="required-marker">*</span><br /></label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="LastName" required minlength="1" value="@Model.LastName" placeholder="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="EMail" class="col-sm-3 col-form-label">@Resources.LocRes.EMail<span class="required-marker">*</span><br /></label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="EMail" required minlength="1" value="@Model.EMail" placeholder="">
+        </div>
+    </div>
+    <div class="form-group row padding-top-20">
+        <label class="col-sm-3 col-form-label" for="Participate">@Resources.LocRes.Participate</label>
+        <div class="col-sm-3">
+            <p>
+                <input type="radio" name="Participate" value="0" checked> @Resources.LocRes.Answer_Yes
+            </p>
+            <p>
+                <input type="radio" name="Participate" value="1"> @Resources.LocRes.Answer_Yes_But 
+                <br />
+                <input type="number" id="sizeinput" class="form-control col-sm-2" style="margin-top: 10px;  width: 80%" name="Size" value="@Model.Size" disabled> 
+                <label for="Size" style="margin-left: 10px; margin-top: 15px">m²</label>
+            </p>
+            <br />
+            <p >
+                <input type="radio" name="Participate" value="2"> @Resources.LocRes.Answer_No
+            </p>
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div style="float:left; margin-left:15px;">
+            @Html.RecaptchaWidget()
+        </div>
+        <div style="float:left; margin-top:20px; margin-left:20px;">
+              @Html.ValidationMessage("CaptchaError", "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group row padding-top-20">
+        <div class="col-sm-3">
+            <button type="submit" class="btn btn-primary" style="width: 100%;">@Resources.LocRes.Index_Submit</button>
+        </div>
+    </div>
+}
+
+<script>
+    $('input[type="radio"]').on('click change', function () {
+        if ($(this).val() == 1) {
+            $('#sizeinput').prop("disabled", false);
+        }
+        else {
+            $('#sizeinput').prop("disabled", true);
+        }
+    });
+</script>

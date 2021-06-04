@@ -1,0 +1,25 @@
+﻿.topnav {
+    border: 1px solid #888;
+    padding: 6px 6px 3px 6px;
+    background-color: lightgrey;
+    text-decoration: none;
+    font-size: 16px;
+    color: black;
+}
+
+.topnav.active {
+    background-color: white;
+    border-bottom: none;
+    padding: 6px 6px 4px 6px;
+}
+    
+.topline {
+    padding-left: 10px;
+    border: 1px solid #888;
+    border-style: none none solid none;
+}
+
+.deletebtn {
+    float: right; 
+    margin: -40px 3% 0px 0px;
+}

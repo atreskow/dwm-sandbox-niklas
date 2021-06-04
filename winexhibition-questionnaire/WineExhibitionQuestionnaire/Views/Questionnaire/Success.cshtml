@@ -1,0 +1,14 @@
+﻿@model WineExhibitionQuestionnaire.DataProvider.CLIENT_DATA
+
+<h2>@Resources.LocRes.Success_Header</h2>
+<h5>@Resources.LocRes.Success_Text</h5>
+<br />
+<div class="form-group row" style="margin-left: 0px">
+    <p>
+        @Model.COMPANY_NAME <br />
+        @Model.FIRST_NAME @Model.LAST_NAME <br />
+        @Model.EMAIL <br />
+        @String.Format(Resources.LocRes.Success_Participate, Model.PARTICIPATE == 2 ? Resources.LocRes.Not : "") <br />
+        @(Model.PARTICIPATE != 2 ? String.Format(Resources.LocRes.Success_Size, Model.PARTICIPATE == 1 ? Model.STAND_SIZE + " m²" : Resources.LocRes.Success_Similar) : "")
+    </p>
+</div>
