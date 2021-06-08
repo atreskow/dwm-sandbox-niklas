@@ -205,7 +205,7 @@
     <value>Ja, mit einem anderen Stand der Größe:</value>
   </data>
   <data name="Date" xml:space="preserve">
-    <value>Datum: 18.-20. Februar 2022</value>
+    <value>Veranstaltungsdatum: 18.-20. Februar 2022</value>
   </data>
   <data name="Index_Header" xml:space="preserve">
     <value>Interessensbekundung für die Teilnahme an der Weinmesse 2022</value>
@@ -227,5 +227,8 @@
   </data>
   <data name="Success_Text" xml:space="preserve">
     <value>Ihre Daten:</value>
+  </data>
+  <data name="Error_Login" xml:space="preserve">
+    <value>Login Daten sind nicht korrekt</value>
   </data>
 </root>

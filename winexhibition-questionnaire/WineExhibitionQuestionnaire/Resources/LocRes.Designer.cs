@@ -124,7 +124,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Datum: 18.-20. Februar 2022.
+        ///   Looks up a localized string similar to Veranstaltungsdatum: 18.-20. Februar 2022.
         /// </summary>
         public static string Date {
             get {
@@ -174,6 +174,15 @@ namespace Resources {
         public static string Error_Captcha_02 {
             get {
                 return ResourceManager.GetString("Error_Captcha_02", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login Daten sind nicht korrekt.
+        /// </summary>
+        public static string Error_Login {
+            get {
+                return ResourceManager.GetString("Error_Login", resourceCulture);
             }
         }
         

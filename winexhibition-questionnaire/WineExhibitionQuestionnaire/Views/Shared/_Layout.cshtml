@@ -29,6 +29,11 @@
                         <option @(lang.Equals("en-EN")? "selected" : "") value="en-EN">English</option>
                     </select>
                 </th>
+                <th style="padding-left: 30px">
+                    <div class="navbar-header">
+                        <button class="btn btn-primary" style="margin-top:10px" onclick="@("window.location.href='" + @Url.Action("Login", "Account") + "'");">Login</button>
+                    </div>
+                </th>
             </tr>
         </table>
     </div>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/toolbar_default"
+    android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="?attr/colorPrimary"
+    android:minHeight="?attr/actionBarSize"
+    android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+    android:elevation="4dp"
+    android:backgroundTint="@color/toolbarPrimary"
+    app:theme="@style/ToolbarColoredBackArrow"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="right"
+        android:weightSum="10">
+
+        <Button
+            android:id="@+id/headerBtnLogout"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_gravity="center"
+            android:textSize="12sp"
+            android:backgroundTint="@color/buttonPrimary"
+            android:textColor="@color/buttonTextPrimary"
+            android:layout_marginRight="2dp"
+            android:text="Logout"/>
+    </LinearLayout>
+
+</androidx.appcompat.widget.Toolbar>

@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    @Styles.Render("~/Content/AdminLayout.css")
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="site-logo sticky-logo navigation-logo">
+                <a href="https://www.wine-trophy.com/" title="DWM – Deutsche Wein Marketing GmbH" rel="home">
+                    <img src="/Content/DWM-logo.png" alt="DWM – Deutsche Wein Marketing GmbH" class="is-logo-image">
+                </a>
+            </div>
+        </div>
+        <table style="float: right;">
+            <tr>
+                <th>
+                    <div class="navbar-header">
+                        <button class="btn btn-primary" style="margin-top:10px" onclick="logout()">Logout</button>
+                    </div>
+                </th>
+            </tr>
+        </table>
+    </div>
+</div>
+<div class="container body-content">
+    @RenderBody()
+</div>
+<div class="site-footer footer">
+    <div class="container no-print">
+        <footer>
+            <p>
+                2021 © DWM - Deutsche Wein Marketing GmbH. All rights reserved.
+                <a class="" style="float: right;" href="https://www.wine-trophy.com/de/impressum/">Impressum</a>
+                <a class="" style="padding-right: 10px; float: right;" href="https://www.wine-trophy.com/de/datenschutz/">Datenschutz</a>
+            </p>
+        </footer>
+    </div>
+</div>
+
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+</body>
+</html>
+
+<script>
+    $("#uebersicht").hover(
+      function () {
+          $("#uebersicht-header").addClass("header-item-hover");
+          $("#uebersicht-list").stop(true).toggle("show");
+      }, function () {
+          $("#uebersicht-header").removeClass("header-item-hover");
+          $("#uebersicht-list").stop(true).toggle("show");
+      }
+    );
+    $("#options").hover(
+      function () {
+          $("#optionen-header").addClass("header-item-hover");
+          $("#options-list").stop(true).toggle("show");
+      }, function () {
+          $("#optionen-header").removeClass("header-item-hover");
+          $("#options-list").stop(true).toggle("show");
+      }
+    );
+
+    function logout() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("Logout","Account")',
+            data: {},
+            success: function () {
+                location.reload();
+            },
+            error: function () {
+            }
+        });
+    }
+</script>
