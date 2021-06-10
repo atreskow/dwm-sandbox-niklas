@@ -214,7 +214,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Bestellung abschicken.
+        ///   Looks up a localized string similar to Interessensbekundung abschicken.
         /// </summary>
         public static string Index_Submit {
             get {

@@ -29,11 +29,12 @@ namespace WineExhibitionQuestionnaire.Controllers
             using (var ctx = new WineExhibitionQuestionnaireEntities())
             {
                 var sb = new StringBuilder();
-                sb.AppendLine("Reservierungsnummer;Vorname;Nachname;E-Mail;Telefon;Weißwein;Rotwein;Roséwein;Schaumwein;Abholtag;Abholzeit;Reserviert am");
+                sb.AppendLine("Firmenname;Vorname;Nachname;E-Mail;Teilnahme;Standgröße;Eingetragen am");
                 var entries = ctx.CLIENT_DATA.OrderBy(x => x.COMPANY_NAME).ToArray();
                 entries.ForEach(x =>
                 {
-                    sb.AppendLine($"{x.COMPANY_NAME};{x.FIRST_NAME};{x.LAST_NAME};{x.EMAIL};{x.PARTICIPATE};{x.STAND_SIZE};{x.CREATED_AT.ToString("dd.MM.yyy HH:mm")}");
+                    var participation = (x.PARTICIPATE == 0 ? "Ja, Standgröße ähnlich zur letzten Teilnahme" : (x.PARTICIPATE == 1 ? "Ja, aber andere Standgröße" : "Nein"));
+                    sb.AppendLine($"{x.COMPANY_NAME};{x.FIRST_NAME};{x.LAST_NAME};{x.EMAIL};{participation};{x.STAND_SIZE};{x.CREATED_AT.ToString("dd.MM.yyy HH:mm")}");
                 });
                 var result = sb.ToString();
                 return File(new MemoryStream(Encoding.Unicode.GetBytes(result)), "text/csv", "Vorbestellungen.csv");

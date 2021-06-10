@@ -36,19 +36,17 @@
     </div>
     <div class="form-group row padding-top-20">
         <label class="col-sm-3 col-form-label" for="Participate">@Resources.LocRes.Participate</label>
-        <div class="col-sm-3">
+        <div class="col-sm-8">
             <p>
                 <input type="radio" name="Participate" value="0" checked> @Resources.LocRes.Answer_Yes
             </p>
-            <p>
-                <input type="radio" name="Participate" value="1"> @Resources.LocRes.Answer_Yes_But 
-                <br />
-                <input type="number" id="sizeinput" class="form-control col-sm-2" style="margin-top: 10px;  width: 80%" name="Size" value="@Model.Size" disabled> 
+            <p class="form-inline input-group">
+                <input for="Size" type="radio" name="Participate" value="1"> @Resources.LocRes.Answer_Yes_But 
+                <input type="number" id="sizeinput" class="form-control" style="margin-left: 10px;  width: 12%" name="Size" value="@Model.Size" disabled> 
                 <label for="Size" style="margin-left: 10px; margin-top: 15px">m²</label>
             </p>
-            <br />
             <p >
-                <input type="radio" name="Participate" value="2"> @Resources.LocRes.Answer_No
+                <input type="radio" name="Participate" value="2" style="margin-top: 10px"> @Resources.LocRes.Answer_No
             </p>
         </div>
     </div>
