@@ -17,22 +17,12 @@ public class ServerConnectionMethods {
     private static final String TOKEN_TYPE = "Bearer";
     private static final Gson gson = new Gson();
 
-    private static String getAuthorizationData() {
-        if (Session.getId() != null) {
-            String auth = TOKEN_TYPE + " " + Session.getToken();
-            return auth;
-        }
-        else {
-            return "";
-        }
-    }
 
     public static JsonObject GetData(String service) {
         try {
             URL url = new URL(ServiceLocator.BASE_URL + service);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            connection.setRequestProperty ("Authorization", getAuthorizationData());
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/json");
             connection.setRequestProperty("Accept", "application/json");
@@ -63,7 +53,6 @@ public class ServerConnectionMethods {
             URL url = new URL(ServiceLocator.BASE_URL + service);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            connection.setRequestProperty ("Authorization", getAuthorizationData());
             connection.setRequestMethod("POST");
             connection.setDoOutput(true);
             connection.setRequestProperty("Content-Type", "application/json");

@@ -78,8 +78,4 @@ public class ViewHelper {
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
-    public static View.OnClickListener LogoutListener(Activity activity) {
-        return view -> { Utils.Logout(activity); };
-    }
 }
