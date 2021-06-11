@@ -19,9 +19,9 @@ namespace WineExhibitionQuestionnaire.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(ExhibitorModel data, string language)
+        public ActionResult Index(string language)
         {
-            var model = data ?? new ExhibitorModel();
+            var model = new ExhibitorModel();
             if (language != null)
             {
                 ViewData["language"] = language;

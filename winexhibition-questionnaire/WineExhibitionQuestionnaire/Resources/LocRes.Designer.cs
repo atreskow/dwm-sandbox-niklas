@@ -376,7 +376,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ihre Stand: {0}..
+        ///   Looks up a localized string similar to Ihre Standgröße: {0}..
         /// </summary>
         public static string Success_Size {
             get {

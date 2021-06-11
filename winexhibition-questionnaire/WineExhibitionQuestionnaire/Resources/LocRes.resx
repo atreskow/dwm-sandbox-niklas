@@ -223,7 +223,7 @@
     <value>ähnlich des Stands der letzten Teilnahme</value>
   </data>
   <data name="Success_Size" xml:space="preserve">
-    <value>Ihre Stand: {0}.</value>
+    <value>Ihre Standgröße: {0}.</value>
   </data>
   <data name="Success_Text" xml:space="preserve">
     <value>Ihre Daten:</value>
