@@ -1,0 +1,27 @@
+﻿@model WineExhibitionQuestionnaire.Models.UserModel
+
+<script src="jquery.js"></script>
+
+@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+{
+    <h3>Login</h3>
+    <br />
+    @Html.HiddenFor(x => Model.ReturnUrl)
+    <div class="form-group row">
+        <label for="Name" class="col-sm-3 col-form-label">Benutzername</label>
+        <div class="col-sm-3">
+            <input type="text" class="form-control" name="Name" value="@Model.Name" required minlength="1" placeholder="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="Password" class="col-sm-3 col-form-label">Passwort</label>
+        <div class="col-sm-3">
+            <input type="password" class="form-control" name="Password" value="@Model.Password" required minlength="1" placeholder="">
+        </div>
+    </div>
+    @Html.ValidationMessage("WrongData", "", new { @class = "text-danger" })
+    <br /> <br/>
+    <button type="submit" class="btn btn-primary">Login</button>
+}
+
+

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WineExhibitionQuestionnaire
+namespace WineExhibitionQuestionnaire.Configuration
 {
     
     
@@ -35,11 +35,11 @@ namespace WineExhibitionQuestionnaire
         /// Gets the WebAppConfiguration instance.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        public static global::WineExhibitionQuestionnaire.WebAppConfiguration Instance
+        public static global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration Instance
         {
             get
             {
-                return ((global::WineExhibitionQuestionnaire.WebAppConfiguration)(global::System.Configuration.ConfigurationManager.GetSection(global::WineExhibitionQuestionnaire.WebAppConfiguration.WebAppConfigurationSectionPath)));
+                return ((global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration)(global::System.Configuration.ConfigurationManager.GetSection(global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration.WebAppConfigurationSectionPath)));
             }
         }
         #endregion
@@ -59,12 +59,12 @@ namespace WineExhibitionQuestionnaire
         /// the parser doesn't throw an exception because it encounters the unknown "xmlns" attribute.
         /// </remarks>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.WebAppConfiguration.XmlnsPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration.XmlnsPropertyName, IsRequired=false, IsKey=false, IsDefaultCollection=false)]
         public string Xmlns
         {
             get
             {
-                return ((string)(base[global::WineExhibitionQuestionnaire.WebAppConfiguration.XmlnsPropertyName]));
+                return ((string)(base[global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration.XmlnsPropertyName]));
             }
         }
         #endregion
@@ -80,41 +80,41 @@ namespace WineExhibitionQuestionnaire
         }
         #endregion
         
-        #region MailJet Property
+        #region AuthenticationConfig Property
         /// <summary>
-        /// The XML name of the <see cref="MailJet"/> property.
+        /// The XML name of the <see cref="AuthenticationConfig"/> property.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string MailJetPropertyName = "mailJet";
+        internal const string AuthenticationConfigPropertyName = "authenticationConfig";
         
         /// <summary>
-        /// Gets or sets the MailJet.
+        /// Gets or sets the AuthenticationConfig.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The MailJet.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.WebAppConfiguration.MailJetPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual global::WineExhibitionQuestionnaire.MailJetConfiguration MailJet
+        [global::System.ComponentModel.DescriptionAttribute("The AuthenticationConfig.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration.AuthenticationConfigPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
+        public virtual global::WineExhibitionQuestionnaire.Configuration.AuthenticationConfiguration AuthenticationConfig
         {
             get
             {
-                return ((global::WineExhibitionQuestionnaire.MailJetConfiguration)(base[global::WineExhibitionQuestionnaire.WebAppConfiguration.MailJetPropertyName]));
+                return ((global::WineExhibitionQuestionnaire.Configuration.AuthenticationConfiguration)(base[global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration.AuthenticationConfigPropertyName]));
             }
             set
             {
-                base[global::WineExhibitionQuestionnaire.WebAppConfiguration.MailJetPropertyName] = value;
+                base[global::WineExhibitionQuestionnaire.Configuration.WebAppConfiguration.AuthenticationConfigPropertyName] = value;
             }
         }
         #endregion
     }
 }
-namespace WineExhibitionQuestionnaire
+namespace WineExhibitionQuestionnaire.Configuration
 {
     
     
     /// <summary>
-    /// The MailJetConfiguration Configuration Element.
+    /// The AuthenticationConfiguration Configuration Element.
     /// </summary>
-    public partial class MailJetConfiguration : global::System.Configuration.ConfigurationElement
+    public partial class AuthenticationConfiguration : global::System.Configuration.ConfigurationElement
     {
         
         #region IsReadOnly override
@@ -128,184 +128,28 @@ namespace WineExhibitionQuestionnaire
         }
         #endregion
         
-        #region FromEmail Property
+        #region SecretKey Property
         /// <summary>
-        /// The XML name of the <see cref="FromEmail"/> property.
+        /// The XML name of the <see cref="SecretKey"/> property.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string FromEmailPropertyName = "fromEmail";
+        internal const string SecretKeyPropertyName = "secretKey";
         
         /// <summary>
-        /// Gets or sets the FromEmail.
+        /// Gets or sets the SecretKey.
         /// </summary>
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The FromEmail.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.FromEmailPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual string FromEmail
+        [global::System.ComponentModel.DescriptionAttribute("The SecretKey.")]
+        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.Configuration.AuthenticationConfiguration.SecretKeyPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
+        public virtual string SecretKey
         {
             get
             {
-                return ((string)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.FromEmailPropertyName]));
+                return ((string)(base[global::WineExhibitionQuestionnaire.Configuration.AuthenticationConfiguration.SecretKeyPropertyName]));
             }
             set
             {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.FromEmailPropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region ApiKey Property
-        /// <summary>
-        /// The XML name of the <see cref="ApiKey"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string ApiKeyPropertyName = "apiKey";
-        
-        /// <summary>
-        /// Gets or sets the ApiKey.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The ApiKey.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.ApiKeyPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual string ApiKey
-        {
-            get
-            {
-                return ((string)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.ApiKeyPropertyName]));
-            }
-            set
-            {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.ApiKeyPropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region ApiSecret Property
-        /// <summary>
-        /// The XML name of the <see cref="ApiSecret"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string ApiSecretPropertyName = "apiSecret";
-        
-        /// <summary>
-        /// Gets or sets the ApiSecret.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The ApiSecret.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.ApiSecretPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual string ApiSecret
-        {
-            get
-            {
-                return ((string)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.ApiSecretPropertyName]));
-            }
-            set
-            {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.ApiSecretPropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region TemplateOrderId Property
-        /// <summary>
-        /// The XML name of the <see cref="TemplateOrderId"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string TemplateOrderIdPropertyName = "templateOrderId";
-        
-        /// <summary>
-        /// Gets or sets the TemplateOrderId.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The TemplateOrderId.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.TemplateOrderIdPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual int TemplateOrderId
-        {
-            get
-            {
-                return ((int)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.TemplateOrderIdPropertyName]));
-            }
-            set
-            {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.TemplateOrderIdPropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region FromName Property
-        /// <summary>
-        /// The XML name of the <see cref="FromName"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string FromNamePropertyName = "fromName";
-        
-        /// <summary>
-        /// Gets or sets the FromName.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The FromName.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.FromNamePropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual string FromName
-        {
-            get
-            {
-                return ((string)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.FromNamePropertyName]));
-            }
-            set
-            {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.FromNamePropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region EditUrl Property
-        /// <summary>
-        /// The XML name of the <see cref="EditUrl"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string EditUrlPropertyName = "editUrl";
-        
-        /// <summary>
-        /// Gets or sets the EditUrl.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The EditUrl.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.EditUrlPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual string EditUrl
-        {
-            get
-            {
-                return ((string)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.EditUrlPropertyName]));
-            }
-            set
-            {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.EditUrlPropertyName] = value;
-            }
-        }
-        #endregion
-        
-        #region TemplateSentId Property
-        /// <summary>
-        /// The XML name of the <see cref="TemplateSentId"/> property.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        internal const string TemplateSentIdPropertyName = "templateSentId";
-        
-        /// <summary>
-        /// Gets or sets the TemplateSentId.
-        /// </summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("ConfigurationSectionDesigner.CsdFileGenerator", "2.0.1.801")]
-        [global::System.ComponentModel.DescriptionAttribute("The TemplateSentId.")]
-        [global::System.Configuration.ConfigurationPropertyAttribute(global::WineExhibitionQuestionnaire.MailJetConfiguration.TemplateSentIdPropertyName, IsRequired=true, IsKey=false, IsDefaultCollection=false)]
-        public virtual string TemplateSentId
-        {
-            get
-            {
-                return ((string)(base[global::WineExhibitionQuestionnaire.MailJetConfiguration.TemplateSentIdPropertyName]));
-            }
-            set
-            {
-                base[global::WineExhibitionQuestionnaire.MailJetConfiguration.TemplateSentIdPropertyName] = value;
+                base[global::WineExhibitionQuestionnaire.Configuration.AuthenticationConfiguration.SecretKeyPropertyName] = value;
             }
         }
         #endregion

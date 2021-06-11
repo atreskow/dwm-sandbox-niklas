@@ -406,6 +406,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WebAppConfiguration.csd</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\QuestionnaireController.cs" />
     <Compile Include="DataProvider\CLIENT_DATA.cs">
       <DependentUpon>ExhibitionDb.tt</DependentUpon>
@@ -428,11 +430,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\InvoicePdfGenerator.cs" />
+    <Compile Include="Infrastructure\AuthenticationHandler.cs" />
+    <Compile Include="Infrastructure\AuthService.cs" />
+    <Compile Include="Infrastructure\AuthToken.cs" />
+    <Compile Include="Infrastructure\ClientAuthenticationHandler.cs" />
+    <Compile Include="Infrastructure\Constants.cs" />
+    <Compile Include="Infrastructure\DwmClaimTypes.cs" />
+    <Compile Include="Infrastructure\DwmRoles.cs" />
+    <Compile Include="Infrastructure\DwmUser.cs" />
+    <Compile Include="Infrastructure\LoginData.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\ExhibitorModel.cs" />
+    <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -481,21 +492,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Configuration\WebAppConfiguration.csd">
-      <Generator>CsdFileGenerator</Generator>
-      <LastGenOutput>WebAppConfiguration.csd.cs</LastGenOutput>
-    </Content>
-    <Content Include="Configuration\WebAppConfiguration.csd.config">
-      <DependentUpon>WebAppConfiguration.csd</DependentUpon>
-      <SubType>Designer</SubType>
-    </Content>
-    <Content Include="Configuration\WebAppConfiguration.csd.diagram">
-      <DependentUpon>WebAppConfiguration.csd</DependentUpon>
-    </Content>
-    <None Include="Configuration\WebAppConfiguration.csd.xsd">
-      <DependentUpon>WebAppConfiguration.csd</DependentUpon>
-      <SubType>Designer</SubType>
-    </None>
     <EntityDeploy Include="DataProvider\ExhibitionDb.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ExhibitionDb.Designer.cs</LastGenOutput>
@@ -503,6 +499,20 @@
     <Content Include="DataProvider\ExhibitionDb.edmx.diagram">
       <DependentUpon>ExhibitionDb.edmx</DependentUpon>
     </Content>
+    <Content Include="Configuration\WebAppConfiguration.csd">
+      <Generator>CsdFileGenerator</Generator>
+      <LastGenOutput>WebAppConfiguration.csd.cs</LastGenOutput>
+    </Content>
+    <Content Include="Configuration\WebAppConfiguration.csd.diagram">
+      <DependentUpon>WebAppConfiguration.csd</DependentUpon>
+    </Content>
+    <Content Include="Configuration\WebAppConfiguration.csd.config">
+      <DependentUpon>WebAppConfiguration.csd</DependentUpon>
+    </Content>
+    <None Include="Configuration\WebAppConfiguration.csd.xsd">
+      <DependentUpon>WebAppConfiguration.csd</DependentUpon>
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
@@ -538,6 +548,12 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Questionnaire\Index.cshtml" />
     <Content Include="Views\Questionnaire\Success.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\_ViewStart.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
