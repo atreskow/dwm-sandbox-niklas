@@ -1,4 +1,6 @@
-package com.dwm.winesearchapp_extern.Pojo;
+package com.dwm.winesearchapp_extern.Pojo.response;
+
+import com.dwm.winesearchapp_extern.Pojo.Facet;
 
 public class WineData {
     public SearchResultData SearchResult;

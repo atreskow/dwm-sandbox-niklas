@@ -1,6 +1,7 @@
 package com.dwm.winesearchapp_extern;
 
 import android.content.Intent;
+import android.media.FaceDetector;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -12,8 +13,16 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
+import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
+import com.dwm.winesearchapp_extern.Pojo.request.QueryObjData;
+import com.dwm.winesearchapp_extern.Pojo.request.SortParam;
+import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -33,12 +42,6 @@ public class SearchActivity extends AppCompatActivity {
         ViewHelper.SetupToolbar(this);
 
         txtStorageNumber = findViewById(R.id.txtStorageNumber);
-
-        spinnerCode = findViewById(R.id.spinner_code);
-        spinnerYear = findViewById(R.id.spinner_year);
-
-        tvMinus = findViewById(R.id.tvMinus);
-        tvName = findViewById(R.id.tvName);
 
         btnSearch = findViewById(R.id.btnLogin);
         btnScan = findViewById(R.id.btnScan);
@@ -65,11 +68,32 @@ public class SearchActivity extends AppCompatActivity {
 
     private void findWine() {
         ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
-        String selectedCode = spinnerCode.getSelectedItem().toString();
-        String selectedYear = spinnerYear.getSelectedItem().toString();
 
         String wineName = txtStorageNumber.getText().toString();
-        boolean success = Utils.GetWineData(this, wineName);
+        String[] queryTokens = Utils.SetQueryTokens(wineName, 2013, 2020);
+        List<FacetQueryGroup> facetQueryGroups = new ArrayList<>();
+        for (int i = 0; i < 1; i++) { //temporäre bedingung zum testen
+            String[] values = new String[] {"Berlin -Sommerverkostung-", "Asia Wine Trophy"};
+            FacetQueryGroup facetQueryGroup = new FacetQueryGroup("trophy_name", values);
+            facetQueryGroups.add(facetQueryGroup);
+        }
+        QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups.toArray(new FacetQueryGroup[0]));
+
+        int top = 50;
+        int skip = 0;
+        List<SortParam> sortParams = new ArrayList<>();
+        for (int i = 0; i < 1; i++) { //temporäre bedingung zum testen
+            String fieldName = "trophy_name";
+            boolean orderAsc = false;
+            sortParams.add(new SortParam(fieldName, orderAsc));
+        }
+        String[] resultAttributes = null;
+        String[] facets = new String[] {"wine_type", "wine_flavour"};
+        String[] highlightFields = null;
+        OptionData optionData = new OptionData(top, skip, sortParams.toArray(new SortParam[0]), resultAttributes, facets, highlightFields);
+
+        WineSearchData data = new WineSearchData(queryObjData, optionData);
+        boolean success = Utils.GetWineData(this, data);
         if (!success) {
             ViewHelper.ToggleLoadingAnimation(this, View.GONE);
             return;

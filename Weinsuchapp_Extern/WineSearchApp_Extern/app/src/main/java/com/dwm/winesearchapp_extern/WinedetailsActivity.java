@@ -1,16 +1,8 @@
 package com.dwm.winesearchapp_extern;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.dwm.winesearchapp_extern.Pojo.Document;
-
-import java.util.UUID;
 
 import androidx.appcompat.app.AppCompatActivity;
 

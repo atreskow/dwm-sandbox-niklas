@@ -1,10 +1,10 @@
-package com.dwm.winesearchapp_extern.Pojo;
+package com.dwm.winesearchapp_extern.Pojo.response;
 
 import com.google.gson.annotations.SerializedName;
 
 import java.util.UUID;
 
-public class Document {
+public class DocumentData {
     @SerializedName("Id")
     public UUID Id;
 
@@ -84,7 +84,7 @@ public class Document {
     public float Price;
 
     @SerializedName("Lotnumber")
-    public long Lotnumber;
+    public String Lotnumber;
 
     @SerializedName("SubmitterCompany")
     public String PresenterCompany;

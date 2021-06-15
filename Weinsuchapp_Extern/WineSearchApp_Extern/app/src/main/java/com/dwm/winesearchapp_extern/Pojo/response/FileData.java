@@ -1,4 +1,4 @@
-package com.dwm.winesearchapp_extern.Pojo;
+package com.dwm.winesearchapp_extern.Pojo.response;
 
 public class FileData {
 
