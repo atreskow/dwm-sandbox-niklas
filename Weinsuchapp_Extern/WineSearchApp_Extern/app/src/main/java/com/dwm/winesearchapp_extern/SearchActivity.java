@@ -16,11 +16,13 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.dwm.winesearchapp_extern.Pojo.Item;
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
 import com.dwm.winesearchapp_extern.Pojo.request.QueryObjData;
 import com.dwm.winesearchapp_extern.Pojo.request.SortParam;
 import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
+import com.dwm.winesearchapp_extern.Pojo.response.FacetData;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -50,13 +52,6 @@ public class SearchActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-        navDrawerItems = new ArrayList<>();
-
-        navDrawerItems.add(new NavDrawerItem("Test123"));
-        navDrawerItems.add(new NavDrawerItem("Test456"));
-        navDrawerItems.add(new NavDrawerItem("Test789"));
-
-        mDrawerList.setAdapter(new NavDrawerAdapter(this, R.layout.drawer_list_item, navDrawerItems.toArray(new NavDrawerItem[0])));
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -71,6 +66,8 @@ public class SearchActivity extends AppCompatActivity {
         };
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        new Thread(() ->  getFacets()).start();
 
         btnSearch.setOnClickListener(searchListener);
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
@@ -101,6 +98,24 @@ public class SearchActivity extends AppCompatActivity {
         */
     }
 
+    private void getFacets() {
+        FacetData[] facetData = WineSearchServices.GetWineFacets("de");
+        navDrawerItems = new ArrayList<>();
+        for (FacetData facet : facetData) {
+            String headerText = Utils.GetHeaderForValue(facet.Field);
+            NavDrawerItem headerItem = new NavDrawerItem(true, headerText, 0);
+            navDrawerItems.add(headerItem);
+
+            for (Item item : facet.Items) {
+                NavDrawerItem dataItem = new NavDrawerItem(false, item.Value, item.Count);
+                navDrawerItems.add(dataItem);
+            }
+        }
+        runOnUiThread(() ->
+                mDrawerList.setAdapter(new NavDrawerAdapter(this, R.layout.drawer_list_header, R.layout.drawer_list_item, navDrawerItems.toArray(new NavDrawerItem[0])))
+        );
+    }
+
     private void findWine() {
         ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
 
@@ -128,7 +143,7 @@ public class SearchActivity extends AppCompatActivity {
         OptionData optionData = new OptionData(top, skip, sortParams.toArray(new SortParam[0]), resultAttributes, facets, highlightFields);
 
         WineSearchData data = new WineSearchData(queryObjData, optionData);
-        boolean success = Utils.GetWineData(this, data);
+        boolean success = Utils.GetWineData(data);
         if (!success) {
             ViewHelper.ToggleLoadingAnimation(this, View.GONE);
             return;

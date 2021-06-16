@@ -14,14 +14,16 @@ import android.widget.TextView;
 public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem>
 {
     private final Context context;
-    private final int layoutResourceId;
-    private NavDrawerItem data[] = null;
+    private final int layoutResourceIdHeader;
+    private final int layoutResourceIdItem;
+    private NavDrawerItem data[];
 
-    public NavDrawerAdapter(Context context, int layoutResourceId, NavDrawerItem[] data)
+    public NavDrawerAdapter(Context context, int layoutResourceIdHeader, int layoutResourceIdItem, NavDrawerItem[] data)
     {
-        super(context, layoutResourceId, data);
+        super(context, layoutResourceIdHeader, layoutResourceIdItem, data);
         this.context = context;
-        this.layoutResourceId = layoutResourceId;
+        this.layoutResourceIdHeader = layoutResourceIdHeader;
+        this.layoutResourceIdItem = layoutResourceIdItem;
         this.data = data;
     }
 
@@ -29,17 +31,24 @@ public class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
+        NavDrawerItem item = data[position];
 
-        View v = inflater.inflate(layoutResourceId, parent, false);
+        if (item.isHeader) {
+            View v = inflater.inflate(layoutResourceIdHeader, parent, false);
+            TextView textView = v.findViewById(R.id.navDrawerTextViewName);
 
-        TextView textView = (TextView) v.findViewById(R.id.navDrawerTextViewName);
-        CheckBox checkBox = (CheckBox) v.findViewById(R.id.navDrawerCheckBox);
+            textView.setText(item.name);
 
-        NavDrawerItem choice = data[position];
-        textView.setText(choice.name);
+            return v;
+        }
+        else {
+            View v = inflater.inflate(layoutResourceIdItem, parent, false);
+            TextView textView = v.findViewById(R.id.navDrawerTextViewName);
 
-        Log.e("TEST", textView.getText().toString() + " " + checkBox.isChecked());
+            String text = String.format(context.getResources().getString(R.string.navigation_drawer_item), item.name, item.value);
+            textView.setText(text);
 
-        return v;
+            return v;
+        }
     }
 }

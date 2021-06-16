@@ -2,10 +2,16 @@ package com.dwm.winesearchapp_extern;
 
 public class NavDrawerItem
 {
-    public String name;
+    public boolean isHeader;
 
-    public NavDrawerItem(String name)
+    public String name;
+    public int value;
+    public boolean checked;
+
+    public NavDrawerItem(boolean isHeader, String name, int value)
     {
+        this.isHeader = isHeader;
         this.name = name;
+        this.value = value;
     }
 }

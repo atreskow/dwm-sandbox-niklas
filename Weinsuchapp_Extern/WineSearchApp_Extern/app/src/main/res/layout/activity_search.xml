@@ -67,13 +67,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
-        android:id="@+id/list_slidermenu"
-        android:layout_width="240dp"
-        android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:choiceMode="singleChoice"
-        android:background="@color/colorPrimary"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp"/>
+    android:id="@+id/list_slidermenu"
+    android:layout_width="240dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="start"
+    android:choiceMode="singleChoice"
+    android:background="@color/colorPrimary"
+    android:divider="@android:color/transparent"
+    android:dividerHeight="0dp"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>
