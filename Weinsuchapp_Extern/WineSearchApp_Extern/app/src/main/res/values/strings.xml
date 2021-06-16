@@ -3,4 +3,6 @@
     <string name="login_button">Einloggen</string>
     <string name="search_button">Suchen</string>
     <string name="code_label"><u>Trophy-Code:</u></string>
+    <string name="navigation_drawer_open"><u>Open Drawer</u></string>
+    <string name="navigation_drawer_close"><u>Close Drawer</u></string>
 </resources>

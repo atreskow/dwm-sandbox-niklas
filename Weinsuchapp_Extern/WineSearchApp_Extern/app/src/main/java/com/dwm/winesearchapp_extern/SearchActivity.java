@@ -1,17 +1,20 @@
 package com.dwm.winesearchapp_extern;
 
 import android.content.Intent;
-import android.media.FaceDetector;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
@@ -27,13 +30,14 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    Spinner spinnerCode;
-    Spinner spinnerYear;
     EditText txtStorageNumber;
-    TextView tvMinus;
-    TextView tvName;
     Button btnSearch;
-    ImageButton btnScan;
+
+    ListView mDrawerList;
+    DrawerLayout mDrawerLayout;
+    ArrayList<NavDrawerItem> navDrawerItems;
+
+    ActionBarDrawerToggle toggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,13 +46,44 @@ public class SearchActivity extends AppCompatActivity {
         ViewHelper.SetupToolbar(this);
 
         txtStorageNumber = findViewById(R.id.txtStorageNumber);
+        btnSearch = findViewById(R.id.btnSearch);
 
-        btnSearch = findViewById(R.id.btnLogin);
-        btnScan = findViewById(R.id.btnScan);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+        navDrawerItems = new ArrayList<>();
+
+        navDrawerItems.add(new NavDrawerItem("Test123"));
+        navDrawerItems.add(new NavDrawerItem("Test456"));
+        navDrawerItems.add(new NavDrawerItem("Test789"));
+
+        mDrawerList.setAdapter(new NavDrawerAdapter(this, R.layout.drawer_list_item, navDrawerItems.toArray(new NavDrawerItem[0])));
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        toggle = new ActionBarDrawerToggle
+                (
+                        this,
+                        mDrawerLayout,
+                        R.string.navigation_drawer_open,
+                        R.string.navigation_drawer_close
+                )
+        {
+        };
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         btnSearch.setOnClickListener(searchListener);
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
-        btnScan.setOnClickListener(qrButtonListener);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (toggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
