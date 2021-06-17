@@ -7,15 +7,19 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.dwm.winesearchapp_extern.Pojo.Constants;
 import com.dwm.winesearchapp_extern.Pojo.Item;
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
@@ -27,7 +31,11 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -35,9 +43,13 @@ public class SearchActivity extends AppCompatActivity {
     EditText txtStorageNumber;
     Button btnSearch;
 
-    ListView mDrawerList;
     DrawerLayout mDrawerLayout;
-    ArrayList<NavDrawerItem> navDrawerItems;
+
+    ArrayList<String> listDataHeader;
+    HashMap<String, List<NavDrawerItem>> listDataChild;
+
+    ExpandableListView expListView;
+    ExpandListAdapter listAdapter;
 
     ActionBarDrawerToggle toggle;
 
@@ -49,9 +61,9 @@ public class SearchActivity extends AppCompatActivity {
 
         txtStorageNumber = findViewById(R.id.txtStorageNumber);
         btnSearch = findViewById(R.id.btnSearch);
+        mDrawerLayout = findViewById(R.id.drawer_layout);
 
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+        expListView = findViewById(R.id.list_slidermenu);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -73,6 +85,7 @@ public class SearchActivity extends AppCompatActivity {
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
     }
 
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
@@ -84,7 +97,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onResume(){     //Setzt aktuelle Trophy-Wahl bei Verwendung des Android Zurück-Buttons der Toolbar
+    public void onResume(){
         super.onResume();
         /*
         if (Session.getSelectedCode() != null) {
@@ -100,19 +113,33 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getFacets() {
         FacetData[] facetData = WineSearchServices.GetWineFacets("de");
-        navDrawerItems = new ArrayList<>();
+
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
+
         for (FacetData facet : facetData) {
             String headerText = Utils.GetHeaderForValue(facet.Field);
-            NavDrawerItem headerItem = new NavDrawerItem(true, headerText, 0);
-            navDrawerItems.add(headerItem);
+            listDataHeader.add(headerText);
+
+            List<NavDrawerItem> menuElements = new ArrayList<>();
 
             for (Item item : facet.Items) {
-                NavDrawerItem dataItem = new NavDrawerItem(false, item.Value, item.Count);
-                navDrawerItems.add(dataItem);
+                NavDrawerItem dataItem = new NavDrawerItem(item.Value, item.Count);
+                menuElements.add(dataItem);
             }
+            Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
+
+            if (headerText.equals(Constants.HEADER_TROPHY_YEAR)) {
+                Collections.reverse(menuElements);
+            }
+
+            listDataChild.put(headerText, menuElements);
         }
-        runOnUiThread(() ->
-                mDrawerList.setAdapter(new NavDrawerAdapter(this, R.layout.drawer_list_header, R.layout.drawer_list_item, navDrawerItems.toArray(new NavDrawerItem[0])))
+
+        runOnUiThread(() -> {
+                listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
+                expListView.setAdapter(listAdapter);
+            }
         );
     }
 

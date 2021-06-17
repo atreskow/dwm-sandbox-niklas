@@ -1,8 +1,10 @@
 package com.dwm.winesearchapp_extern;
 
 import android.app.Activity;
+import android.content.Context;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,5 +79,13 @@ public class ViewHelper {
         activity.setSupportActionBar(actionBar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    public static LinearLayout createLinearLayout(Context context) {
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.HORIZONTAL);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.setLayoutParams(params);
+        return layout;
     }
 }

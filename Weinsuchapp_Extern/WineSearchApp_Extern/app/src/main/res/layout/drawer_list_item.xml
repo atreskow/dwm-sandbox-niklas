@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:background="?android:attr/activatedBackgroundIndicator"
@@ -18,4 +18,4 @@
         android:layout_toRightOf="@+id/navDrawerCheckBox"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
-</RelativeLayout>
+</LinearLayout>
