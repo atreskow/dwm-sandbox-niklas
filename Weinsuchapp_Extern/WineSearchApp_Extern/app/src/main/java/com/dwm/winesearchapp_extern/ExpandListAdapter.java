@@ -54,7 +54,7 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
             child.Checked = i;
         });
 
-        String text = String.format(_context.getResources().getString(R.string.navigation_drawer_item), child.Name, child.Value);
+        String text = String.format(_context.getResources().getString(R.string.navigation_drawer_item), child.Name, child.Count);
 
         txtListChild.setText(text);
         checkBoxChild.setChecked(child.Checked);

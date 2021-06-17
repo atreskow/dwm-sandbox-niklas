@@ -8,25 +8,19 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dwm.winesearchapp_extern.Pojo.Constants;
+import com.dwm.winesearchapp_extern.Pojo.Facet;
 import com.dwm.winesearchapp_extern.Pojo.Item;
-import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
 import com.dwm.winesearchapp_extern.Pojo.request.QueryObjData;
-import com.dwm.winesearchapp_extern.Pojo.request.SortParam;
 import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
-import com.dwm.winesearchapp_extern.Pojo.response.FacetData;
+import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -35,7 +29,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 
 public class SearchActivity extends AppCompatActivity {
@@ -79,10 +72,10 @@ public class SearchActivity extends AppCompatActivity {
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        new Thread(() ->  getFacets()).start();
-
         btnSearch.setOnClickListener(searchListener);
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
+
+        new Thread(() ->  findWine()).start();
     }
 
 
@@ -111,73 +104,21 @@ public class SearchActivity extends AppCompatActivity {
         */
     }
 
-    private void getFacets() {
-        FacetData[] facetData = WineSearchServices.GetWineFacets("de");
-
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
-
-        for (FacetData facet : facetData) {
-            String headerText = Utils.GetHeaderForValue(facet.Field);
-            listDataHeader.add(headerText);
-
-            List<NavDrawerItem> menuElements = new ArrayList<>();
-
-            for (Item item : facet.Items) {
-                NavDrawerItem dataItem = new NavDrawerItem(item.Value, item.Count);
-                menuElements.add(dataItem);
-            }
-            Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
-
-            if (headerText.equals(Constants.HEADER_TROPHY_YEAR)) {
-                Collections.reverse(menuElements);
-            }
-
-            listDataChild.put(headerText, menuElements);
-        }
-
-        runOnUiThread(() -> {
-                listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
-                expListView.setAdapter(listAdapter);
-            }
-        );
-    }
-
     private void findWine() {
         ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
-
         String wineName = txtStorageNumber.getText().toString();
-        String[] queryTokens = Utils.SetQueryTokens(wineName, 2013, 2020);
-        List<FacetQueryGroup> facetQueryGroups = new ArrayList<>();
-        for (int i = 0; i < 1; i++) { //temporäre bedingung zum testen
-            String[] values = new String[] {"Berlin -Sommerverkostung-", "Asia Wine Trophy"};
-            FacetQueryGroup facetQueryGroup = new FacetQueryGroup("trophy_name", values);
-            facetQueryGroups.add(facetQueryGroup);
-        }
-        QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups.toArray(new FacetQueryGroup[0]));
+        Session.SetWineName(wineName);
 
-        int top = 50;
-        int skip = 0;
-        List<SortParam> sortParams = new ArrayList<>();
-        for (int i = 0; i < 1; i++) { //temporäre bedingung zum testen
-            String fieldName = "trophy_name";
-            boolean orderAsc = false;
-            sortParams.add(new SortParam(fieldName, orderAsc));
-        }
-        String[] resultAttributes = null;
-        String[] facets = new String[] {"wine_type", "wine_flavour"};
-        String[] highlightFields = null;
-        OptionData optionData = new OptionData(top, skip, sortParams.toArray(new SortParam[0]), resultAttributes, facets, highlightFields);
-
+        QueryObjData queryObjData = Utils.GenerateQueryObjData();
+        OptionData optionData = Utils.GenerateOptionData();
         WineSearchData data = new WineSearchData(queryObjData, optionData);
-        boolean success = Utils.GetWineData(data);
-        if (!success) {
-            ViewHelper.ToggleLoadingAnimation(this, View.GONE);
-            return;
-        }
 
-        Intent i = new Intent(getApplicationContext(), WinedetailsActivity.class);
-        getApplicationContext().startActivity(i);
+        WineData wineData = Utils.GetWineData(data);
+
+        parseFacetData(wineData.SearchResult.Facets);
+
+        //Intent i = new Intent(getApplicationContext(), WinedetailsActivity.class);
+        //getApplicationContext().startActivity(i);
         ViewHelper.ToggleLoadingAnimation(this, View.GONE);
     }
 
@@ -193,6 +134,38 @@ public class SearchActivity extends AppCompatActivity {
         }
         return handled;
     };
+
+    private void parseFacetData(Facet[] facets) {
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
+
+        for (Facet facet : facets) {
+            if (facet.Items.length == 0) continue;
+
+            String headerText = Utils.GetHeaderForValue(facet.Field);
+            listDataHeader.add(headerText);
+
+            List<NavDrawerItem> menuElements = new ArrayList<>();
+
+            for (Item item : facet.Items) {
+                NavDrawerItem dataItem = new NavDrawerItem(item.Value, facet.Field, item.Count);
+                menuElements.add(dataItem);
+            }
+            Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
+
+            if (headerText.equals(Constants.HEADER_TROPHY_YEAR) || headerText.equals(Constants.HEADER_WINE_VINTAGE)) {
+                Collections.reverse(menuElements);
+            }
+
+            listDataChild.put(headerText, menuElements);
+        }
+
+        runOnUiThread(() -> {
+                    listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
+                    expListView.setAdapter(listAdapter);
+                }
+        );
+    }
 
     View.OnClickListener qrButtonListener = view -> {
         IntentIntegrator integrator = new IntentIntegrator(SearchActivity.this);

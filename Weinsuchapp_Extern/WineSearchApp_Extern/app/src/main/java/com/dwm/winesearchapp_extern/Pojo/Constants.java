@@ -9,4 +9,21 @@ public class Constants {
     public static final String HEADER_WINE_VINIFICATION = "Wine Vinification";
     public static final String HEADER_WINE_CATEGORY = "Wine Category";
     public static final String HEADER_CULTIVATION_COUNTRY = "Cultivation Country";
+    public static final String HEADER_WINE_VINTAGE = "Wine Vintage";
+    public static final String HEADER_IS_BIO = "Organic Wine";
+    public static final String HEADER_WINE_VARIETAL = "Wine Varietal";
+
+    public static final String[] FacetValues = new String[] {
+            "trophy_name",
+            "trophy_year",
+            "wine_flavour",
+            "wine_type",
+            "wine_vinification",
+            "wine_category",
+            "cultivation_country",
+            "medal_name",
+            "is_bio",
+            "wine_vintage",
+            "varietal"
+    };
 }

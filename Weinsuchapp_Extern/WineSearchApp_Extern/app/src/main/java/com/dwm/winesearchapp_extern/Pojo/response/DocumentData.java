@@ -158,16 +158,16 @@ public class DocumentData {
     public String ImporterStreet;
 
     @SerializedName("SubmitterZipCode")
-    public int SubmitterZipCode;
+    public String SubmitterZipCode;
 
     @SerializedName("CustomerZipCode")
-    public int CustomerZipCode;
+    public String CustomerZipCode;
 
     @SerializedName("ProducerZipCode")
-    public int ProducerZipCode;
+    public String ProducerZipCode;
 
     @SerializedName("ImporterZipCode")
-    public int ImporterZipCode;
+    public String ImporterZipCode;
 
     @SerializedName("SubmitterCity")
     public String SubmitterCity;
