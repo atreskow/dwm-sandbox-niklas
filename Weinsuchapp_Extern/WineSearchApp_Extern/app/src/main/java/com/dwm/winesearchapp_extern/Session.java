@@ -1,6 +1,7 @@
 package com.dwm.winesearchapp_extern;
 
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
+import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,15 +40,30 @@ public class Session {
                 return _facetQueryGroups;
         }
 
-        public static FacetQueryGroup[] GetFacetQueryGroupsArray() {
-                return _facetQueryGroups.toArray(new FacetQueryGroup[0]);
+        public static void AddFacetQueryGroupValue(FacetQueryGroup facetQueryGroup) {
+                for (FacetQueryGroup group : _facetQueryGroups) {
+                        if (group.FieldName.equals(facetQueryGroup.FieldName)) {
+                                group.Values.add(facetQueryGroup.Values.get(0));
+                                return;
+                        }
+                }
+                _facetQueryGroups.add(facetQueryGroup);
         }
 
-        public static void AddFacetQueryGroup(FacetQueryGroup facetQueryGroup) {
-                _facetQueryGroups.add(facetQueryGroup);
+        public static void RemoveFacetQueryGroupValue(FacetQueryGroup facetQueryGroup) {
+                for (FacetQueryGroup group : _facetQueryGroups) {
+                        if (group.FieldName.equals(facetQueryGroup.FieldName)) {
+                                group.Values.remove(facetQueryGroup.Values.get(0));
+                                if (group.Values.size() == 0) {
+                                        _facetQueryGroups.remove(group);
+                                }
+                                return;
+                        }
+                }
         }
 
         public static void SetFacetQueryGroups(List<FacetQueryGroup> facetQueryGroups) {
                 _facetQueryGroups = facetQueryGroups;
         }
+
 }

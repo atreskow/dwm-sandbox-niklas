@@ -27,7 +27,7 @@ public class WineSearchServices {
     }
 
     public static Facet[] GetWineFacets(String lang) {
-        JSONObject bodyData = Utils.GetFacetOverview();
+        JSONObject bodyData = null; //Utils.GetFacetOverview();
 
         String serviceUrl = ServiceLocator.FACETS.replace("{lang}", lang);
         JsonObject jsonObject = null;

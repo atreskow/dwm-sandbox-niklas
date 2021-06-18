@@ -1,13 +1,18 @@
 package com.dwm.winesearchapp_extern;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -20,6 +25,8 @@ import com.dwm.winesearchapp_extern.Pojo.Item;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
 import com.dwm.winesearchapp_extern.Pojo.request.QueryObjData;
 import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
+import com.dwm.winesearchapp_extern.Pojo.response.DocumentData;
+import com.dwm.winesearchapp_extern.Pojo.response.Hit;
 import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
@@ -40,9 +47,12 @@ public class SearchActivity extends AppCompatActivity {
 
     ArrayList<String> listDataHeader;
     HashMap<String, List<NavDrawerItem>> listDataChild;
+    List<WineListItem> wineListItems;
 
     ExpandableListView expListView;
     ExpandListAdapter listAdapter;
+
+    ListView wineListView;
 
     ActionBarDrawerToggle toggle;
 
@@ -53,10 +63,12 @@ public class SearchActivity extends AppCompatActivity {
         ViewHelper.SetupToolbar(this);
 
         txtStorageNumber = findViewById(R.id.txtStorageNumber);
+        txtStorageNumber.setText(Session.GetWineName());
         btnSearch = findViewById(R.id.btnSearch);
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         expListView = findViewById(R.id.list_slidermenu);
+        wineListView = findViewById(R.id.wineList);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -75,7 +87,7 @@ public class SearchActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(searchListener);
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
 
-        new Thread(() ->  findWine()).start();
+        startWineSearchThread();
     }
 
 
@@ -89,23 +101,16 @@ public class SearchActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        /*
-        if (Session.getSelectedCode() != null) {
-            TrophyCode selectedTrophy = Session.getTrophyCodes().stream().filter(tc -> tc.Code.equals(Session.getSelectedCode())).findAny().orElse(null);
-            int codePosition = Session.getTrophyCodes().indexOf(selectedTrophy);
-            spinnerCode.setSelection(codePosition);
-
-            int yearPosition = selectedTrophy.Years.indexOf(Session.getSelectedYear());
-            spinnerYear.setSelection(yearPosition);
-        }
-        */
+    public void startWineSearchThread() {
+        new Thread(() ->  {
+            WineData data = GetWineData();
+            parseFacetData(data.ExtendedFacets);
+        }).start();
     }
 
-    private void findWine() {
+    public WineData GetWineData() {
         ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
+
         String wineName = txtStorageNumber.getText().toString();
         Session.SetWineName(wineName);
 
@@ -113,34 +118,37 @@ public class SearchActivity extends AppCompatActivity {
         OptionData optionData = Utils.GenerateOptionData();
         WineSearchData data = new WineSearchData(queryObjData, optionData);
 
-        WineData wineData = Utils.GetWineData(data);
+        WineData wineData = WineSearchServices.GetWineData("de", data);
 
-        parseFacetData(wineData.SearchResult.Facets);
-
-        //Intent i = new Intent(getApplicationContext(), WinedetailsActivity.class);
-        //getApplicationContext().startActivity(i);
         ViewHelper.ToggleLoadingAnimation(this, View.GONE);
+
+        displayWineData(wineData);
+
+        return wineData;
     }
 
-    View.OnClickListener searchListener = view -> {
-        new Thread(() ->  findWine()).start();
-    };
+    private void displayWineData(WineData wineData) {
 
-    TextView.OnEditorActionListener searchEnterListener = (v, actionId, event) -> {
-        boolean handled = false;
-        if (actionId == EditorInfo.IME_ACTION_DONE) {
-            new Thread(() ->  findWine()).start();
-            handled = true;
+        List<Hit> wineDataList = wineData.SearchResult.Hits;
+        wineListItems = new ArrayList<>();
+
+        for (Hit wine : wineDataList) {
+            String wineName = wine.Document.Name;
+            WineListItem wineListItem = new WineListItem(wineName);
+            wineListItems.add(wineListItem);
         }
-        return handled;
-    };
 
-    private void parseFacetData(Facet[] facets) {
+        runOnUiThread(() ->
+                wineListView.setAdapter(new WineListAdapter(this, R.layout.wine_list_item))
+        );
+    }
+
+    private void parseFacetData(List<Facet> facets) {
         listDataHeader = new ArrayList<>();
         listDataChild = new HashMap<>();
 
         for (Facet facet : facets) {
-            if (facet.Items.length == 0) continue;
+            if (facet.Items.size() == 0) continue;
 
             String headerText = Utils.GetHeaderForValue(facet.Field);
             listDataHeader.add(headerText);
@@ -157,39 +165,32 @@ public class SearchActivity extends AppCompatActivity {
                 Collections.reverse(menuElements);
             }
 
+            Utils.TransferFacetTrues(facet.Field, menuElements);
+
             listDataChild.put(headerText, menuElements);
         }
 
         runOnUiThread(() -> {
-                    listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
-                    expListView.setAdapter(listAdapter);
-                }
-        );
+            listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
+            expListView.setAdapter(listAdapter);
+            mDrawerLayout.closeDrawers();
+        });
     }
 
-    View.OnClickListener qrButtonListener = view -> {
-        IntentIntegrator integrator = new IntentIntegrator(SearchActivity.this);
-        integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
-        integrator.setPrompt("Lagernummer QR Scan");
-        integrator.setCameraId(0);
-        integrator.setBeepEnabled(false);
-        integrator.setBarcodeImageEnabled(false);
-        integrator.setOrientationLocked(true);
-        integrator.setCaptureActivity(CaptureActivityPortrait.class);
-        integrator.initiateScan();
+    View.OnClickListener searchListener = view -> {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(txtStorageNumber.getWindowToken(), 0);
+        startWineSearchThread();
     };
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-        if(result != null) {
-            if(result.getContents() == null) {
-            } else {
-                txtStorageNumber.setText(result.getContents());
-                new Thread(() ->  findWine()).start();
-            }
-        } else {
-            super.onActivityResult(requestCode, resultCode, data);
+    TextView.OnEditorActionListener searchEnterListener = (v, actionId, event) -> {
+        boolean handled = false;
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(txtStorageNumber.getWindowToken(), 0);
+            startWineSearchThread();
+            handled = true;
         }
-    }
+        return handled;
+    };
 }

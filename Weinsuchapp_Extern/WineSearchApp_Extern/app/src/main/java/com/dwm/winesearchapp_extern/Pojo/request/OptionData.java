@@ -1,8 +1,10 @@
 package com.dwm.winesearchapp_extern.Pojo.request;
 
+import java.util.List;
+
 public class OptionData {
 
-    public OptionData (int top, int skip, SortParam[] sortParams, String[] resultAttributes, String[] facets, String[] highlightFields) {
+    public OptionData (int top, int skip, List<SortParam> sortParams, List<String> resultAttributes, List<String> facets, List<String> highlightFields) {
         Top = top;
         Skip = skip;
         SortParams = sortParams;
@@ -13,9 +15,9 @@ public class OptionData {
 
     public int Top;
     public int Skip;
-    public SortParam[] SortParams;
-    public String[] ResultAttributes;
-    public String[] Facets;
-    public String[] HighlightFields;
+    public List<SortParam> SortParams;
+    public List<String> ResultAttributes;
+    public List<String> Facets;
+    public List<String> HighlightFields;
 
 }

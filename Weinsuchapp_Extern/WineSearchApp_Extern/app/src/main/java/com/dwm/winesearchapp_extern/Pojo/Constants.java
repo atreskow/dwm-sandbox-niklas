@@ -1,5 +1,9 @@
 package com.dwm.winesearchapp_extern.Pojo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Constants {
     public static final String HEADER_TROPHY_NAME = "Wine Trophy (Contest)";
     public static final String HEADER_TROPHY_YEAR = "Wine Trophy (Year)";
@@ -13,7 +17,7 @@ public class Constants {
     public static final String HEADER_IS_BIO = "Organic Wine";
     public static final String HEADER_WINE_VARIETAL = "Wine Varietal";
 
-    public static final String[] FacetValues = new String[] {
+    public static final List<String> FacetValues = new ArrayList<>(Arrays.asList(
             "trophy_name",
             "trophy_year",
             "wine_flavour",
@@ -25,5 +29,5 @@ public class Constants {
             "is_bio",
             "wine_vintage",
             "varietal"
-    };
+    ));
 }

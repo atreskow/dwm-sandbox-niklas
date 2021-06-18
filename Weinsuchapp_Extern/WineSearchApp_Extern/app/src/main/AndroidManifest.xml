@@ -9,20 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name="com.dwm.winesearchapp_extern.CaptureActivityPortrait"
-            android:screenOrientation="sensorPortrait"
-            android:stateNotNeeded="true"
-            android:theme="@style/zxing_CaptureTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name="com.dwm.winesearchapp_extern.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name="com.dwm.winesearchapp_extern.WinedetailsActivity"
-            android:parentActivityName="com.dwm.winesearchapp_extern.SearchActivity">
         </activity>
     </application>
 
