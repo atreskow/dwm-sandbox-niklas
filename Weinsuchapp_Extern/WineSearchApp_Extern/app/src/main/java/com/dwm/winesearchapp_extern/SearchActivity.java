@@ -1,12 +1,9 @@
 package com.dwm.winesearchapp_extern;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -28,8 +25,6 @@ import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
 import com.dwm.winesearchapp_extern.Pojo.response.DocumentData;
 import com.dwm.winesearchapp_extern.Pojo.response.Hit;
 import com.dwm.winesearchapp_extern.Pojo.response.WineData;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.Collections;

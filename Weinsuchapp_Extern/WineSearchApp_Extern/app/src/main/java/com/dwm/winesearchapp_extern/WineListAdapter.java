@@ -3,6 +3,7 @@ package com.dwm.winesearchapp_extern;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,10 +58,12 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
                     }
                 }
             }
-            Bitmap medalImage = WineSearchServices.GetMedalImage(item.TrophyCode, item.Ranking);
-            ((Activity) context).runOnUiThread(() ->
-                    ((ImageView) v.findViewById(R.id.imageMedal)).setImageBitmap(medalImage)
-            );
+            if (Utils.HasAward(item.Ranking)) {
+                Bitmap medalImage = WineSearchServices.GetMedalImage(item.TrophyCode, item.Ranking);
+                ((Activity) context).runOnUiThread(() -> {
+                        ((ImageView) v.findViewById(R.id.imageMedal)).setImageBitmap(medalImage);
+                });
+            }
         }).start();
 
 

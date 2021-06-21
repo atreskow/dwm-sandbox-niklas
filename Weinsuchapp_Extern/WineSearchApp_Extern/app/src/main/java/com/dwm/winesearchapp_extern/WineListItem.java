@@ -14,7 +14,7 @@ public class WineListItem {
         Id = data.Id;
         WineName = data.Name;
         Producer = "Producer: " + data.ProducerCompany;
-        Origin = "Origin: " + data.ProducerCity + ", " + data.Country;
+        Origin = "Origin: " + data.Country;
         Varietal = "Varietals: " + data.Varietal.stream().collect(Collectors.joining(", "));
         Award = "Award: " + data.Award;
         TrophyCode = data.TrophyCode;

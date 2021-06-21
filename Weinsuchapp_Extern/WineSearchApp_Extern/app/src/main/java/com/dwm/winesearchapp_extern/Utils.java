@@ -94,4 +94,8 @@ public class Utils {
             }
         }
     }
+
+    public static boolean HasAward (int ranking) {
+        return ranking > 0 && ranking < 4;
+    }
 }

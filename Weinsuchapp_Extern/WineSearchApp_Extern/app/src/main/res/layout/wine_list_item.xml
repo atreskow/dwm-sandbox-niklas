@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:id="@+id/linearLayout"
 android:layout_height="wrap_content"
 android:layout_width="match_parent"
@@ -7,58 +7,86 @@ android:minHeight="?android:attr/listPreferredItemHeightSmall"
 android:clickable="true"
 android:padding ="10dp">
 
-    <ImageView
-        android:id="@+id/imageFront"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/no_bottle_image"
-        android:adjustViewBounds="true"
-        android:layout_weight="1" />
-
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp"
-        android:layout_weight="4">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/txtViewWineName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        <ImageView
+            android:id="@+id/imageFront"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/no_bottle_image"
+            android:adjustViewBounds="true"
+            android:layout_weight="1" />
 
-        <TextView
-            android:id="@+id/txtViewProducer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:layout_weight="6">
 
-        <TextView
-            android:id="@+id/txtViewOrigin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            <TextView
+                android:id="@+id/txtViewWineName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/buttonPrimary" />
 
-        <TextView
-            android:id="@+id/txtViewVarietal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            <TextView
+                android:id="@+id/txtViewProducer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
-        <TextView
-            android:id="@+id/txtViewTrophy"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+            <TextView
+                android:id="@+id/txtViewOrigin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+            <TextView
+                android:id="@+id/txtViewVarietal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+            <TextView
+                android:id="@+id/txtViewTrophy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageMedal"
-        android:layout_width="0dp"
-        android:layout_marginLeft="10dp"
-        android:layout_height="match_parent"
-        android:adjustViewBounds="true"
-        android:layout_weight="2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:gravity="center">
 
-</LinearLayout>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/imageMedal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:alpha="0.25"
+            android:layout_weight="2"
+            android:adjustViewBounds="true"/>
+    </LinearLayout>
+
+
+
+</RelativeLayout>
