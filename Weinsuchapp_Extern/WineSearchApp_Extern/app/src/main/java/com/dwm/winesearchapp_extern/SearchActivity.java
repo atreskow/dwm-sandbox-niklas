@@ -133,13 +133,16 @@ public class SearchActivity extends AppCompatActivity {
         wineListItems = new ArrayList<>();
 
         for (Hit wine : wineDataList) {
-            String wineName = wine.Document.Name;
-            WineListItem wineListItem = new WineListItem(wineName);
+            DocumentData document = wine.Document;
+            WineListItem wineListItem = new WineListItem(document);
             wineListItems.add(wineListItem);
         }
 
+        WineListAdapter adapter = new WineListAdapter(this, R.layout.wine_list_item);
+        adapter.addAll(wineListItems);
+
         runOnUiThread(() ->
-                wineListView.setAdapter(new WineListAdapter(this, R.layout.wine_list_item))
+                wineListView.setAdapter(adapter)
         );
     }
 

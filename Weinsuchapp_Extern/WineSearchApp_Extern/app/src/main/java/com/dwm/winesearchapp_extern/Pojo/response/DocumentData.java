@@ -2,6 +2,7 @@ package com.dwm.winesearchapp_extern.Pojo.response;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
 import java.util.UUID;
 
 public class DocumentData {
@@ -263,5 +264,5 @@ public class DocumentData {
     public float Result;
 
     @SerializedName("Varietal")
-    public String[] Varietal;
+    public List<String> Varietal;
 }

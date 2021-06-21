@@ -7,11 +7,58 @@ android:minHeight="?android:attr/listPreferredItemHeightSmall"
 android:clickable="true"
 android:padding ="10dp">
 
-<TextView
-    android:id="@+id/txtViewWineName"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerVertical="true"
-    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+    <ImageView
+        android:id="@+id/imageFront"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:src="@drawable/no_bottle_image"
+        android:adjustViewBounds="true"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginLeft="10dp"
+        android:layout_weight="4">
+
+        <TextView
+            android:id="@+id/txtViewWineName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/txtViewProducer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/txtViewOrigin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/txtViewVarietal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+
+        <TextView
+            android:id="@+id/txtViewTrophy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageMedal"
+        android:layout_width="0dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:layout_weight="2" />
 
 </LinearLayout>

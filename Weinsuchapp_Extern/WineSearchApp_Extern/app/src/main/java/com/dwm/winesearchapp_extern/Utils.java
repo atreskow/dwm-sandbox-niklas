@@ -1,6 +1,8 @@
 package com.dwm.winesearchapp_extern;
 
 import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.dwm.winesearchapp_extern.Pojo.Constants;
 import com.dwm.winesearchapp_extern.Pojo.Facet;
@@ -15,9 +17,15 @@ import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 public class Utils {
 
@@ -86,5 +94,4 @@ public class Utils {
             }
         }
     }
-
 }

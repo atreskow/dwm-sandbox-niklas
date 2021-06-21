@@ -1,12 +1,20 @@
 package com.dwm.winesearchapp_extern;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import com.dwm.winesearchapp_extern.Pojo.Facet;
 import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
+import com.dwm.winesearchapp_extern.Pojo.response.FileData;
 import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
 import org.json.JSONObject;
+
+import java.util.UUID;
 
 public class WineSearchServices {
 
@@ -35,6 +43,51 @@ public class WineSearchServices {
             jsonObject = ServerConnectionMethods.PostData(serviceUrl, bodyData);
             Facet[] facetData = gson.fromJson(jsonObject.get("value").toString(), Facet[].class);
             return facetData;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static String[] GetBottleImageNames(UUID wineId) {
+        String serviceUrl = ServiceLocator.GET_BOTTLE_IMAGE_NAMES
+                .replace("{id}", wineId.toString());
+        JsonObject jsonObject = null;
+        try {
+            jsonObject = ServerConnectionMethods.GetData(serviceUrl);
+            String[] imageNameData = gson.fromJson(jsonObject.get("value").toString(), String[].class);
+            return imageNameData;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Bitmap GetBottleImage(UUID wineId, String imageName) {
+        String serviceUrl = ServiceLocator.GET_BOTTLE_IMAGE
+                .replace("{id}", wineId.toString())
+                .replace("{name}", imageName);
+        JsonObject jsonObject = null;
+        try {
+            jsonObject = ServerConnectionMethods.GetData(serviceUrl);
+            FileData imageData = gson.fromJson(jsonObject.get("value").toString(), FileData.class);
+            byte[] imageByteArray = Base64.decode(imageData.FileData, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            return decodedByte;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public static Bitmap GetMedalImage(String trophyCode, int ranking) {
+        String serviceUrl = ServiceLocator.GET_MEDAL_IMAGE
+                .replace("{trophyPrefix}", trophyCode)
+                .replace("{rank}", String.valueOf(ranking));
+        JsonObject jsonObject = null;
+        try {
+            jsonObject = ServerConnectionMethods.GetData(serviceUrl);
+            FileData imageData = gson.fromJson(jsonObject.get("value").toString(), FileData.class);
+            byte[] imageByteArray = Base64.decode(imageData.FileData, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            return decodedByte;
         } catch (Exception e) {
             return null;
         }
