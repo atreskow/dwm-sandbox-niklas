@@ -39,7 +39,7 @@ public class Utils {
 
     public static OptionData GenerateOptionData(int loaded) {
         List<SortParam> sortParams = new ArrayList<>();
-        sortParams.add(new SortParam("trophy_name", false));
+        sortParams.add(new SortParam("trophy_year", false));
         OptionData optionData = new OptionData(Session.GetWinesPerPage(),
                 loaded,
                 sortParams,
@@ -66,22 +66,32 @@ public class Utils {
         }
     }
 
-    public static void TransferFacetTrues(String headerText, List<NavDrawerItem> items) {
+    public static List<NavDrawerItem> TransferFacetTrues(String headerText, List<NavDrawerItem> items) {
+        List<NavDrawerItem> navDrawerItemList = new ArrayList<>();
         for (FacetQueryGroup facetGroup : Session.GetFacetQueryGroups()) {
             if (facetGroup.FieldName.equals(headerText)) {
                 for (String value : facetGroup.Values) {
                     for (NavDrawerItem item : items) {
                         if (value.equals(item.Name)) {
                             item.Checked = true;
+                            navDrawerItemList.add(item);
+                            items.remove(item);
                             break;
                         }
                     }
                 }
             }
         }
+        navDrawerItemList.addAll(items);
+
+        return navDrawerItemList;
     }
 
     public static boolean HasAward (int ranking) {
         return ranking > 0 && ranking < 4;
+    }
+
+    public static boolean IsBlacklistedFacet(String facetName) {
+        return Constants.FacetBlacklist.contains(facetName);
     }
 }

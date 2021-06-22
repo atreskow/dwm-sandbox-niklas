@@ -38,6 +38,7 @@ public class SearchActivity extends AppCompatActivity {
 
     EditText txtStorageNumber;
     Button btnSearch;
+    Button btnReset;
 
     DrawerLayout mDrawerLayout;
 
@@ -65,6 +66,7 @@ public class SearchActivity extends AppCompatActivity {
         txtStorageNumber = findViewById(R.id.txtStorageNumber);
         txtStorageNumber.setText(Session.GetWineName());
         btnSearch = findViewById(R.id.btnSearch);
+        btnReset = findViewById(R.id.btnReset);
         mDrawerLayout = findViewById(R.id.drawer_layout);
 
         expListView = findViewById(R.id.list_slidermenu);
@@ -86,6 +88,7 @@ public class SearchActivity extends AppCompatActivity {
         toggle.syncState();
 
         btnSearch.setOnClickListener(searchListener);
+        btnReset.setOnClickListener(resetFilterListener);
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
 
         wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
@@ -185,6 +188,7 @@ public class SearchActivity extends AppCompatActivity {
             List<NavDrawerItem> menuElements = new ArrayList<>();
 
             for (Item item : facet.Items) {
+                if (Utils.IsBlacklistedFacet(item.Value)) continue;
                 NavDrawerItem dataItem = new NavDrawerItem(item.Value, facet.Field, item.Count);
                 menuElements.add(dataItem);
             }
@@ -194,7 +198,7 @@ public class SearchActivity extends AppCompatActivity {
                 Collections.reverse(menuElements);
             }
 
-            Utils.TransferFacetTrues(facet.Field, menuElements);
+            menuElements = Utils.TransferFacetTrues(facet.Field, menuElements);
 
             listDataChild.put(headerText, menuElements);
         }
@@ -209,6 +213,13 @@ public class SearchActivity extends AppCompatActivity {
     View.OnClickListener searchListener = view -> {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(txtStorageNumber.getWindowToken(), 0);
+        startWineSearchThread();
+    };
+
+    View.OnClickListener resetFilterListener = view -> {
+        Session.SetFacetQueryGroups(new ArrayList<>());
+        Session.SetWineName("");
+        txtStorageNumber.setText("");
         startWineSearchThread();
     };
 

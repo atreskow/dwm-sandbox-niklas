@@ -30,4 +30,12 @@ public class Constants {
             "wine_vintage",
             "varietal"
     ));
+
+    public static final List<String> FacetBlacklist = new ArrayList<>(Arrays.asList(
+            "Category IV",
+            "false",
+            "diverse Rebsorten",
+            "nicht angegeben",
+            "kein Jahrgang"
+    ));
 }

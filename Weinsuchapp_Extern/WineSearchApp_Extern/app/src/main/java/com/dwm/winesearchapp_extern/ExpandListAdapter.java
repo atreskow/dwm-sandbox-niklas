@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -107,6 +108,10 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         return groupPosition;
     }
 
+    public List<NavDrawerItem> getGroupList(int groupPosition) {
+        return this._listDataChild.get(this._listDataHeader.get(groupPosition));
+    }
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
@@ -122,7 +127,21 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         lblListHeader.setTypeface(null, Typeface.BOLD);
         lblListHeader.setText(headerTitle);
 
+        if (containsChecked(groupPosition)) {
+            lblListHeader.setTextColor(_activity.getResources().getColor(R.color.buttonPrimary, null));
+        }
+
         return convertView;
+    }
+
+    private boolean containsChecked(int groupPosition) {
+        List<NavDrawerItem> group = getGroupList(groupPosition);
+        for (NavDrawerItem item : group) {
+            if (item.Checked) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
