@@ -1,23 +1,27 @@
 package com.dwm.winesearchapp_extern;
 
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
-import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
-        private static int _page = 0;
-        private static int _winesPerPage = 20;
+        private static int _maxWinesSearch;
+        private static int _winesPerPage = 10;
         private static String _wineName = null;
         private static List<FacetQueryGroup> _facetQueryGroups = new ArrayList<>();
 
-        public static int GetPage() {
-                return _page;
+
+        public static int GetMaxWinesSearch() {
+                return _maxWinesSearch;
         }
 
-        public static void SetPage(int page) {
-                _page = page;
+        public static void SetMaxWinesSearch(int maxWinesSearch) {
+                _maxWinesSearch = maxWinesSearch;
+        }
+
+        public static boolean AllWinesLoaded(int loaded) {
+                return loaded == _maxWinesSearch;
         }
 
         public static int GetWinesPerPage() {

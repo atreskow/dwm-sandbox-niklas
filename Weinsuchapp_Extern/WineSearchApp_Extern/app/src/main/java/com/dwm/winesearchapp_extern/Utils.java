@@ -1,31 +1,17 @@
 package com.dwm.winesearchapp_extern;
 
-import android.app.Activity;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-
 import com.dwm.winesearchapp_extern.Pojo.Constants;
-import com.dwm.winesearchapp_extern.Pojo.Facet;
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
 import com.dwm.winesearchapp_extern.Pojo.request.QueryObjData;
 import com.dwm.winesearchapp_extern.Pojo.request.SortParam;
-import com.dwm.winesearchapp_extern.Pojo.request.WineSearchData;
-import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class Utils {
 
@@ -51,11 +37,11 @@ public class Utils {
         return queryObjData;
     }
 
-    public static OptionData GenerateOptionData() {
+    public static OptionData GenerateOptionData(int loaded) {
         List<SortParam> sortParams = new ArrayList<>();
         sortParams.add(new SortParam("trophy_name", false));
         OptionData optionData = new OptionData(Session.GetWinesPerPage(),
-                Session.GetPage() * Session.GetWinesPerPage(),
+                loaded,
                 sortParams,
                 null,
                 Constants.FacetValues,

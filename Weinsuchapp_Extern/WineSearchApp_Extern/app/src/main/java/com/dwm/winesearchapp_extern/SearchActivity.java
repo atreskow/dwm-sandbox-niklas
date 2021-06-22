@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -47,9 +48,13 @@ public class SearchActivity extends AppCompatActivity {
     ExpandableListView expListView;
     ExpandListAdapter listAdapter;
 
+    WineListAdapter wineListAdapter;
     ListView wineListView;
+    TextView bottomText;
 
     ActionBarDrawerToggle toggle;
+
+    boolean flag_loading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,7 @@ public class SearchActivity extends AppCompatActivity {
 
         expListView = findViewById(R.id.list_slidermenu);
         wineListView = findViewById(R.id.wineList);
+        bottomText = findViewById(R.id.txtViewBottom);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -82,6 +88,27 @@ public class SearchActivity extends AppCompatActivity {
         btnSearch.setOnClickListener(searchListener);
         txtStorageNumber.setOnEditorActionListener(searchEnterListener);
 
+        wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
+        wineListView.setAdapter(wineListAdapter);
+        wineListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            public void onScroll(AbsListView view, int firstVisibleItem,
+                                 int visibleItemCount, int totalItemCount) {
+
+                if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
+                {
+                    if(!flag_loading && !Session.AllWinesLoaded(wineListAdapter.getCount()))
+                    {
+                        flag_loading = true;
+                        new Thread(() ->  addWines()).start();
+                    }
+                }
+            }
+        });
+
         startWineSearchThread();
     }
 
@@ -97,35 +124,30 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void startWineSearchThread() {
+        wineListAdapter.clear();
+        String wineName = txtStorageNumber.getText().toString();
+        Session.SetWineName(wineName);
         new Thread(() ->  {
-            WineData data = GetWineData();
+            WineData data = addWines();
             parseFacetData(data.ExtendedFacets);
         }).start();
     }
 
-    public WineData GetWineData() {
+    private WineData addWines() {
         ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
 
-        String wineName = txtStorageNumber.getText().toString();
-        Session.SetWineName(wineName);
-
         QueryObjData queryObjData = Utils.GenerateQueryObjData();
-        OptionData optionData = Utils.GenerateOptionData();
+        OptionData optionData = Utils.GenerateOptionData(wineListAdapter.getCount());
         WineSearchData data = new WineSearchData(queryObjData, optionData);
 
         WineData wineData = WineSearchServices.GetWineData("de", data);
 
-        ViewHelper.ToggleLoadingAnimation(this, View.GONE);
-
-        displayWineData(wineData);
-
-        return wineData;
-    }
-
-    private void displayWineData(WineData wineData) {
-
         List<Hit> wineDataList = wineData.SearchResult.Hits;
         wineListItems = new ArrayList<>();
+
+        if (wineListAdapter.getCount() == 0) {
+            Session.SetMaxWinesSearch(wineData.SearchResult.TotalHits);
+        }
 
         for (Hit wine : wineDataList) {
             DocumentData document = wine.Document;
@@ -133,12 +155,21 @@ public class SearchActivity extends AppCompatActivity {
             wineListItems.add(wineListItem);
         }
 
-        WineListAdapter adapter = new WineListAdapter(this, R.layout.wine_list_item);
-        adapter.addAll(wineListItems);
+        runOnUiThread(() -> {
+            wineListAdapter.addAll(wineListItems);
+            wineListAdapter.notifyDataSetChanged();
+            updateSearchedAmount();
+            ViewHelper.ToggleLoadingAnimation(this, View.GONE);
+        });
 
-        runOnUiThread(() ->
-                wineListView.setAdapter(adapter)
-        );
+        flag_loading = false;
+
+        return wineData;
+    }
+
+    private void updateSearchedAmount() {
+        String text = String.format(getResources().getString(R.string.bottomtext_winelist), wineListAdapter.getCount(), Session.GetMaxWinesSearch());
+        bottomText.setText(text);
     }
 
     private void parseFacetData(List<Facet> facets) {

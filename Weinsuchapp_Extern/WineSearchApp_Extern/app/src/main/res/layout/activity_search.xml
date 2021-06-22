@@ -12,21 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_default" />
-
         <LinearLayout
             android:id="@+id/linearLayoutVertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintStart_toStartOf="parent">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_default" />
 
             <LinearLayout
                 android:id="@+id/linearLayoutSearch"
@@ -36,11 +33,11 @@
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal"
+                android:padding="5dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar"
-                app:layout_constraintVertical_bias="0.060000002">
+                app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
                 <EditText
                     android:id="@+id/txtStorageNumber"
@@ -66,14 +63,22 @@
             <ListView
                 android:id="@+id/wineList"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
                 android:layout_gravity="start"
-                android:layout_marginTop="10dp"
                 android:background="@color/colorPrimary"
                 android:choiceMode="singleChoice"
                 android:dividerHeight="0dp">
-
             </ListView>
+
+            <TextView
+                android:id="@+id/txtViewBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="end"
+                android:padding="5dp"
+                android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         </LinearLayout>
 

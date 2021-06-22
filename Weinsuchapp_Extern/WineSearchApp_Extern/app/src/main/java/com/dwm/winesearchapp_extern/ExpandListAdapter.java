@@ -59,6 +59,8 @@ public class ExpandListAdapter extends BaseExpandableListAdapter {
         CheckBox checkBoxChild = convertView.findViewById(R.id.navDrawerCheckBox);
 
         layoutChild.setOnClickListener(view -> {
+            ViewHelper.ToggleLoadingAnimation(_activity, View.VISIBLE);
+
             checkBoxChild.setChecked(!checkBoxChild.isChecked());
 
             child.Checked = checkBoxChild.isChecked();
