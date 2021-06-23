@@ -10,7 +10,16 @@ public class Session {
         private static int _winesPerPage = 10;
         private static String _wineName = null;
         private static List<FacetQueryGroup> _facetQueryGroups = new ArrayList<>();
+        private static WineListItem _selectedListItem;
 
+
+        public static WineListItem GetSelectedListItem() {
+                return _selectedListItem;
+        }
+
+        public static void SetSelectedListItem(WineListItem selectedListItem) {
+                _selectedListItem = selectedListItem;
+        }
 
         public static int GetMaxWinesSearch() {
                 return _maxWinesSearch;

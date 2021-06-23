@@ -180,7 +180,6 @@ public class SearchActivity extends AppCompatActivity {
         listDataChild = new HashMap<>();
 
         for (Facet facet : facets) {
-            if (facet.Items.size() == 0) continue;
 
             String headerText = Utils.GetHeaderForValue(facet.Field);
             listDataHeader.add(headerText);
@@ -192,6 +191,11 @@ public class SearchActivity extends AppCompatActivity {
                 NavDrawerItem dataItem = new NavDrawerItem(item.Value, facet.Field, item.Count);
                 menuElements.add(dataItem);
             }
+            if (menuElements.size() == 0) {
+                listDataHeader.remove(headerText);
+                continue;
+            }
+
             Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
 
             if (headerText.equals(Constants.HEADER_TROPHY_YEAR) || headerText.equals(Constants.HEADER_WINE_VINTAGE)) {

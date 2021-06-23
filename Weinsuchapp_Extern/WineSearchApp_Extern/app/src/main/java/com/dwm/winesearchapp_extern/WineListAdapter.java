@@ -2,6 +2,7 @@ package com.dwm.winesearchapp_extern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.dwm.winesearchapp_extern.Pojo.response.WineData;
@@ -34,6 +36,7 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
         WineListItem item = getItem(position);
 
         View v = inflater.inflate(listItemResourceId, parent, false);
+        RelativeLayout wineItemLayout = v.findViewById(R.id.wineItemLayout);
         TextView wineName = v.findViewById(R.id.txtViewWineName);
         TextView producer = v.findViewById(R.id.txtViewProducer);
         TextView origin = v.findViewById(R.id.txtViewOrigin);
@@ -41,10 +44,21 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
         TextView trophy = v.findViewById(R.id.txtViewTrophy);
 
         wineName.setText(item.WineName);
-        producer.setText(item.Producer);
-        origin.setText(item.Origin);
-        varietals.setText(item.Varietal);
-        trophy.setText(item.Award);
+
+        producer.setText("Produzent: " + item.Producer);
+
+        String region = item.Region == null ? "" : item.Region + ", ";
+        origin.setText("Ursprung: " + region + item.Country);
+
+        varietals.setText("Rebsorte: " + item.Varietal);
+
+        if (item.Award != null) trophy.setText("Award: " + item.Award);
+
+        wineItemLayout.setOnClickListener(view -> {
+            Session.SetSelectedListItem(item);
+            Intent intent = new Intent(context, WinedetailsActivity.class);
+            context.startActivity(intent);
+        });
 
         new Thread(() ->  {
             String[] imageNames = WineSearchServices.GetBottleImageNames(item.Id);
