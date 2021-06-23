@@ -117,6 +117,7 @@
             android:text="@string/reset_button"
             android:textColor="@color/buttonTextPrimary"
             android:layout_gravity="center"
+            android:visibility="gone"
             android:padding="15dp"/>
 
         <View android:layout_width="fill_parent"

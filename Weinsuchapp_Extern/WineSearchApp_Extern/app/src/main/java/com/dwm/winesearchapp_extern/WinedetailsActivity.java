@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.widget.ImageView;
 
 
+import java.util.stream.Collectors;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 public class WinedetailsActivity extends AppCompatActivity {
@@ -62,6 +64,9 @@ public class WinedetailsActivity extends AppCompatActivity {
         ViewHelper.SetValue(R.id.txtAcidity_value, wine.Acidity, "g/l", this);
         ViewHelper.SetValue(R.id.txtSulfur_value, wine.Sulfur, "mg/l", this);
         ViewHelper.SetValue(R.id.txtAlcohol_value, wine.Alcohol, "%", this);
-        ViewHelper.SetValue(R.id.txtVarietal_value, wine.Varietal,this);
+
+        String varietalText = wine.Varietal.size() > 1 ? getResources().getString(R.string.varietals) : getResources().getString(R.string.varietal);
+        ViewHelper.SetValue(R.id.txtVarietal, varietalText, this);
+        ViewHelper.SetValue(R.id.txtVarietal_value, wine.Varietal.stream().collect(Collectors.joining(", ")),this);
     }
 }

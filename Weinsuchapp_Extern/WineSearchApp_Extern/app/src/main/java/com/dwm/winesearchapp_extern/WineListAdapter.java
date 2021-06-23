@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 
+import java.util.stream.Collectors;
+
 public class WineListAdapter extends ArrayAdapter<WineListItem> {
 
     private final Context context;
@@ -52,7 +54,8 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
         String originText = String.format(context.getResources().getString(R.string.winelist_origin), region);
         origin.setText(originText);
 
-        String varietalText = String.format(context.getResources().getString(R.string.winelist_varietal), item.Varietal);
+        String varietalDesc = item.Varietal.size() > 1 ? context.getString(R.string.winelist_varietals) : context.getString(R.string.winelist_varietal);
+        String varietalText = String.format(varietalDesc, item.Varietal.stream().collect(Collectors.joining(", ")));
         varietals.setText(varietalText);
 
         if (item.Award != null) {

@@ -15,7 +15,8 @@
     <string name="producer">Produzent:</string>
     <string name="trophy">Trophy:</string>
     <string name="medal">Medaille:</string>
-    <string name="varietal">Rebsorte(n):</string>
+    <string name="varietal">Rebsorte:</string>
+    <string name="varietals">Rebsorten:</string>
 
     <string name="result"><b><i>Prämierung</i></b></string>
     <string name="informations"><b><i>Allgemeine Informationen</i></b></string>

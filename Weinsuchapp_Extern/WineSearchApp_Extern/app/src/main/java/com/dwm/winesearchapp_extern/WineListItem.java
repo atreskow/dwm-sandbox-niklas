@@ -5,6 +5,7 @@ import android.widget.TextView;
 import com.dwm.winesearchapp_extern.Pojo.response.DocumentData;
 import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class WineListItem {
         Producer = data.ProducerCompany;
         Country = data.Country;
         Region = data.Region;
-        Varietal = data.Varietal.stream().collect(Collectors.joining(", "));
+        Varietal = data.Varietal;
         Award = data.Award;
         TrophyCode = data.TrophyCode;
         Ranking = data.Ranking;
@@ -39,8 +40,7 @@ public class WineListItem {
     public UUID Id;
     public String WineName;
     public String Producer;
-    public String Origin;
-    public String Varietal;
+    public List<String> Varietal;
     public String Award;
 
     public String TrophyCode;

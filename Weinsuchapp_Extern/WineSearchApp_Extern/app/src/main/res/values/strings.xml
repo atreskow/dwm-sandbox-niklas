@@ -12,7 +12,8 @@
     <string name="winelist_bottomText">Displaying %1$d of %2$d Results</string>
     <string name="winelist_producer">Producer: %1$s</string>
     <string name="winelist_origin">Origin: %1$s</string>
-    <string name="winelist_varietal">Varietal(s): %1$s</string>
+    <string name="winelist_varietal">Varietal: %1$s</string>
+    <string name="winelist_varietals">Varietals: %1$s</string>
     <string name="winelist_award">Award: %1$s</string>
 
     <string name="yes">True</string>

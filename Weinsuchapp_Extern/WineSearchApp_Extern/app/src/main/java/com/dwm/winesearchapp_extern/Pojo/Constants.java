@@ -9,14 +9,14 @@ public class Constants {
     public static final List<String> FacetValues = new ArrayList<>(Arrays.asList(
             "trophy_name",
             "trophy_year",
-            "wine_flavour",
-            "wine_type",
-            "wine_vinification",
-            "wine_category",
-            "cultivation_country",
             "medal_name",
-            "is_bio",
             "wine_vintage",
+            "wine_category",
+            "wine_type",
+            "wine_flavour",
+            "wine_vinification",
+            "is_bio",
+            "cultivation_country",
             "varietal"
     ));
 

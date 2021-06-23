@@ -15,7 +15,8 @@
     <string name="producer">Producer:</string>
     <string name="trophy">Trophy:</string>
     <string name="medal">Medal:</string>
-    <string name="varietal">Varietal(s):</string>
+    <string name="varietal">Varietal:</string>
+    <string name="varietals">Varietals:</string>
 
     <string name="result"><b><i>Award</i></b></string>
     <string name="informations"><b><i>General Informations</i></b></string>

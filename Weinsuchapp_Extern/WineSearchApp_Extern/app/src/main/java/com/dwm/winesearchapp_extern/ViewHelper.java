@@ -88,4 +88,8 @@ public class ViewHelper {
         layout.setLayoutParams(params);
         return layout;
     }
+
+    public static int GetResetButtonVisbility() {
+        return Session.GetFacetQueryGroups().size() > 0 ? View.VISIBLE : View.GONE;
+    }
 }

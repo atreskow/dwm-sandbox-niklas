@@ -12,7 +12,8 @@
     <string name="winelist_bottomText">Zeige %1$d von %2$d Ergebnissen</string>
     <string name="winelist_producer">Produzent: %1$s</string>
     <string name="winelist_origin">Ursprung: %1$s</string>
-    <string name="winelist_varietal">Rebsorte(n): %1$s</string>
+    <string name="winelist_varietal">Rebsorte: %1$s</string>
+    <string name="winelist_varietals">Rebsorten: %1$s</string>
     <string name="winelist_award">Auszeichnung: %1$s</string>
 
     <string name="yes">Ja</string>

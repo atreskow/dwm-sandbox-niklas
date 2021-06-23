@@ -208,6 +208,7 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         runOnUiThread(() -> {
+            btnReset.setVisibility(ViewHelper.GetResetButtonVisbility());
             listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
             expListView.setAdapter(listAdapter);
             mDrawerLayout.closeDrawers();
