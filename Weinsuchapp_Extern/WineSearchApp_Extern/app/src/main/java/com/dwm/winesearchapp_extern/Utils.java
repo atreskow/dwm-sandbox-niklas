@@ -1,5 +1,7 @@
 package com.dwm.winesearchapp_extern;
 
+import android.content.Context;
+
 import com.dwm.winesearchapp_extern.Pojo.Constants;
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
@@ -49,19 +51,19 @@ public class Utils {
         return optionData;
     }
 
-    public static String GetHeaderForValue(String value) {
+    public static String GetHeaderForValue(Context context, String value) {
         switch (value) {
-            case "trophy_name": return Constants.HEADER_TROPHY_NAME;
-            case "trophy_year": return Constants.HEADER_TROPHY_YEAR;
-            case "medal_name": return Constants.HEADER_MEDAL_NAME;
-            case "wine_vintage": return Constants.HEADER_WINE_VINTAGE;
-            case "wine_category": return Constants.HEADER_WINE_CATEGORY;
-            case "wine_type": return Constants.HEADER_WINE_TYPE;
-            case "wine_flavour": return Constants.HEADER_WINE_FLAVOUR;
-            case "wine_vinification": return Constants.HEADER_WINE_VINIFICATION;
-            case "is_bio": return Constants.HEADER_IS_BIO;
-            case "cultivation_country": return Constants.HEADER_CULTIVATION_COUNTRY;
-            case "varietal": return Constants.HEADER_WINE_VARIETAL;
+            case "trophy_name": return context.getResources().getString(R.string.header_trophy_name);
+            case "trophy_year": return context.getResources().getString(R.string.header_trophy_year);
+            case "medal_name": return context.getResources().getString(R.string.header_medal_name);
+            case "wine_vintage": return context.getResources().getString(R.string.header_wine_vintage);
+            case "wine_category": return context.getResources().getString(R.string.header_wine_category);
+            case "wine_type": return context.getResources().getString(R.string.header_wine_type);
+            case "wine_flavour": return context.getResources().getString(R.string.header_wine_flavour);
+            case "wine_vinification": return context.getResources().getString(R.string.header_wine_vinification);
+            case "is_bio": return context.getResources().getString(R.string.header_is_organic);
+            case "cultivation_country": return context.getResources().getString(R.string.header_cultivation_country);
+            case "varietal": return context.getResources().getString(R.string.header_wine_varietal);
             default: return "???";
         }
     }

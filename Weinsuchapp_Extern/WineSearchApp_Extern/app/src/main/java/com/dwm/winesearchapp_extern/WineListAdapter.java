@@ -41,18 +41,24 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
         TextView producer = v.findViewById(R.id.txtViewProducer);
         TextView origin = v.findViewById(R.id.txtViewOrigin);
         TextView varietals = v.findViewById(R.id.txtViewVarietal);
-        TextView trophy = v.findViewById(R.id.txtViewTrophy);
+        TextView award = v.findViewById(R.id.txtViewTrophy);
 
         wineName.setText(item.WineName);
 
-        producer.setText("Produzent: " + item.Producer);
+        String producerText = String.format(context.getResources().getString(R.string.winelist_producer), item.Producer);
+        producer.setText(producerText);
 
-        String region = item.Region == null ? "" : item.Region + ", ";
-        origin.setText("Ursprung: " + region + item.Country);
+        String region = (item.Region == null ? "" : item.Region + ", ") + item.Country;
+        String originText = String.format(context.getResources().getString(R.string.winelist_origin), region);
+        origin.setText(originText);
 
-        varietals.setText("Rebsorte: " + item.Varietal);
+        String varietalText = String.format(context.getResources().getString(R.string.winelist_varietal), item.Varietal);
+        varietals.setText(varietalText);
 
-        if (item.Award != null) trophy.setText("Award: " + item.Award);
+        if (item.Award != null) {
+            String awardText = String.format(context.getResources().getString(R.string.winelist_award), item.Award);
+            award.setText(awardText);
+        }
 
         wineItemLayout.setOnClickListener(view -> {
             Session.SetSelectedListItem(item);

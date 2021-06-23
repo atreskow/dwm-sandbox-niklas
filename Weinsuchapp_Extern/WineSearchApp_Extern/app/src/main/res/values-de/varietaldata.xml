@@ -1,0 +1,13 @@
+<resources>
+    <string name="header_trophy_name">Wine Trophy (Contest)</string>
+    <string name="header_trophy_year">Wine Trophy (Jahr)</string>
+    <string name="header_medal_name">Medaille</string>
+    <string name="header_wine_flavour">Geschmack</string>
+    <string name="header_wine_type">Weinart</string>
+    <string name="header_wine_vinification">Ausbau</string>
+    <string name="header_wine_category">Kategorie</string>
+    <string name="header_cultivation_country">Anbauland</string>
+    <string name="header_wine_vintage">Jahrgang</string>
+    <string name="header_is_organic">Biologisch</string>
+    <string name="header_wine_varietal">Rebsorten</string>
+</resources>

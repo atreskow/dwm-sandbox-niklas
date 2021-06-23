@@ -24,7 +24,7 @@ public class ViewHelper {
 
     public static void SetValue(int id, boolean bool, Activity activity) {
         TextView name = activity.findViewById(id);
-        String text = bool ? "Ja" : "Nein";
+        String text = bool ? activity.getResources().getString(R.string.yes) : activity.getResources().getString(R.string.no);
         name.setText(text);
     }
 

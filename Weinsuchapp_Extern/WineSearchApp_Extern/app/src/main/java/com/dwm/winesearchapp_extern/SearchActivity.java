@@ -143,7 +143,7 @@ public class SearchActivity extends AppCompatActivity {
         OptionData optionData = Utils.GenerateOptionData(wineListAdapter.getCount());
         WineSearchData data = new WineSearchData(queryObjData, optionData);
 
-        WineData wineData = WineSearchServices.GetWineData("de", data);
+        WineData wineData = WineSearchServices.GetWineData(getResources().getString(R.string.language), data);
 
         List<Hit> wineDataList = wineData.SearchResult.Hits;
         wineListItems = new ArrayList<>();
@@ -171,7 +171,7 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void updateSearchedAmount() {
-        String text = String.format(getResources().getString(R.string.bottomtext_winelist), wineListAdapter.getCount(), Session.GetMaxWinesSearch());
+        String text = String.format(getResources().getString(R.string.winelist_bottomText), wineListAdapter.getCount(), Session.GetMaxWinesSearch());
         bottomText.setText(text);
     }
 
@@ -181,7 +181,7 @@ public class SearchActivity extends AppCompatActivity {
 
         for (Facet facet : facets) {
 
-            String headerText = Utils.GetHeaderForValue(facet.Field);
+            String headerText = Utils.GetHeaderForValue(this, facet.Field);
             listDataHeader.add(headerText);
 
             List<NavDrawerItem> menuElements = new ArrayList<>();
@@ -198,7 +198,7 @@ public class SearchActivity extends AppCompatActivity {
 
             Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
 
-            if (headerText.equals(Constants.HEADER_TROPHY_YEAR) || headerText.equals(Constants.HEADER_WINE_VINTAGE)) {
+            if (headerText.equals(getResources().getString(R.string.header_trophy_year)) || headerText.equals(getResources().getString(R.string.header_wine_vintage))) {
                 Collections.reverse(menuElements);
             }
 
