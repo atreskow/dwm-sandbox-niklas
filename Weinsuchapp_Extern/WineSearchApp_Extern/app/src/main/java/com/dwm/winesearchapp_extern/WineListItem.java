@@ -20,6 +20,7 @@ public class WineListItem {
         Varietal = data.Varietal;
         Award = data.Award;
         TrophyCode = data.TrophyCode;
+        StorageNumber = data.StorageNumber;
         Ranking = data.Ranking;
 
         //------------- Ab hier relevant für Winedetails Activity
@@ -44,6 +45,7 @@ public class WineListItem {
     public String Award;
 
     public String TrophyCode;
+    public int StorageNumber;
     public int Ranking;
 
     //------------- Ab hier relevant für Winedetails Activity

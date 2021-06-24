@@ -2,8 +2,12 @@ package com.dwm.winesearchapp_extern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,5 +95,21 @@ public class ViewHelper {
 
     public static int GetResetButtonVisbility() {
         return Session.GetFacetQueryGroups().size() > 0 ? View.VISIBLE : View.GONE;
+    }
+
+    public static float GetBitmapScalingFactor(Activity activity, Bitmap bitmap, ImageView imageView) {
+        Display display = activity.getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) imageView.getLayoutParams();
+        int topMargin = layoutParams.topMargin;
+        int bottomMargin = layoutParams.bottomMargin;
+
+        int imageViewHeight = height - (topMargin + bottomMargin);
+
+        return ( (float) imageViewHeight / (float) bitmap.getHeight() );
     }
 }

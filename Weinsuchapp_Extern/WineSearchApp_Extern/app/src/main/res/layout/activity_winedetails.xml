@@ -36,81 +36,38 @@
                 android:text=""
                 android:textAlignment="center" />
 
-            <LinearLayout
-                android:id="@+id/layoutImages"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/imageFront"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:layout_marginTop="15dp"
-                android:orientation="horizontal">
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
-                <ImageView
-                    android:id="@+id/imageFront"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    />
-
-                <ImageView
-                    android:id="@+id/imageBack"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutName"
-                android:layout_width="match_parent"
+            <ImageView
+                android:id="@+id/imageMedal"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"/>
 
-                <TextView
-                    android:id="@+id/txtName_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingBottom="10dp"
-                    android:paddingLeft="5dp"
-                    android:paddingRight="5dp"
-                    android:paddingTop="10dp"
-                    android:textAlignment="center"
-                    android:textStyle="bold"
-                    android:textColor="@color/buttonPrimary"
-                    android:textAppearance="?android:attr/textAppearanceMedium"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layoutMedal"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/txtName_value"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="20"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:text="" />
-
-                <ImageView
-                    android:id="@+id/imageMedal"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
-                    android:layout_weight="10"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:text="" />
-            </LinearLayout>
+                android:padding="10dp"
+                android:textAlignment="textStart"
+                android:textStyle="bold"
+                android:textColor="@color/buttonPrimary"
+                android:textAppearance="?android:attr/textAppearanceMedium"/>
 
             <LinearLayout
                 android:id="@+id/dataLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical">
 
@@ -118,7 +75,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
-                    android:layout_marginTop="20dp"
                     android:text="@string/result"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
@@ -126,14 +82,13 @@
                     android:id="@+id/layoutTrophy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtTrophy"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/trophy"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -142,7 +97,7 @@
                         android:id="@+id/txtTrophy_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -152,14 +107,13 @@
                     android:id="@+id/layoutMedalName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtMedalName"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/medal"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -168,7 +122,7 @@
                         android:id="@+id/txtMedalName_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -187,14 +141,13 @@
                     android:id="@+id/layoutYear"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtYear"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/year"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -203,7 +156,7 @@
                         android:id="@+id/txtYear_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -213,14 +166,13 @@
                     android:id="@+id/layoutProducer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtProducer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/producer"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -229,7 +181,7 @@
                         android:id="@+id/txtProducer_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -248,14 +200,13 @@
                     android:id="@+id/layoutCountry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtCountry"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/country"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -264,7 +215,7 @@
                         android:id="@+id/txtCountry_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -274,14 +225,13 @@
                     android:id="@+id/layoutRegion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtRegion"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/region"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -290,7 +240,7 @@
                         android:id="@+id/txtRegion_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -309,14 +259,13 @@
                     android:id="@+id/layoutCategory"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtCategory"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/wine_category"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -325,7 +274,7 @@
                         android:id="@+id/txtCategory_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -335,14 +284,13 @@
                     android:id="@+id/layoutFlavour"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtFlavour"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/flavour"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -351,7 +299,7 @@
                         android:id="@+id/txtFlavour_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -361,14 +309,13 @@
                     android:id="@+id/layoutVinification"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtVinification"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/vinification"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -377,7 +324,7 @@
                         android:id="@+id/txtVinification_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -387,14 +334,13 @@
                     android:id="@+id/layoutType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtType"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/type"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -403,7 +349,7 @@
                         android:id="@+id/txtType_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -413,14 +359,13 @@
                     android:id="@+id/layoutVarietal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtVarietal"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/varietal"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -429,7 +374,7 @@
                         android:id="@+id/txtVarietal_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -448,14 +393,13 @@
                     android:id="@+id/layoutAlcohol"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtAlcohol"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/alcohol"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -464,7 +408,7 @@
                         android:id="@+id/txtAlcohol_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -474,14 +418,13 @@
                     android:id="@+id/layoutAcidity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtAcidity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/acidity"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -490,7 +433,7 @@
                         android:id="@+id/txtAcidity_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -500,14 +443,13 @@
                     android:id="@+id/layoutSugar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtSugar"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/sugar"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -516,7 +458,7 @@
                         android:id="@+id/txtSugar_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -526,14 +468,13 @@
                     android:id="@+id/layoutSulfur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtSulfur"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/sulfur"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -542,7 +483,7 @@
                         android:id="@+id/txtSulfur_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -552,14 +493,13 @@
                     android:id="@+id/layoutOrganic"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
                     android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/txtOrganic"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
                         android:paddingLeft="10dp"
                         android:text="@string/organic"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
@@ -568,7 +508,7 @@
                         android:id="@+id/txtOrganic_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="2"
+                        android:layout_weight="3"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>

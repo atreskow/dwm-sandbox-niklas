@@ -69,7 +69,7 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
             if (imageNames != null && imageNames.length != 0) {
                 for (String imageName : imageNames) {
                     if (imageName.endsWith("F")) {
-                        Bitmap bottleImage = WineSearchServices.GetBottleImage(wineListItem.Id, imageName);
+                        Bitmap bottleImage = WineSearchServices.GetBottleImageType(wineListItem, "normal", "png", imageName);
                         ((Activity) _context).runOnUiThread(() ->
                                 ((ImageView) view.findViewById(R.id.imageFront)).setImageBitmap(bottleImage)
                         );

@@ -2,6 +2,7 @@ package com.dwm.winesearchapp_extern;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 
 
@@ -26,18 +27,19 @@ public class WinedetailsActivity extends AppCompatActivity {
     private void getImages(WineListItem wine) {
         String[] imageNames = WineSearchServices.GetBottleImageNames(wine.Id);
 
-        for (String imageName : imageNames) {
-            Bitmap bottleImage = WineSearchServices.GetBottleImage(wine.Id, imageName);
-            if (imageName.endsWith("F")) {
-                runOnUiThread(() -> ((ImageView) findViewById(R.id.imageFront)).setImageBitmap(bottleImage));
-            } else {
-                runOnUiThread(() -> ((ImageView) findViewById(R.id.imageBack)).setImageBitmap(bottleImage));
-            }
-        }
-
         if (Utils.HasAward(wine.Ranking)) {
             Bitmap medalImage = WineSearchServices.GetMedalImage(wine.TrophyCode, wine.Ranking);
             runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setImageBitmap(medalImage));
+        }
+        else {
+            runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setVisibility(View.GONE));
+        }
+
+        for (String imageName : imageNames) {
+            Bitmap bottleImage = WineSearchServices.GetBottleImageType(wine, "big", "png", imageName);
+            if (imageName.endsWith("F")) {
+                runOnUiThread(() -> ((ImageView) findViewById(R.id.imageFront)).setImageBitmap(bottleImage));
+            }
         }
     }
 

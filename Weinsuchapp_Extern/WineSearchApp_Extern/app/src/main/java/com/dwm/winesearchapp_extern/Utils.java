@@ -1,6 +1,11 @@
 package com.dwm.winesearchapp_extern;
 
+import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Point;
+import android.view.Display;
+import android.widget.LinearLayout;
 
 import com.dwm.winesearchapp_extern.Pojo.Constants;
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;

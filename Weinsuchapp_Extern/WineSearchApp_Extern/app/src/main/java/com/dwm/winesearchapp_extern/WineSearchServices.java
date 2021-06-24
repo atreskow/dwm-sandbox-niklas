@@ -77,6 +77,25 @@ public class WineSearchServices {
         }
     }
 
+    public static Bitmap GetBottleImageType(WineListItem item, String imageSize, String imageType, String imageName) {
+        String serviceUrl = ServiceLocator.GET_BOTTLE_IMAGE_TYPE
+                .replace("{trophyIdent}", item.TrophyCode)
+                .replace("{storageNumber}", String.valueOf(item.StorageNumber))
+                .replace("{size}", imageSize)
+                .replace("{wineshootName}", imageName)
+                .replace("{imageType}", imageType);
+        JsonObject jsonObject = null;
+        try {
+            jsonObject = ServerConnectionMethods.GetData(serviceUrl);
+            FileData imageData = gson.fromJson(jsonObject.get("value").toString(), FileData.class);
+            byte[] imageByteArray = Base64.decode(imageData.FileData, Base64.DEFAULT);
+            Bitmap decodedByte = BitmapFactory.decodeByteArray(imageByteArray, 0, imageByteArray.length);
+            return decodedByte;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static Bitmap GetMedalImage(String trophyCode, int ranking) {
         String serviceUrl = ServiceLocator.GET_MEDAL_IMAGE
                 .replace("{trophyPrefix}", trophyCode)
