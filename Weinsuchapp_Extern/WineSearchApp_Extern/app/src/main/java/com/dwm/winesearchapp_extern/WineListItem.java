@@ -22,7 +22,7 @@ public class WineListItem {
         TrophyCode = data.TrophyCode;
         Ranking = data.Ranking;
 
-        //------------- Ab hier relevant für Details Activity
+        //------------- Ab hier relevant für Winedetails Activity
 
         Vintage = data.Year;
         Category = data.WineCategory;
@@ -46,7 +46,7 @@ public class WineListItem {
     public String TrophyCode;
     public int Ranking;
 
-    //------------- Ab hier relevant für Details Activity
+    //------------- Ab hier relevant für Winedetails Activity
 
     public String Vintage;
     public String Category;

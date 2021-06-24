@@ -85,7 +85,6 @@ public class Utils {
             }
         }
         navDrawerItemList.addAll(items);
-
         return navDrawerItemList;
     }
 

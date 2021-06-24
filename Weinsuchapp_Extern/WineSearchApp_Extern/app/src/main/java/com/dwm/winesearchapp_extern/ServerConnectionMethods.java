@@ -14,8 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ServerConnectionMethods {
-    private static final String TOKEN_TYPE = "Bearer";
-    private static final Gson gson = new Gson();
+    private static final Gson _gson = new Gson();
 
 
     public static JsonObject GetData(String service) {
@@ -40,7 +39,7 @@ public class ServerConnectionMethods {
             }
             result = buf.toString();
 
-            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+            JsonObject jsonObject = _gson.fromJson(result, JsonObject.class);
             return jsonObject;
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,7 +77,7 @@ public class ServerConnectionMethods {
             }
             result = buf.toString();
 
-            JsonObject jsonObject = gson.fromJson(result, JsonObject.class);
+            JsonObject jsonObject = _gson.fromJson(result, JsonObject.class);
             return jsonObject;
         } catch (IOException e) {
             e.printStackTrace();

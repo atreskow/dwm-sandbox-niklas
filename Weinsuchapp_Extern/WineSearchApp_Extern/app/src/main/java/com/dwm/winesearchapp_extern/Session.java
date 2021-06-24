@@ -53,20 +53,20 @@ public class Session {
                 return _facetQueryGroups;
         }
 
-        public static void AddFacetQueryGroupValue(FacetQueryGroup facetQueryGroup) {
+        public static void AddFacetQueryGroupValue(String name, String value) {
                 for (FacetQueryGroup group : _facetQueryGroups) {
-                        if (group.FieldName.equals(facetQueryGroup.FieldName)) {
-                                group.Values.add(facetQueryGroup.Values.get(0));
+                        if (group.FieldName.equals(name)) {
+                                group.Values.add(value);
                                 return;
                         }
                 }
-                _facetQueryGroups.add(facetQueryGroup);
+                _facetQueryGroups.add(new FacetQueryGroup(name, value));
         }
 
-        public static void RemoveFacetQueryGroupValue(FacetQueryGroup facetQueryGroup) {
+        public static void RemoveFacetQueryGroupValue(String name, String value) {
                 for (FacetQueryGroup group : _facetQueryGroups) {
-                        if (group.FieldName.equals(facetQueryGroup.FieldName)) {
-                                group.Values.remove(facetQueryGroup.Values.get(0));
+                        if (group.FieldName.equals(name)) {
+                                group.Values.remove(value);
                                 if (group.Values.size() == 0) {
                                         _facetQueryGroups.remove(group);
                                 }

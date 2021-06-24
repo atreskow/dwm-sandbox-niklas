@@ -81,7 +81,7 @@ public class ViewHelper {
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
-    public static LinearLayout createLinearLayout(Context context) {
+    public static LinearLayout CreateLinearLayout(Context context) {
         LinearLayout layout = new LinearLayout(context);
         layout.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

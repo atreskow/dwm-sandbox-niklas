@@ -4,92 +4,87 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 
 import java.util.stream.Collectors;
 
 public class WineListAdapter extends ArrayAdapter<WineListItem> {
 
-    private final Context context;
-    private final int listItemResourceId;
+    private final Context _context;
+    private final int _listItemResourceId;
 
     public WineListAdapter(Context context, int listItemResourceId)
     {
         super(context, listItemResourceId);
-        this.context = context;
-        this.listItemResourceId = listItemResourceId;
+        this._context = context;
+        this._listItemResourceId = listItemResourceId;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
-        LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        WineListItem item = getItem(position);
+        LayoutInflater layoutInflater = ((Activity) _context).getLayoutInflater();
+        WineListItem wineListItem = getItem(position);
 
-        View v = inflater.inflate(listItemResourceId, parent, false);
-        RelativeLayout wineItemLayout = v.findViewById(R.id.wineItemLayout);
-        TextView wineName = v.findViewById(R.id.txtViewWineName);
-        TextView producer = v.findViewById(R.id.txtViewProducer);
-        TextView origin = v.findViewById(R.id.txtViewOrigin);
-        TextView varietals = v.findViewById(R.id.txtViewVarietal);
-        TextView award = v.findViewById(R.id.txtViewTrophy);
+        View view = layoutInflater.inflate(_listItemResourceId, parent, false);
+        RelativeLayout wineItemLayout = view.findViewById(R.id.wineItemLayout);
 
-        wineName.setText(item.WineName);
+        TextView wineName = view.findViewById(R.id.txtViewWineName);
+        wineName.setText(wineListItem.WineName);
 
-        String producerText = String.format(context.getResources().getString(R.string.winelist_producer), item.Producer);
+        TextView producer = view.findViewById(R.id.txtViewProducer);
+        String producerText = String.format(_context.getResources().getString(R.string.winelist_producer), wineListItem.Producer);
         producer.setText(producerText);
 
-        String region = (item.Region == null ? "" : item.Region + ", ") + item.Country;
-        String originText = String.format(context.getResources().getString(R.string.winelist_origin), region);
+        TextView origin = view.findViewById(R.id.txtViewOrigin);
+        String region = (wineListItem.Region == null ? "" : wineListItem.Region + ", ") + wineListItem.Country;
+        String originText = String.format(_context.getResources().getString(R.string.winelist_origin), region);
         origin.setText(originText);
 
-        String varietalDesc = item.Varietal.size() > 1 ? context.getString(R.string.winelist_varietals) : context.getString(R.string.winelist_varietal);
-        String varietalText = String.format(varietalDesc, item.Varietal.stream().collect(Collectors.joining(", ")));
+        TextView varietals = view.findViewById(R.id.txtViewVarietal);
+        String varietalDesc = wineListItem.Varietal.size() > 1 ? _context.getString(R.string.winelist_varietals) : _context.getString(R.string.winelist_varietal);
+        String varietalText = String.format(varietalDesc, wineListItem.Varietal.stream().collect(Collectors.joining(", ")));
         varietals.setText(varietalText);
 
-        if (item.Award != null) {
-            String awardText = String.format(context.getResources().getString(R.string.winelist_award), item.Award);
+        TextView award = view.findViewById(R.id.txtViewTrophy);
+        if (wineListItem.Award != null) {
+            String awardText = String.format(_context.getResources().getString(R.string.winelist_award), wineListItem.Award);
             award.setText(awardText);
         }
 
-        wineItemLayout.setOnClickListener(view -> {
-            Session.SetSelectedListItem(item);
-            Intent intent = new Intent(context, WinedetailsActivity.class);
-            context.startActivity(intent);
+        wineItemLayout.setOnClickListener(v -> {
+            Session.SetSelectedListItem(wineListItem);
+            Intent intent = new Intent(_context, WinedetailsActivity.class);
+            _context.startActivity(intent);
         });
 
         new Thread(() ->  {
-            String[] imageNames = WineSearchServices.GetBottleImageNames(item.Id);
+            String[] imageNames = WineSearchServices.GetBottleImageNames(wineListItem.Id);
             if (imageNames != null && imageNames.length != 0) {
                 for (String imageName : imageNames) {
                     if (imageName.endsWith("F")) {
-                        Bitmap bottleImage = WineSearchServices.GetBottleImage(item.Id, imageName);
-                        ((Activity) context).runOnUiThread(() ->
-                                ((ImageView) v.findViewById(R.id.imageFront)).setImageBitmap(bottleImage)
+                        Bitmap bottleImage = WineSearchServices.GetBottleImage(wineListItem.Id, imageName);
+                        ((Activity) _context).runOnUiThread(() ->
+                                ((ImageView) view.findViewById(R.id.imageFront)).setImageBitmap(bottleImage)
                         );
                     }
                 }
             }
-            if (Utils.HasAward(item.Ranking)) {
-                Bitmap medalImage = WineSearchServices.GetMedalImage(item.TrophyCode, item.Ranking);
-                ((Activity) context).runOnUiThread(() -> {
-                        ((ImageView) v.findViewById(R.id.imageMedal)).setImageBitmap(medalImage);
+
+            if (Utils.HasAward(wineListItem.Ranking)) {
+                Bitmap medalImage = WineSearchServices.GetMedalImage(wineListItem.TrophyCode, wineListItem.Ranking);
+                ((Activity) _context).runOnUiThread(() -> {
+                        ((ImageView) view.findViewById(R.id.imageMedal)).setImageBitmap(medalImage);
                 });
             }
         }).start();
 
-
-        return v;
+        return view;
     }
 }

@@ -17,7 +17,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.dwm.winesearchapp_extern.Pojo.Constants;
 import com.dwm.winesearchapp_extern.Pojo.Facet;
 import com.dwm.winesearchapp_extern.Pojo.Item;
 import com.dwm.winesearchapp_extern.Pojo.request.OptionData;
@@ -36,26 +35,22 @@ import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-    EditText txtStorageNumber;
-    Button btnSearch;
-    Button btnReset;
+    private EditText _wineNameTextView;
+    private TextView _wineListSearchAmountTextView;
+    private Button _searchButton;
+    private Button _resetButton;
 
-    DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle _actionBarDrawerToggle;
+    private DrawerLayout _drawerLayout;
+    private ExpandableListView _expandableListView;
+    private NavDrawerAdapter _navDrawerAdapter;
+    private ArrayList<String> _facetHeaderList;
+    private List<WineListItem> _facetChildList;
+    private HashMap<String, List<NavDrawerItem>> _facetHeaderChildMap;
 
-    ArrayList<String> listDataHeader;
-    HashMap<String, List<NavDrawerItem>> listDataChild;
-    List<WineListItem> wineListItems;
-
-    ExpandableListView expListView;
-    ExpandListAdapter listAdapter;
-
-    WineListAdapter wineListAdapter;
-    ListView wineListView;
-    TextView bottomText;
-
-    ActionBarDrawerToggle toggle;
-
-    boolean flag_loading = false;
+    private WineListAdapter _wineListAdapter;
+    private ListView _wineListView;
+    private boolean _wineListScrollIsLoading = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,37 +58,58 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ViewHelper.SetupToolbar(this);
 
-        txtStorageNumber = findViewById(R.id.txtStorageNumber);
-        txtStorageNumber.setText(Session.GetWineName());
-        btnSearch = findViewById(R.id.btnSearch);
-        btnReset = findViewById(R.id.btnReset);
-        mDrawerLayout = findViewById(R.id.drawer_layout);
+        setupViews();
+        setupActionBar();
+        setupListener();
 
-        expListView = findViewById(R.id.list_slidermenu);
-        wineListView = findViewById(R.id.wineList);
-        bottomText = findViewById(R.id.txtViewBottom);
+        StartNewWineSearch();
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (_actionBarDrawerToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void setupViews() {
+        _wineNameTextView = findViewById(R.id.txtStorageNumber);
+        _wineNameTextView.setText(Session.GetWineName());
+        _searchButton = findViewById(R.id.btnSearch);
+        _resetButton = findViewById(R.id.btnReset);
+        _drawerLayout = findViewById(R.id.drawer_layout);
+        _expandableListView = findViewById(R.id.list_slidermenu);
+        _wineListView = findViewById(R.id.wineList);
+        _wineListSearchAmountTextView = findViewById(R.id.txtViewBottom);
+    }
+
+    private void setupActionBar() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        toggle = new ActionBarDrawerToggle
+        _actionBarDrawerToggle = new ActionBarDrawerToggle
                 (
                         this,
-                        mDrawerLayout,
+                        _drawerLayout,
                         R.string.navigation_drawer_open,
                         R.string.navigation_drawer_close
                 )
         {
         };
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+        _drawerLayout.addDrawerListener(_actionBarDrawerToggle);
+        _actionBarDrawerToggle.syncState();
+    }
 
-        btnSearch.setOnClickListener(searchListener);
-        btnReset.setOnClickListener(resetFilterListener);
-        txtStorageNumber.setOnEditorActionListener(searchEnterListener);
+    private void setupListener() {
+        _searchButton.setOnClickListener(searchListener);
+        _resetButton.setOnClickListener(resetFilterListener);
+        _wineNameTextView.setOnEditorActionListener(searchEnterListener);
 
-        wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
-        wineListView.setAdapter(wineListAdapter);
-        wineListView.setOnScrollListener(new AbsListView.OnScrollListener() {
+        _wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
+        _wineListView.setAdapter(_wineListAdapter);
+        _wineListView.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             public void onScrollStateChanged(AbsListView view, int scrollState) {
             }
@@ -103,137 +119,126 @@ public class SearchActivity extends AppCompatActivity {
 
                 if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
                 {
-                    if(!flag_loading && !Session.AllWinesLoaded(wineListAdapter.getCount()))
+                    if(!_wineListScrollIsLoading && !Session.AllWinesLoaded(_wineListAdapter.getCount()))
                     {
-                        flag_loading = true;
+                        _wineListScrollIsLoading = true;
                         new Thread(() ->  addWines()).start();
                     }
                 }
             }
         });
-
-        startWineSearchThread();
     }
 
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        if (toggle.onOptionsItemSelected(item))
-        {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void startWineSearchThread() {
-        wineListAdapter.clear();
-        String wineName = txtStorageNumber.getText().toString();
+    public void StartNewWineSearch() {
+        _wineListAdapter.clear();
+        String wineName = _wineNameTextView.getText().toString();
         Session.SetWineName(wineName);
+
         new Thread(() ->  {
             WineData data = addWines();
-            parseFacetData(data.ExtendedFacets);
+            addFacetsToSidebar(data.ExtendedFacets);
         }).start();
     }
 
+    //Die Funtkion wird für neue SUchen und zum Erweitern der Wein-Such-Liste aufgerufen
     private WineData addWines() {
         ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
 
         QueryObjData queryObjData = Utils.GenerateQueryObjData();
-        OptionData optionData = Utils.GenerateOptionData(wineListAdapter.getCount());
-        WineSearchData data = new WineSearchData(queryObjData, optionData);
-
-        WineData wineData = WineSearchServices.GetWineData(getResources().getString(R.string.language), data);
+        OptionData optionData = Utils.GenerateOptionData(_wineListAdapter.getCount());
+        WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
+        WineData wineData = WineSearchServices.GetWineData(getResources().getString(R.string.language), wineSearchData);
 
         List<Hit> wineDataList = wineData.SearchResult.Hits;
-        wineListItems = new ArrayList<>();
+        _facetChildList = new ArrayList<>();
 
-        if (wineListAdapter.getCount() == 0) {
+        //Setzt bei neuer Anfrage die Anzahl der Ergebnisse neu
+        if (_wineListAdapter.getCount() == 0) {
             Session.SetMaxWinesSearch(wineData.SearchResult.TotalHits);
         }
 
         for (Hit wine : wineDataList) {
-            DocumentData document = wine.Document;
-            WineListItem wineListItem = new WineListItem(document);
-            wineListItems.add(wineListItem);
+            DocumentData documentData = wine.Document;
+            WineListItem wineListItem = new WineListItem(documentData);
+            _facetChildList.add(wineListItem);
         }
 
         runOnUiThread(() -> {
-            wineListAdapter.addAll(wineListItems);
-            wineListAdapter.notifyDataSetChanged();
-            updateSearchedAmount();
+            _wineListAdapter.addAll(_facetChildList);
+            _wineListAdapter.notifyDataSetChanged();
+            updateSearchBottomText();
             ViewHelper.ToggleLoadingAnimation(this, View.GONE);
         });
-
-        flag_loading = false;
-
+        _wineListScrollIsLoading = false;
         return wineData;
     }
 
-    private void updateSearchedAmount() {
-        String text = String.format(getResources().getString(R.string.winelist_bottomText), wineListAdapter.getCount(), Session.GetMaxWinesSearch());
-        bottomText.setText(text);
+    private void updateSearchBottomText() {
+        String text = String.format(getResources().getString(R.string.winelist_bottomText), _wineListAdapter.getCount(), Session.GetMaxWinesSearch());
+        _wineListSearchAmountTextView.setText(text);
     }
 
-    private void parseFacetData(List<Facet> facets) {
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
+    private void addFacetsToSidebar(List<Facet> facets) {
+        _facetHeaderList = new ArrayList<>();
+        _facetHeaderChildMap = new HashMap<>();
 
         for (Facet facet : facets) {
-
             String headerText = Utils.GetHeaderForValue(this, facet.Field);
-            listDataHeader.add(headerText);
+            _facetHeaderList.add(headerText);
 
             List<NavDrawerItem> menuElements = new ArrayList<>();
-
             for (Item item : facet.Items) {
-                if (Utils.IsBlacklistedFacet(item.Value)) continue;
+                if (Utils.IsBlacklistedFacet(item.Value)) {
+                    continue;
+                }
                 NavDrawerItem dataItem = new NavDrawerItem(item.Value, facet.Field, item.Count);
                 menuElements.add(dataItem);
             }
+
+            //Wenn eine Kategorie keine Kinder mehr beinhaltet wird die Kategorie entfernt
             if (menuElements.size() == 0) {
-                listDataHeader.remove(headerText);
+                _facetHeaderList.remove(headerText);
                 continue;
             }
 
             Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
-
             if (headerText.equals(getResources().getString(R.string.header_trophy_year)) || headerText.equals(getResources().getString(R.string.header_wine_vintage))) {
                 Collections.reverse(menuElements);
             }
 
+            //Übergibt die booleans der vorherigen Facet Liste
             menuElements = Utils.TransferFacetTrues(facet.Field, menuElements);
 
-            listDataChild.put(headerText, menuElements);
+            _facetHeaderChildMap.put(headerText, menuElements);
         }
 
         runOnUiThread(() -> {
-            btnReset.setVisibility(ViewHelper.GetResetButtonVisbility());
-            listAdapter = new ExpandListAdapter(this, listDataHeader, listDataChild);
-            expListView.setAdapter(listAdapter);
-            mDrawerLayout.closeDrawers();
+            _resetButton.setVisibility(ViewHelper.GetResetButtonVisbility());
+            _navDrawerAdapter = new NavDrawerAdapter(this, _facetHeaderList, _facetHeaderChildMap);
+            _expandableListView.setAdapter(_navDrawerAdapter);
+            _drawerLayout.closeDrawers();
         });
     }
-
-    View.OnClickListener searchListener = view -> {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(txtStorageNumber.getWindowToken(), 0);
-        startWineSearchThread();
-    };
 
     View.OnClickListener resetFilterListener = view -> {
         Session.SetFacetQueryGroups(new ArrayList<>());
         Session.SetWineName("");
-        txtStorageNumber.setText("");
-        startWineSearchThread();
+        _wineNameTextView.setText("");
+        StartNewWineSearch();
+    };
+
+    View.OnClickListener searchListener = view -> {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(_wineNameTextView.getWindowToken(), 0);
+        StartNewWineSearch();
     };
 
     TextView.OnEditorActionListener searchEnterListener = (v, actionId, event) -> {
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(txtStorageNumber.getWindowToken(), 0);
-            startWineSearchThread();
+            imm.hideSoftInputFromWindow(_wineNameTextView.getWindowToken(), 0);
+            StartNewWineSearch();
             handled = true;
         }
         return handled;

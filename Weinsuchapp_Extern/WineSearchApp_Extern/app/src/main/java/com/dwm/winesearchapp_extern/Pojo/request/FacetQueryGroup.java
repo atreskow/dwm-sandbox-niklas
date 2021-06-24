@@ -1,13 +1,14 @@
 package com.dwm.winesearchapp_extern.Pojo.request;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FacetQueryGroup {
 
-    public FacetQueryGroup(String fieldName, List<String> values) {
+    public FacetQueryGroup(String fieldName, String value) {
         FieldName = fieldName;
-        Values = values;
+        Values.add(value);
     }
     public String FieldName;
-    public List<String> Values;
+    public List<String> Values = new ArrayList<>();
 }
