@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -39,6 +40,11 @@ public class SettingsActivity extends AppCompatActivity {
         _darkmodeCheckbox.setOnCheckedChangeListener(_darkmodeListener);
         _toolbarCheckbox.setOnCheckedChangeListener(_toolbarListener);
         _medalCheckbox.setOnCheckedChangeListener(_medalListener);
+    }
+
+    @Override
+    public void onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     private void reload() {

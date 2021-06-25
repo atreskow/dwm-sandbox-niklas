@@ -20,7 +20,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
-            android:id="@+id/linearLayoutVertical"
+            android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorPrimary"
@@ -121,25 +121,40 @@
         android:background="@color/colorPrimary"
         android:layout_gravity="start">
 
-        <Button
-            android:id="@+id/btnReset"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/btnResetLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/buttonPrimary"
-            android:text="@string/reset_button"
-            android:textColor="@color/buttonTextPrimary"
-            android:layout_gravity="center"
-            android:visibility="gone"
-            android:padding="15dp"/>
+            android:orientation="vertical"
+            android:background="@color/colorPrimary"
+            android:layout_gravity="start">
 
-        <View android:layout_width="fill_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+            <View android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"/>
+
+            <Button
+                android:id="@+id/btnReset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/buttonPrimary"
+                android:text="@string/reset_button"
+                android:textColor="@color/buttonTextPrimary"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:padding="15dp"/>
+
+            <View android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+        </LinearLayout>
 
         <ExpandableListView
             android:id="@+id/list_slidermenu"
             android:layout_width="240dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.1"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
             android:background="@color/colorPrimary"

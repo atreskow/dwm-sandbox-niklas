@@ -3,6 +3,7 @@ package com.dwm.winesearchapp_extern;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -60,6 +61,12 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ViewHelper.SetupToolbar(this);
+
+        boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("toolbarBottom", false);
+        if (toolbarBottom) {
+            ViewHelper.ChangeSearchPosition(this);
+            ViewHelper.ChangeDrawerGravity(this);
+        }
 
         setupViews();
         setupActionBar();

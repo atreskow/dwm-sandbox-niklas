@@ -5,7 +5,9 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -92,9 +94,30 @@ public class ViewHelper {
             params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
             actionBar.setLayoutParams(params);
 
-            TextView toolbarWhitespace = activity.findViewById(R.id.toolbar_whitespace);
-            toolbarWhitespace.setVisibility(View.GONE);
+            TextView whitespace = activity.findViewById(R.id.toolbar_whitespace);
+            LinearLayout layout = activity.findViewById(R.id.mainLayout);
+            layout.removeView(whitespace);
+            layout.addView(whitespace, layout.getChildCount());
         }
+    }
+
+    public static void ChangeSearchPosition(Activity activity) {
+        LinearLayout layout = activity.findViewById(R.id.mainLayout);
+
+        LinearLayout searchLayout = activity.findViewById(R.id.linearLayoutSearch);
+        layout.removeView(searchLayout);
+        layout.addView(searchLayout, layout.getChildCount()-1);
+
+        TextView txtViewBottom = activity.findViewById(R.id.txtViewBottom);
+        layout.removeView(txtViewBottom);
+        layout.addView(txtViewBottom, 0);
+    }
+
+    public static void ChangeDrawerGravity(Activity activity) {
+        LinearLayout sliderlayout = activity.findViewById(R.id.sliderLayout);
+        LinearLayout buttonLayout = activity.findViewById(R.id.btnResetLayout);
+        sliderlayout.removeView(buttonLayout);
+        sliderlayout.addView(buttonLayout);
     }
 
     public static LinearLayout CreateLinearLayout(Context context) {
