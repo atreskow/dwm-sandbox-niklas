@@ -5,4 +5,5 @@
     <color name="buttonPrimary">#CF0038</color>
     <color name="toolbarPrimary">#222222</color>
     <color name="buttonTextPrimary">#ffffff</color>
+    <color name="textPrimary">#000000</color>
 </resources>

@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
 import android.view.Display;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +85,16 @@ public class ViewHelper {
         activity.setSupportActionBar(actionBar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext()).getBoolean("toolbarBottom", false);
+        if (toolbarBottom) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            actionBar.setLayoutParams(params);
+
+            TextView toolbarWhitespace = activity.findViewById(R.id.toolbar_whitespace);
+            toolbarWhitespace.setVisibility(View.GONE);
+        }
     }
 
     public static LinearLayout CreateLinearLayout(Context context) {

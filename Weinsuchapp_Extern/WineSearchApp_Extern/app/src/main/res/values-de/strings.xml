@@ -20,4 +20,8 @@
     <string name="no">Nein</string>
 
     <string name="language">de</string>
+
+    <string name="settings_darkmode">Dunkelmodus aktiviert:</string>
+    <string name="settings_toolbar">Werkzeugleiste unten:</string>
+    <string name="settings_medal">Medaille Vorschau:</string>
 </resources>

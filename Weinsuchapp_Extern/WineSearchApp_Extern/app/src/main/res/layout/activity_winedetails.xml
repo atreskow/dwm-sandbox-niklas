@@ -7,7 +7,10 @@
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/toolbar_winedetails" />
+        layout="@layout/toolbar_winedetails"
+        android:layout_alignParentBottom="false"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <ProgressBar
         android:id="@+id/loadingPanel"
@@ -30,6 +33,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/toolbar_whitespace"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:text=""
