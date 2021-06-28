@@ -228,4 +228,7 @@
   <data name="Success_Text" xml:space="preserve">
     <value>Your data:</value>
   </data>
+  <data name="Index_Attention" xml:space="preserve">
+    <value>ATTENTION: This is only an indication of interest, you do not assume any contractual relationship with us.&lt;br/&gt;If you are interested in taking part, we will send you the contracts for the WEINmesse 2022 as soon as possible.</value>
+  </data>
 </root>

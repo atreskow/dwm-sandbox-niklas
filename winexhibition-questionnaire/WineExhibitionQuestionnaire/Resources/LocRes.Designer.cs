@@ -196,6 +196,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ACHTUNG: Hierbei handelt es sich lediglich um eine Interessensbekundung.&lt;/br&gt;Sie gehen mit Ihrer Interessenbekundung keinerlei Vertragsverhältnisse ein.&lt;br/&gt;Sollten Sie an einer Teilnahme interessiert sein, lassen wir Ihnen die Verträge für die WEINmesse 2022 zeitnah zukommen..
+        /// </summary>
+        public static string Index_Attention {
+            get {
+                return ResourceManager.GetString("Index_Attention", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Ihre Daten.
         /// </summary>
         public static string Index_Contact {
