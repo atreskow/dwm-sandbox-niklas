@@ -4,11 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Point;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -83,6 +87,37 @@ public class ViewHelper {
         activity.setSupportActionBar(actionBar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext()).getBoolean("toolbarBottom", false);
+        if (toolbarBottom) {
+            RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,  RelativeLayout.LayoutParams.WRAP_CONTENT);
+            params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+            actionBar.setLayoutParams(params);
+
+            TextView whitespace = activity.findViewById(R.id.toolbar_whitespace);
+            LinearLayout layout = activity.findViewById(R.id.mainLayout);
+            layout.removeView(whitespace);
+            layout.addView(whitespace, layout.getChildCount());
+        }
+    }
+
+    public static void ChangeSearchPosition(Activity activity) {
+        LinearLayout layout = activity.findViewById(R.id.mainLayout);
+
+        LinearLayout searchLayout = activity.findViewById(R.id.linearLayoutSearch);
+        layout.removeView(searchLayout);
+        layout.addView(searchLayout, layout.getChildCount()-1);
+
+        TextView txtViewBottom = activity.findViewById(R.id.txtViewBottom);
+        layout.removeView(txtViewBottom);
+        layout.addView(txtViewBottom, 0);
+    }
+
+    public static void ChangeDrawerGravity(Activity activity) {
+        LinearLayout sliderlayout = activity.findViewById(R.id.sliderLayout);
+        LinearLayout buttonLayout = activity.findViewById(R.id.btnResetLayout);
+        sliderlayout.removeView(buttonLayout);
+        sliderlayout.addView(buttonLayout);
     }
 
     public static LinearLayout CreateLinearLayout(Context context) {

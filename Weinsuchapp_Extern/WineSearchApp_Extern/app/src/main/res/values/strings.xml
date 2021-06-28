@@ -20,4 +20,8 @@
     <string name="no">False</string>
 
     <string name="language">en</string>
+
+    <string name="settings_darkmode">Darkmode enabled:</string>
+    <string name="settings_toolbar">Toolbar at bottom:</string>
+    <string name="settings_medal">Preview medal:</string>
 </resources>

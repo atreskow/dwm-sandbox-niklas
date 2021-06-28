@@ -1,7 +1,9 @@
 package com.dwm.winesearchapp_extern;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -10,6 +12,7 @@ import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -39,6 +42,7 @@ public class SearchActivity extends AppCompatActivity {
     private TextView _wineListSearchAmountTextView;
     private Button _searchButton;
     private Button _resetButton;
+    private ImageView _settingsImageView;
 
     private ActionBarDrawerToggle _actionBarDrawerToggle;
     private DrawerLayout _drawerLayout;
@@ -57,6 +61,12 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ViewHelper.SetupToolbar(this);
+
+        boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("toolbarBottom", false);
+        if (toolbarBottom) {
+            ViewHelper.ChangeSearchPosition(this);
+            ViewHelper.ChangeDrawerGravity(this);
+        }
 
         setupViews();
         setupActionBar();
@@ -84,6 +94,7 @@ public class SearchActivity extends AppCompatActivity {
         _expandableListView = findViewById(R.id.list_slidermenu);
         _wineListView = findViewById(R.id.wineList);
         _wineListSearchAmountTextView = findViewById(R.id.txtViewBottom);
+        _settingsImageView = findViewById(R.id.settings);
     }
 
     private void setupActionBar() {
@@ -103,9 +114,10 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private void setupListener() {
-        _searchButton.setOnClickListener(searchListener);
-        _resetButton.setOnClickListener(resetFilterListener);
-        _wineNameTextView.setOnEditorActionListener(searchEnterListener);
+        _searchButton.setOnClickListener(_searchListener);
+        _resetButton.setOnClickListener(_resetFilterListener);
+        _wineNameTextView.setOnEditorActionListener(_searchEnterListener);
+        _settingsImageView.setOnClickListener(_settingsListener);
 
         _wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
         _wineListView.setAdapter(_wineListAdapter);
@@ -220,20 +232,25 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    View.OnClickListener resetFilterListener = view -> {
+    private final View.OnClickListener _resetFilterListener = view -> {
         Session.SetFacetQueryGroups(new ArrayList<>());
         Session.SetWineName("");
         _wineNameTextView.setText("");
         StartNewWineSearch();
     };
 
-    View.OnClickListener searchListener = view -> {
+    private final View.OnClickListener _searchListener = view -> {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(_wineNameTextView.getWindowToken(), 0);
         StartNewWineSearch();
     };
 
-    TextView.OnEditorActionListener searchEnterListener = (v, actionId, event) -> {
+    private final View.OnClickListener _settingsListener = view -> {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    };
+
+    private final TextView.OnEditorActionListener _searchEnterListener = (v, actionId, event) -> {
         boolean handled = false;
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);

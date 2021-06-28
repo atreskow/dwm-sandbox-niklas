@@ -4,24 +4,38 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.stream.Collectors;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.viewpager.widget.ViewPager;
 
 public class WinedetailsActivity extends AppCompatActivity {
+
+    private BottleImagePagerAdapter _bottleImagePagerAdapter;
+    private HeightWrappingViewPager _viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winedetails);
         ViewHelper.SetupToolbar(this);
+        _viewPager = findViewById(R.id.imagePager);
 
         WineListItem wine = Session.GetSelectedListItem();
 
         addData(wine);
         new Thread(() ->  getImages(wine)).start();
+    }
+
+    @Override
+    public void onBackPressed() {
+        NavUtils.navigateUpFromSameTask(this);
     }
 
     private void getImages(WineListItem wine) {
@@ -35,12 +49,33 @@ public class WinedetailsActivity extends AppCompatActivity {
             runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setVisibility(View.GONE));
         }
 
-        for (String imageName : imageNames) {
-            Bitmap bottleImage = WineSearchServices.GetBottleImageType(wine, "big", "png", imageName);
-            if (imageName.endsWith("F")) {
-                runOnUiThread(() -> ((ImageView) findViewById(R.id.imageFront)).setImageBitmap(bottleImage));
+        if (imageNames.length != 0) {
+            Bitmap[] bottleImages = new Bitmap[2];
+            for (String imageName : imageNames) {
+                Bitmap bottleImage = WineSearchServices.GetBottleImageType(wine, "big", "png", imageName);
+                if (imageName.endsWith("F")) {
+                    bottleImages[0] = bottleImage;
+                }
+                else {
+                    bottleImages[1] = bottleImage;
+                }
             }
+            _bottleImagePagerAdapter = new BottleImagePagerAdapter(this, bottleImages);
+
+            runOnUiThread(() -> {
+                _viewPager.setAdapter(_bottleImagePagerAdapter);
+                _viewPager.measure(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+                TabLayout tabLayout = (TabLayout) findViewById(R.id.tabDots);
+                tabLayout.setupWithViewPager(_viewPager, true);
+            });
         }
+        else {
+            runOnUiThread(() -> {
+                findViewById(R.id.tabDots).setVisibility(View.GONE);
+                _viewPager.setVisibility(View.GONE);
+            });
+        }
+
     }
 
     private void addData(WineListItem wine) {
