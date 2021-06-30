@@ -29,6 +29,7 @@
             <th>Teilnahme</th>
             <th>Standgröße</th>
             <th>Erstellt am</th>
+            <th>Löschen</th>
         </tr>
     </thead>
     @if (Model.Count > 0)
@@ -44,6 +45,7 @@
                     <td>@(client.PARTICIPATE == 0 || client.PARTICIPATE == 1 ? "Ja" : "Nein")</td>
                     <td>@(client.PARTICIPATE == 0 ? "ähnlich letzter" : (client.PARTICIPATE == 1 ? client.STAND_SIZE.ToString() : ""))</td>
                     <td>@client.CREATED_AT.ToString("dd.MM.")</td>
+                    <td><input type="button" class="btn btn-primary" value="X" onclick="deleteEntry('@client.ID')" /></td>
                 </tr>
             }
         </tbody>
@@ -56,6 +58,7 @@
                 <th>Teilnahme</th>
                 <th>Standgröße</th>
                 <th>Erstellt am</th>
+                <th>Löschen</th>
             </tr>
         </tfoot>
     }
@@ -120,11 +123,20 @@
                     "next": "Nächste",
                     "previous": "Vorherige"
                 }
-            }            
+            }
         });
 
     });
-  
+
+    function deleteEntry(clientId) {
+        if (window.confirm("Möchtest du diesen Eintrag wirklich löschen?"))
+        {
+            var link = '@Url.Action("Delete", "Admin", new {id = "clientId"})';
+            link = link.replace("clientId", clientId);
+            window.location.href = link;
+        }
+    }
+
 </script>
 
 

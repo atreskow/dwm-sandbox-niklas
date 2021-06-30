@@ -234,4 +234,7 @@
   <data name="Index_Attention" xml:space="preserve">
     <value>ACHTUNG: Hierbei handelt es sich lediglich um eine Interessensbekundung.&lt;/br&gt;Sie gehen mit Ihrer Interessenbekundung keinerlei Vertragsverhältnisse ein.&lt;br/&gt;Sollten Sie an einer Teilnahme interessiert sein, lassen wir Ihnen die Verträge für die WEINmesse 2022 zeitnah zukommen.</value>
   </data>
+  <data name="Error_Size" xml:space="preserve">
+    <value>Die benötigte Mindestgröße beträgt 4 m²</value>
+  </data>
 </root>

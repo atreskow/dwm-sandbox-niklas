@@ -33,7 +33,8 @@ namespace WineExhibitionQuestionnaire.Controllers
 
         [HttpPost]
         public ActionResult Index(ExhibitorModel model)
-        {      
+        {
+            ViewData["language"] = model.lang;
 
             if (ModelState.IsValid)
             {
@@ -58,9 +59,7 @@ namespace WineExhibitionQuestionnaire.Controllers
 
                     ctx.SaveChanges();
 
-                    var lang = Thread.CurrentThread.CurrentUICulture.Name;
-
-                    return RedirectToAction("Success", new { orderId = entity.ID, language = lang });
+                    return RedirectToAction("Success", new { orderId = entity.ID, language = model.lang });
                 }
             }
 
@@ -82,7 +81,7 @@ namespace WineExhibitionQuestionnaire.Controllers
             }
         }
 
-        public void ChangeCulture(string countryCode)
+        public static void ChangeCulture(string countryCode)
         {
             CultureInfo culture = new CultureInfo(countryCode, true);
             culture.NumberFormat.NumberDecimalSeparator = ",";

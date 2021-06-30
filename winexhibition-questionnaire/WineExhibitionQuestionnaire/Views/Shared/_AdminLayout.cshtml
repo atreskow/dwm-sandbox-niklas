@@ -5,7 +5,6 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title></title>
-    @Styles.Render("~/Content/AdminLayout.css")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
@@ -33,10 +32,15 @@
         </div>
     </div>
 </div>
+
 <div class="container body-content">
     @RenderBody()
 </div>
-<div class="site-footer footer">
+
+<div style="margin-bottom:50px">
+</div>
+
+<div class="site-footer foooter">
     <div class="container no-print">
         <footer>
             <p>
@@ -48,8 +52,9 @@
     </div>
 </div>
 
+
 @Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
 </body>
 </html>

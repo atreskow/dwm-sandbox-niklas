@@ -492,13 +492,6 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EntityDeploy Include="DataProvider\ExhibitionDb.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ExhibitionDb.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="DataProvider\ExhibitionDb.edmx.diagram">
-      <DependentUpon>ExhibitionDb.edmx</DependentUpon>
-    </Content>
     <Content Include="Configuration\WebAppConfiguration.csd">
       <Generator>CsdFileGenerator</Generator>
       <LastGenOutput>WebAppConfiguration.csd.cs</LastGenOutput>
@@ -513,6 +506,13 @@
       <DependentUpon>WebAppConfiguration.csd</DependentUpon>
       <SubType>Designer</SubType>
     </None>
+    <EntityDeploy Include="DataProvider\ExhibitionDb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ExhibitionDb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DataProvider\ExhibitionDb.edmx.diagram">
+      <DependentUpon>ExhibitionDb.edmx</DependentUpon>
+    </Content>
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\Local.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />

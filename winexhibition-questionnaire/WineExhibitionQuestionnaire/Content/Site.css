@@ -1,12 +1,12 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+}
+
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -25,6 +25,14 @@ textarea {
 
 .padding-top-20 {
     padding-top: 20px;
+}
+
+.foooter {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    overflow:hidden;
 }
 
 

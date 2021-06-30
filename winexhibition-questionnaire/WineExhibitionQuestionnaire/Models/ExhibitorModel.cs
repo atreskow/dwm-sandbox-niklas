@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.Threading;
+using System.Web;
+using WineExhibitionQuestionnaire.Controllers;
 
 namespace WineExhibitionQuestionnaire.Models
 {
@@ -24,9 +26,18 @@ namespace WineExhibitionQuestionnaire.Models
 
         public int Size { get; set; }
 
+        public string lang { get; set; }
+
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
             var result = new List<ValidationResult>();
+
+            QuestionnaireController.ChangeCulture(lang);
+
+            if (Participate == 1 && Size < 4)
+            {
+                result.Add(new ValidationResult(@Resources.LocRes.Error_Size, new List<string>() { "TooSmallSize" }));
+            }
 
             return result;
         }

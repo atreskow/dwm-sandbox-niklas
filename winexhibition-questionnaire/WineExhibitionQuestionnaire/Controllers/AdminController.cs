@@ -40,6 +40,19 @@ namespace WineExhibitionQuestionnaire.Controllers
                 return File(new MemoryStream(Encoding.Unicode.GetBytes(result)), "text/csv", "Vorbestellungen.csv");
             }
         }
-        
+
+        public ActionResult Delete(Guid id)
+        {
+            using (var ctx = new WineExhibitionQuestionnaireEntities())
+            {
+                var entry = ctx.CLIENT_DATA.First(x => x.ID == id);
+
+                ctx.CLIENT_DATA.Remove(entry);
+                ctx.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+        }
+
     }
 }

@@ -6,10 +6,13 @@
 <h2>@Resources.LocRes.Index_Header</h2>
 <h4>@Resources.LocRes.Date</h4>
 
+
+
 @using (Html.BeginForm("Index", "Questionnaire", FormMethod.Post))
 {
     <h3>@Resources.LocRes.Index_Contact</h3>
     <br />
+    <input type="hidden" id="lang" name="lang" value="@ViewData["language"]">
     <div class="form-group row">
         <label for="CompanyName" class="col-sm-3 col-form-label">@Resources.LocRes.CompanyName<span class="required-marker">*</span></label>
         <div class="col-sm-3">
@@ -38,15 +41,17 @@
         <label class="col-sm-3 col-form-label" for="Participate">@Resources.LocRes.Participate</label>
         <div class="col-sm-8">
             <p>
-                <input type="radio" name="Participate" value="0" checked> @Resources.LocRes.Answer_Yes
+                <input type="radio" name="Participate" value="0" @(Model.Participate == 0 ? "checked" : "")> @Resources.LocRes.Answer_Yes
             </p>
             <p class="form-inline input-group">
-                <input for="Size" type="radio" name="Participate" value="1"> @Resources.LocRes.Answer_Yes_But 
-                <input type="number" id="sizeinput" class="form-control" style="margin-left: 10px;  width: 12%" name="Size" value="@Model.Size" disabled> 
-                <label for="Size" style="margin-left: 10px; margin-top: 15px">m²</label>
+                <input for="Size" type="radio" name="Participate" value="1"  @(Model.Participate == 1 ? "checked" : "")> @Resources.LocRes.Answer_Yes_But 
+                <input type="number" id="sizeinput" class="form-control" style="margin-left: 10px;  width: 12%" name="Size" value="@Model.Size"  @(Model.Participate != 1 ? "disabled" : "")> 
+                <label for="Size" style="margin-left: 10px; margin-top: 15px">m²</label> 
             </p>
+            @Html.ValidationMessage("TooSmallSize", "", new { @class = "text-danger" })
+            
             <p >
-                <input type="radio" name="Participate" value="2" style="margin-top: 10px"> @Resources.LocRes.Answer_No
+                <input type="radio" name="Participate" value="2" style="margin-top: 10px"  @(Model.Participate == 2 ? "checked" : "")> @Resources.LocRes.Answer_No
             </p>
         </div>
     </div>

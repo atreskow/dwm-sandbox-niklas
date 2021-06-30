@@ -187,6 +187,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Die benötigte Mindestgröße beträgt 4 m².
+        /// </summary>
+        public static string Error_Size {
+            get {
+                return ResourceManager.GetString("Error_Size", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Vorname.
         /// </summary>
         public static string FirstName {
