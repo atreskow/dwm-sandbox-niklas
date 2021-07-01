@@ -35,7 +35,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         _darkmodeCheckbox.setChecked(_sharedPref.getBoolean("darkmodeEnabled", false));
         _toolbarCheckbox.setChecked(_sharedPref.getBoolean("toolbarBottom", false));
-        _medalCheckbox.setChecked(_sharedPref.getBoolean("medalPreview", false));
+        _medalCheckbox.setChecked(_sharedPref.getBoolean("medalPreview", true));
 
         _darkmodeCheckbox.setOnCheckedChangeListener(_darkmodeListener);
         _toolbarCheckbox.setOnCheckedChangeListener(_toolbarListener);

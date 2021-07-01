@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,8 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
                 }
             }
 
-            if (Utils.HasAward(wineListItem.Ranking)) {
+            boolean medalEnabled = PreferenceManager.getDefaultSharedPreferences(_context.getApplicationContext()).getBoolean("medalPreview", true);
+            if (Utils.HasAward(wineListItem.Ranking) && medalEnabled) {
                 Bitmap medalImage = WineSearchServices.GetMedalImage(wineListItem.TrophyCode, wineListItem.Ranking);
                 ((Activity) _context).runOnUiThread(() -> {
                         ((ImageView) view.findViewById(R.id.imageMedal)).setImageBitmap(medalImage);

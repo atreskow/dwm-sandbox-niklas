@@ -121,6 +121,9 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
         if (containsChecked(groupPosition)) {
             lblListHeader.setTextColor(_activity.getResources().getColor(R.color.buttonPrimary, null));
         }
+        else {
+            lblListHeader.setTextColor(_activity.getResources().getColor(R.color.textPrimary, null));
+        }
 
         return convertView;
     }

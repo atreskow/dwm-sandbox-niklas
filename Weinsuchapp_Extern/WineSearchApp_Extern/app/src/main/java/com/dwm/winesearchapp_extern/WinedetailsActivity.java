@@ -105,5 +105,10 @@ public class WinedetailsActivity extends AppCompatActivity {
         String varietalText = wine.Varietal.size() > 1 ? getResources().getString(R.string.varietals) : getResources().getString(R.string.varietal);
         ViewHelper.SetValue(R.id.txtVarietal, varietalText, this);
         ViewHelper.SetValue(R.id.txtVarietal_value, wine.Varietal.stream().collect(Collectors.joining(", ")),this);
+
+        if (wine.Region == null || wine.Region.isEmpty()) {
+            findViewById(R.id.txtRegion).setVisibility(View.GONE);
+            findViewById(R.id.txtRegion_value).setVisibility(View.GONE);
+        }
     }
 }
