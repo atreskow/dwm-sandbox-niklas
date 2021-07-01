@@ -83,6 +83,11 @@ namespace WineExhibitionQuestionnaire.Controllers
 
         public static void ChangeCulture(string countryCode)
         {
+            if (countryCode == null)
+            {
+                return;
+            }
+
             CultureInfo culture = new CultureInfo(countryCode, true);
             culture.NumberFormat.NumberDecimalSeparator = ",";
             Thread.CurrentThread.CurrentCulture = culture;

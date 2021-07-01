@@ -32,7 +32,10 @@ namespace WineExhibitionQuestionnaire.Models
         {
             var result = new List<ValidationResult>();
 
-            QuestionnaireController.ChangeCulture(lang);
+            if (lang != null)
+            {
+                QuestionnaireController.ChangeCulture(lang);
+            }
 
             if (Participate == 1 && Size < 4)
             {
