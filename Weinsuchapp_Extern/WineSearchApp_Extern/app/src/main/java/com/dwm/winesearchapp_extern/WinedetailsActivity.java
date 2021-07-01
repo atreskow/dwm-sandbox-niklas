@@ -1,14 +1,22 @@
 package com.dwm.winesearchapp_extern;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 
 import com.google.android.material.tabs.TabLayout;
 
+import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,16 +27,40 @@ public class WinedetailsActivity extends AppCompatActivity {
 
     private BottleImagePagerAdapter _bottleImagePagerAdapter;
     private HeightWrappingViewPager _viewPager;
+    private LinearLayout _descriptionLayout;
+
+    private TextView _descriptionHeader;
+    private TextView _producerHeader;
+    private TextView _wineRegionHeader;
+    private TextView _grapeInformationHeader;
+    private TextView _availabilityHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winedetails);
         ViewHelper.SetupToolbar(this);
+
         _viewPager = findViewById(R.id.imagePager);
+        _descriptionLayout = findViewById(R.id.descriptionLayout);
+
+        _descriptionHeader = findViewById(R.id.descriptionHeader);
+        _descriptionHeader.setOnClickListener(_descriptionListener);
+
+        _producerHeader = findViewById(R.id.producerHeader);
+        _producerHeader.setOnClickListener(_producerListener);
+
+        _wineRegionHeader = findViewById(R.id.wineRegionHeader);
+        _wineRegionHeader.setOnClickListener(_wineRegionListener);
+
+        _grapeInformationHeader = findViewById(R.id.grapeInformationHeader);
+        _grapeInformationHeader.setOnClickListener(_grapeInformationListener);
+
+        _availabilityHeader = findViewById(R.id.availabilityHeader);
+        _availabilityHeader.setOnClickListener(_availabilityListener);
 
         WineListItem wine = Session.GetSelectedListItem();
-
+        setDescriptionAreaWidth();
         addData(wine);
         new Thread(() ->  getImages(wine)).start();
     }
@@ -109,6 +141,62 @@ public class WinedetailsActivity extends AppCompatActivity {
         if (wine.Region == null || wine.Region.isEmpty()) {
             findViewById(R.id.txtRegion).setVisibility(View.GONE);
             findViewById(R.id.txtRegion_value).setVisibility(View.GONE);
+        }
+    }
+
+    private void setDescriptionAreaWidth() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int areaWidth = (int) (displayMetrics.widthPixels * 0.95);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(areaWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER;
+        params.bottomMargin = 20;
+        _descriptionLayout.setLayoutParams(params);
+    }
+
+    private final View.OnClickListener _descriptionListener = view -> {
+        openCloseDescription(R.id.descriptionHeader, R.id.descriptionText);
+    };
+
+    private final View.OnClickListener _producerListener = view -> {
+        openCloseDescription(R.id.producerHeader, R.id.producerText);
+    };
+
+    private final View.OnClickListener _wineRegionListener = view -> {
+        openCloseDescription(R.id.wineRegionHeader, R.id.wineRegionText);
+    };
+
+    private final View.OnClickListener _grapeInformationListener = view -> {
+        openCloseDescription(R.id.grapeInformationHeader, R.id.grapeInformationText);
+    };
+
+    private final View.OnClickListener _availabilityListener = view -> {
+        openCloseDescription(R.id.availabilityHeader, R.id.availabilityText);
+    };
+
+    private void openCloseDescription(int headerRes, int textRes) {
+        _descriptionHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
+        _producerHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
+        _wineRegionHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
+        _grapeInformationHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
+        _availabilityHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
+
+        findViewById(R.id.descriptionText).setVisibility(View.GONE);
+        findViewById(R.id.producerText).setVisibility(View.GONE);
+        findViewById(R.id.wineRegionText).setVisibility(View.GONE);
+        findViewById(R.id.grapeInformationText).setVisibility(View.GONE);
+        findViewById(R.id.availabilityText).setVisibility(View.GONE);
+
+        TextView header = findViewById(headerRes);
+        TextView text = findViewById(textRes);
+
+        if (text.getVisibility() == View.GONE) {
+            text.setVisibility(View.VISIBLE);
+            header.setTextColor(getResources().getColor(R.color.buttonPrimary, null));
+        }
+        else {
+            text.setVisibility(View.GONE);
+            header.setTextColor(getResources().getColor(R.color.textPrimary, null));
         }
     }
 }

@@ -34,7 +34,7 @@ public class HeightWrappingViewPager extends ViewPager {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int deviceHeight = displayMetrics.heightPixels - actionBarHeight;
-        int deviceWidth = displayMetrics.widthPixels - actionBarHeight;
+        int deviceWidth = displayMetrics.widthPixels;
 
         // Unspecified means that the ViewPager is in a ScrollView WRAP_CONTENT.
         // At Most means that the ViewPager is not in a ScrollView WRAP_CONTENT.

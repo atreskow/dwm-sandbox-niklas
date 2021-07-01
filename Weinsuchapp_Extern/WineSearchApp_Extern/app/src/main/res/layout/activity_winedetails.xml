@@ -525,6 +525,135 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/whitespaceMid"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:text=""
+                android:textAlignment="center" />
+
+            <LinearLayout
+                android:id="@+id/descriptionLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/descriptionHeader"
+                    android:text="@string/descriptionHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/buttonPrimary"/>
+
+                <TextView
+                    android:id="@+id/descriptionText"
+                    android:text="@string/loremipsum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:visibility="visible"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/producerHeader"
+                    android:text="@string/producerHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:textStyle="bold"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/textPrimary"/>
+
+                <TextView
+                    android:id="@+id/producerText"
+                    android:text="@string/loremipsum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:visibility="gone"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/wineRegionHeader"
+                    android:text="@string/wineRegionHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/textPrimary"/>
+
+                <TextView
+                    android:id="@+id/wineRegionText"
+                    android:text="@string/loremipsum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:visibility="gone"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/grapeInformationHeader"
+                    android:text="@string/grapeInformationHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/textPrimary"/>
+
+                <TextView
+                    android:id="@+id/grapeInformationText"
+                    android:text="@string/loremipsum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:visibility="gone"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/availabilityHeader"
+                    android:text="@string/availabilityHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:textStyle="bold"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/textPrimary"/>
+
+                <TextView
+                    android:id="@+id/availabilityText"
+                    android:text="@string/loremipsum"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15px"
+                    android:visibility="gone"
+                    android:background="@drawable/back"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+            </LinearLayout>
+
         </LinearLayout>
 
     </ScrollView>
