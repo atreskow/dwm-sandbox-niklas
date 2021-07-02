@@ -36,6 +36,8 @@ public class WineListItem {
         Sugar = data.Sugar;
         Sulfur = data.Sulfur;
         Organic = data.Organic;
+
+        WineLink = data.Link;
     }
 
     public UUID Id;
@@ -63,4 +65,6 @@ public class WineListItem {
     public float Sugar;
     public float Sulfur;
     public boolean Organic;
+
+    public String WineLink;
 }

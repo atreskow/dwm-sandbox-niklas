@@ -4,6 +4,8 @@
     <color name="colorPrimaryDark">#555555</color>
     <color name="buttonPrimary">#CF0038</color>
     <color name="toolbarPrimary">#222222</color>
+    <color name="toolbarPrimaryDark">#222222</color>
     <color name="buttonTextPrimary">#ffffff</color>
     <color name="textPrimary">#000000</color>
+    <color name="textPrimaryDark">#ffffff</color>
 </resources>

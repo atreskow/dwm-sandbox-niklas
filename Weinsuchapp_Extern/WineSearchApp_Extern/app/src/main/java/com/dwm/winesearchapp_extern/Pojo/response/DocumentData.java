@@ -130,7 +130,7 @@ public class DocumentData {
     public String WineshootName;
 
     @SerializedName("LinkId")
-    public String Code;
+    public String Link;
 
     @SerializedName("IsAction")
     public boolean ActionWine;

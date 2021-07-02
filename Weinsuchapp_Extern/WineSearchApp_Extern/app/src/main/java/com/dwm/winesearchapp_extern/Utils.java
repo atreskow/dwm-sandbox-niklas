@@ -19,6 +19,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Utils {
 
@@ -99,5 +100,10 @@ public class Utils {
 
     public static boolean IsBlacklistedFacet(String facetName) {
         return Constants.FacetBlacklist.contains(facetName);
+    }
+
+    public static String GetWineLink(String wineLink) {
+        String lang = Locale.getDefault().getLanguage();
+        return Constants.WINE_LINK.replace("{language}", lang) + wineLink;
     }
 }

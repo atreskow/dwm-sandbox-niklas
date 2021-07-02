@@ -3,8 +3,11 @@ package com.dwm.winesearchapp_extern.Pojo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class Constants {
+
+    public static final String WINE_LINK = "https://results.wine-trophy.com/{language}/wine/";
 
     public static final List<String> FacetValues = new ArrayList<>(Arrays.asList(
             "trophy_name",

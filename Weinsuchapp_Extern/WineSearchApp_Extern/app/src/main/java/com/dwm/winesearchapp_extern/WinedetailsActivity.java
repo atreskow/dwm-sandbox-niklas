@@ -1,12 +1,15 @@
 package com.dwm.winesearchapp_extern;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ public class WinedetailsActivity extends AppCompatActivity {
     private TextView _grapeInformationHeader;
     private TextView _availabilityHeader;
 
+    private Button _shareButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +64,12 @@ public class WinedetailsActivity extends AppCompatActivity {
         _availabilityHeader = findViewById(R.id.availabilityHeader);
         _availabilityHeader.setOnClickListener(_availabilityListener);
 
+        _shareButton = findViewById(R.id.btnShare);
+        _shareButton.setOnClickListener(_shareButtonListener);
+
         WineListItem wine = Session.GetSelectedListItem();
-        setDescriptionAreaWidth();
         addData(wine);
+
         new Thread(() ->  getImages(wine)).start();
     }
 
@@ -144,16 +152,6 @@ public class WinedetailsActivity extends AppCompatActivity {
         }
     }
 
-    private void setDescriptionAreaWidth() {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int areaWidth = (int) (displayMetrics.widthPixels * 0.95);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(areaWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER;
-        params.bottomMargin = 20;
-        _descriptionLayout.setLayoutParams(params);
-    }
-
     private final View.OnClickListener _descriptionListener = view -> {
         openCloseDescription(R.id.descriptionHeader, R.id.descriptionText);
     };
@@ -172,6 +170,14 @@ public class WinedetailsActivity extends AppCompatActivity {
 
     private final View.OnClickListener _availabilityListener = view -> {
         openCloseDescription(R.id.availabilityHeader, R.id.availabilityText);
+    };
+
+    private final View.OnClickListener _shareButtonListener = view -> {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, Utils.GetWineLink(Session.GetSelectedListItem().WineLink));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getString(R.string.share)));
     };
 
     private void openCloseDescription(int headerRes, int textRes) {
