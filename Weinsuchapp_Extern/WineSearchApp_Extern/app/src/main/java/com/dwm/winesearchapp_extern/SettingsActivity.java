@@ -23,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewHelper.SetTheme(this);
         setContentView(R.layout.activity_settings);
         ViewHelper.SetupToolbar(this);
 

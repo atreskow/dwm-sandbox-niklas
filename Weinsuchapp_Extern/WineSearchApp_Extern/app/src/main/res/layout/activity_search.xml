@@ -8,7 +8,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:backgroundTint="@color/colorPrimary"
+        android:backgroundTint="?attr/bgColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,7 +23,7 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="?attr/bgColor"
             android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="?attr/bgColor"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
                 android:orientation="horizontal"
@@ -60,6 +60,8 @@
                     android:imeOptions="actionDone"
                     android:inputType="text"
                     android:text=""
+                    app:backgroundTint="?attr/textColor"
+                    android:textColor="?attr/textColor"
                     android:textAlignment="center" />
 
                 <Button
@@ -82,7 +84,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:layout_gravity="start"
-                android:background="@color/colorPrimary"
+                android:background="?attr/bgColor"
                 android:choiceMode="singleChoice"
                 android:dividerHeight="0dp">
             </ListView>
@@ -98,6 +100,7 @@
                 android:layout_gravity="center"
                 android:gravity="end"
                 android:padding="5dp"
+                android:textColor="?attr/textColor"
                 android:textAppearance="?android:attr/textAppearanceListItemSmall" />
 
         </LinearLayout>
@@ -118,7 +121,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/colorPrimary"
+        android:background="?attr/bgColor"
         android:layout_gravity="start">
 
         <LinearLayout
@@ -126,7 +129,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="@color/colorPrimary"
+            android:background="?attr/bgColor"
             android:layout_gravity="start">
 
             <View android:layout_width="fill_parent"
@@ -157,7 +160,7 @@
             android:layout_weight="0.1"
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
-            android:background="@color/colorPrimary"
+            android:background="?attr/bgColor"
             android:dividerHeight="0dp"/>
 
     </LinearLayout>

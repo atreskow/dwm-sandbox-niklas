@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#555555</color>
+    <color name="colorSecondary">#dddddd</color>
+    <color name="colorPrimaryDark">#444444</color>
+    <color name="colorSecondaryDark">#666666</color>
     <color name="buttonPrimary">#CF0038</color>
     <color name="toolbarPrimary">#222222</color>
     <color name="toolbarPrimaryDark">#222222</color>

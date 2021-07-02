@@ -101,6 +101,11 @@ public class ViewHelper {
         }
     }
 
+    public static void SetTheme(Activity activity) {
+        boolean darkmodeEnabled = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext()).getBoolean("darkmodeEnabled", false);
+        activity.setTheme(darkmodeEnabled ? R.style.DarkTheme : R.style.LightTheme);
+    }
+
     public static void ChangeSearchPosition(Activity activity) {
         LinearLayout layout = activity.findViewById(R.id.mainLayout);
 

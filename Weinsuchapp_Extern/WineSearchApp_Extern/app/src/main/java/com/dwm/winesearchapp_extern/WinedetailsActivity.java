@@ -3,6 +3,7 @@ package com.dwm.winesearchapp_extern;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
+import com.google.android.material.color.MaterialColors;
 import com.google.android.material.tabs.TabLayout;
 
 import org.w3c.dom.Text;
@@ -43,6 +45,7 @@ public class WinedetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewHelper.SetTheme(this);
         setContentView(R.layout.activity_winedetails);
         ViewHelper.SetupToolbar(this);
 
@@ -89,7 +92,7 @@ public class WinedetailsActivity extends AppCompatActivity {
             runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setVisibility(View.GONE));
         }
 
-        if (imageNames.length != 0) {
+        if (imageNames != null && imageNames.length != 0) {
             Bitmap[] bottleImages = new Bitmap[2];
             for (String imageName : imageNames) {
                 Bitmap bottleImage = WineSearchServices.GetBottleImageType(wine, "big", "png", imageName);
@@ -181,11 +184,11 @@ public class WinedetailsActivity extends AppCompatActivity {
     };
 
     private void openCloseDescription(int headerRes, int textRes) {
-        _descriptionHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
-        _producerHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
-        _wineRegionHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
-        _grapeInformationHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
-        _availabilityHeader.setTextColor(getResources().getColor(R.color.textPrimary, null));
+        _descriptionHeader.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
+        _producerHeader.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
+        _wineRegionHeader.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
+        _grapeInformationHeader.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
+        _availabilityHeader.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
 
         findViewById(R.id.descriptionText).setVisibility(View.GONE);
         findViewById(R.id.producerText).setVisibility(View.GONE);
@@ -202,7 +205,7 @@ public class WinedetailsActivity extends AppCompatActivity {
         }
         else {
             text.setVisibility(View.GONE);
-            header.setTextColor(getResources().getColor(R.color.textPrimary, null));
+            header.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
         }
     }
 }

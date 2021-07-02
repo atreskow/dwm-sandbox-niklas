@@ -11,12 +11,16 @@
     <style name="LightTheme" parent="AppTheme">
         <item name="textColor">@color/textPrimary</item>
         <item name="bgColor">@color/colorPrimary</item>
+        <item name="bgColor2">@color/colorSecondary</item>
         <item name="toolbarColor">@color/toolbarPrimary</item>
     </style>
 
     <style name="DarkTheme" parent="AppTheme">
         <item name="textColor">@color/textPrimaryDark</item>
         <item name="bgColor">@color/colorPrimaryDark</item>
+        <item name="bgColor2">@color/colorSecondaryDark</item>
         <item name="toolbarColor">@color/toolbarPrimaryDark</item>
+        <item name="android:textColorHint">@color/colorSecondary</item>
+        <item name="android:buttonTint">@color/textPrimaryDark</item>
     </style>
 </resources>

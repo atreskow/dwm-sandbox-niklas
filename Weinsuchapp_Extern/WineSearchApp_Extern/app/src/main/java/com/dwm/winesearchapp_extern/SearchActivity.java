@@ -59,6 +59,7 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewHelper.SetTheme(this);
         setContentView(R.layout.activity_search);
         ViewHelper.SetupToolbar(this);
 

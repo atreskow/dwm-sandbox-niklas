@@ -2,6 +2,7 @@ package com.dwm.winesearchapp_extern;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
+import com.google.android.material.color.MaterialColors;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -122,7 +124,7 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
             lblListHeader.setTextColor(_activity.getResources().getColor(R.color.buttonPrimary, null));
         }
         else {
-            lblListHeader.setTextColor(_activity.getResources().getColor(R.color.textPrimary, null));
+            lblListHeader.setTextColor(MaterialColors.getColor(_activity, R.attr.textColor, Color.BLACK));
         }
 
         return convertView;

@@ -5,12 +5,14 @@
     android:background="?android:attr/activatedBackgroundIndicator"
     android:minHeight="?android:attr/listPreferredItemHeightSmall"
     android:clickable="true"
+    android:backgroundTint="?attr/bgColor"
     android:padding ="10dp">
 
     <CheckBox
         android:id="@+id/navDrawerCheckBox"
         android:clickable="false"
         android:layout_width="wrap_content"
+        android:textColor="?attr/textColor"
         android:layout_height="wrap_content"/>
 
     <TextView
@@ -19,6 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/navDrawerCheckBox"
+        android:textColor="?attr/textColor"
         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
 </LinearLayout>

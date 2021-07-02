@@ -8,7 +8,7 @@
     android:minHeight="?attr/actionBarSize"
     android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
     android:elevation="4dp"
-    android:backgroundTint="@color/toolbarPrimary"
+    android:backgroundTint="?attr/toolbarColor"
     app:theme="@style/ToolbarColoredBackArrow"
     app:popupTheme="@style/ThemeOverlay.AppCompat.Light" >
 
