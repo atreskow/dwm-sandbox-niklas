@@ -2,6 +2,7 @@ package com.dwm.winesearchapp_extern;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -149,6 +150,11 @@ public class SearchActivity extends AppCompatActivity {
 
         new Thread(() ->  {
             WineData data = addWines();
+            if (data == null) {
+                ViewHelper.ShowToast(this, getResources().getString(R.string.internet_error));
+                ViewHelper.ToggleLoadingAnimation(this, View.GONE);
+                return;
+            }
             addFacetsToSidebar(data.ExtendedFacets);
         }).start();
     }
@@ -161,6 +167,10 @@ public class SearchActivity extends AppCompatActivity {
         OptionData optionData = Utils.GenerateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
         WineData wineData = WineSearchServices.GetWineData(getResources().getString(R.string.language), wineSearchData);
+
+        if (wineData == null) {
+            return null;
+        }
 
         List<Hit> wineDataList = wineData.SearchResult.Hits;
         _facetChildList = new ArrayList<>();
