@@ -76,7 +76,7 @@
 
             <View android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+                android:background="?attr/dividerColor" />
 
             <ListView
                 android:id="@+id/wineList"
@@ -86,12 +86,13 @@
                 android:layout_gravity="start"
                 android:background="?attr/bgColor"
                 android:choiceMode="singleChoice"
-                android:dividerHeight="0dp">
+                android:dividerHeight="1dp"
+                android:divider="?attr/dividerColor">
             </ListView>
 
             <View android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+                android:background="?attr/dividerColor" />
 
             <TextView
                 android:id="@+id/txtViewBottom"
@@ -134,7 +135,7 @@
 
             <View android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/listDivider"/>
+                android:background="?attr/dividerColor"/>
 
             <Button
                 android:id="@+id/btnReset"
@@ -149,7 +150,7 @@
 
             <View android:layout_width="fill_parent"
                 android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
+                android:background="?attr/dividerColor" />
 
         </LinearLayout>
 
@@ -161,7 +162,9 @@
             android:layout_gravity="start"
             android:choiceMode="singleChoice"
             android:background="?attr/bgColor"
-            android:dividerHeight="0dp"/>
+            android:dividerHeight="1dp"
+            android:divider="?attr/dividerColor"
+            android:childDivider="?attr/dividerColor"/>
 
     </LinearLayout>
 
