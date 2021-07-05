@@ -51,6 +51,7 @@ public class SettingsActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
         getApplicationContext().startActivity(i);
         ViewHelper.finish(this);
+        overridePendingTransition(0, 0);
     }
 
     private final CompoundButton.OnCheckedChangeListener _darkmodeListener = (radioGroup, isChecked) -> {
