@@ -5,10 +5,10 @@ import java.util.List;
 public class QueryObjData {
 
     public QueryObjData(List<String> queryTokens, List<FacetQueryGroup> facetQueryGroup) {
-        QueryTokens = queryTokens;
-        FacetQueryGroups = facetQueryGroup;
+        this.queryTokens = queryTokens;
+        facetQueryGroups = facetQueryGroup;
     }
 
-    public List<String> QueryTokens;
-    public List<FacetQueryGroup> FacetQueryGroups;
+    public List<String> queryTokens;
+    public List<FacetQueryGroup> facetQueryGroups;
 }

@@ -7,262 +7,257 @@ import java.util.UUID;
 
 public class DocumentData {
     @SerializedName("Id")
-    public UUID Id;
+    public UUID id;
 
     @SerializedName("WineName")
-    public String Name;
-
-    @SerializedName("AdditionalInfo")
-    public String AdditionalInfo;
-
-    @SerializedName("ArticleNumber")
-    public String ArticleNumber;
+    public String name;
 
     @SerializedName("WineVintage")
-    public String Year;
+    public String year;
 
     @SerializedName("CultivationCountry")
-    public String Country;
+    public String country;
 
     @SerializedName("CultivationRegion")
-    public String Area;
+    public String area;
 
     @SerializedName("CultivationRegionLocation")
-    public String Region;
+    public String region;
 
     @SerializedName("WineCategory")
-    public String WineCategory;
+    public String wineCategory;
 
     @SerializedName("WineFlavour")
-    public String Flavour;
+    public String flavour;
 
     @SerializedName("WineQualityLevel")
-    public String Quality;
+    public String quality;
 
     @SerializedName("WineType")
-    public String Type;
+    public String type;
 
     @SerializedName("WineVinification")
-    public String Vinification;
+    public String vinification;
 
     @SerializedName("BottleVolume")
-    public String BottleVolume;
+    public String bottleVolume;
 
     @SerializedName("IsBio")
-    public boolean Organic;
+    public boolean organic;
 
     @SerializedName("Unfiltered")
-    public boolean Unfiltered;
+    public boolean unfiltered;
 
     @SerializedName("BarrelSample")
-    public boolean BarrelSample;
+    public boolean barrelSample;
 
     @SerializedName("ResidualSugar")
-    public float Sugar;
+    public float sugar;
 
     @SerializedName("AlcoholContent")
-    public float Alcohol;
+    public float alcohol;
 
     @SerializedName("Acidity")
-    public float Acidity;
+    public float acidity;
 
     @SerializedName("TotalSulphur")
-    public float Sulfur;
+    public float sulfur;
 
     @SerializedName("RelativeDensity")
-    public float Density;
+    public float density;
 
     @SerializedName("CarbonDioxide")
-    public float Carbondioxide;
+    public float carbondioxide;
 
     @SerializedName("AmountBottles")
-    public int BottleAmount;
+    public int bottleAmount;
 
     @SerializedName("AmountLitres")
-    public int LiterAmount;
+    public int literAmount;
 
     @SerializedName("RetailPrice")
-    public float Price;
+    public float price;
 
     @SerializedName("Lotnumber")
-    public String Lotnumber;
+    public String lotnumber;
 
     @SerializedName("SubmitterCompany")
-    public String PresenterCompany;
+    public String presenterCompany;
 
     @SerializedName("CustomerCompany")
-    public String ClientCompany;
+    public String clientCompany;
 
     @SerializedName("ProducerCompany")
-    public String ProducerCompany;
+    public String producerCompany;
 
     @SerializedName("ImporterCompany")
-    public String ImportCompany;
+    public String importCompany;
 
     @SerializedName("CustomerIdent")
-    public int ClientNumber;
+    public int clientNumber;
 
     @SerializedName("StorageNumber")
-    public int StorageNumber;
+    public int storageNumber;
 
     @SerializedName("TrophyIdent")
-    public String TrophyCode;
+    public String trophyCode;
 
     @SerializedName("TrophyYear")
-    public int TrophyYear;
+    public int trophyYear;
 
     @SerializedName("TrophyName")
-    public String TrophyName;
+    public String trophyName;
 
     @SerializedName("TrophyEdition")
-    public String TrophyEdition;
+    public String trophyEdition;
 
     @SerializedName("MedalRank")
-    public int Ranking;
+    public int ranking;
 
     @SerializedName("MedalName")
-    public String MedalName;
+    public String medalName;
 
     @SerializedName("Award")
-    public String Award;
+    public String award;
 
     @SerializedName("WineshootName")
-    public String WineshootName;
+    public String wineshootName;
 
     @SerializedName("LinkId")
-    public String Link;
+    public String link;
 
     @SerializedName("IsAction")
-    public boolean ActionWine;
+    public boolean actionWine;
 
     @SerializedName("IsTrademark")
-    public boolean IsTrademark;
+    public boolean isTrademark;
 
     @SerializedName("Published")
-    public boolean Published;
+    public boolean published;
 
     @SerializedName("IsPublishedForPublic")
-    public boolean IsPublishedForPublic;
+    public boolean isPublishedForPublic;
 
     @SerializedName("PublishDate")
-    public boolean PublishDate;
+    public boolean publishDate;
+
     @SerializedName("SubmitterStreet")
-    public String SubmitterStreet;
+    public String submitterStreet;
 
     @SerializedName("CustomerStreet")
-    public String CustomerStreet;
+    public String customerStreet;
 
     @SerializedName("ProducerStreet")
-    public String ProducerStreet;
+    public String producerStreet;
 
     @SerializedName("ImporterStreet")
-    public String ImporterStreet;
+    public String importerStreet;
 
     @SerializedName("SubmitterZipCode")
-    public String SubmitterZipCode;
+    public String submitterZipCode;
 
     @SerializedName("CustomerZipCode")
-    public String CustomerZipCode;
+    public String customerZipCode;
 
     @SerializedName("ProducerZipCode")
-    public String ProducerZipCode;
+    public String producerZipCode;
 
     @SerializedName("ImporterZipCode")
-    public String ImporterZipCode;
+    public String importerZipCode;
 
     @SerializedName("SubmitterCity")
-    public String SubmitterCity;
+    public String submitterCity;
 
     @SerializedName("CustomerCity")
-    public String CustomerCity;
+    public String customerCity;
 
     @SerializedName("ProducerCity")
-    public String ProducerCity;
+    public String producerCity;
 
     @SerializedName("ImporterCity")
-    public String ImporterCity;
+    public String importerCity;
 
     @SerializedName("SubmitterCountry")
-    public String SubmitterCountry;
+    public String submitterCountry;
 
     @SerializedName("CustomerCountry")
-    public String CustomerCountry;
+    public String customerCountry;
 
     @SerializedName("ProducerCountry")
-    public String ProducerCountry;
+    public String producerCountry;
 
     @SerializedName("ImporterCountry")
-    public String ImporterCountry;
+    public String importerCountry;
 
     @SerializedName("SubmitterEMail")
-    public String SubmitterEMail;
+    public String submitterEMail;
 
     @SerializedName("CustomerEMail")
-    public String CustomerEMail;
+    public String customerEMail;
 
     @SerializedName("ProducerEMail")
-    public String ProducerEMail;
+    public String producerEMail;
 
     @SerializedName("ImporterEMail")
-    public String ImporterEMail;
+    public String importerEMail;
 
     @SerializedName("SubmitterPhone")
-    public String SubmitterPhone;
+    public String submitterPhone;
 
     @SerializedName("CustomerPhone")
-    public String CustomerPhone;
+    public String customerPhone;
 
     @SerializedName("ProducerPhone")
-    public String ProducerPhone;
+    public String producerPhone;
 
     @SerializedName("ImporterPhone")
-    public String ImporterPhone;
+    public String importerPhone;
 
     @SerializedName("SubmitterMobile")
-    public String SubmitterMobile;
+    public String submitterMobile;
 
     @SerializedName("CustomerMobile")
-    public String CustomerMobile;
+    public String customerMobile;
 
     @SerializedName("ProducerMobile")
-    public String ProducerMobile;
+    public String producerMobile;
 
     @SerializedName("ImporterMobile")
-    public String ImporterMobile;
+    public String importerMobile;
 
     @SerializedName("SubmitterFirstName")
-    public String SubmitterFirstName;
+    public String submitterFirstName;
 
     @SerializedName("CustomerFirstName")
-    public String CustomerFirstName;
+    public String customerFirstName;
 
     @SerializedName("ProducerFirstName")
-    public String ProducerFirstName;
+    public String producerFirstName;
 
     @SerializedName("ImporterFirstName")
-    public String ImporterFirstName;
+    public String importerFirstName;
 
     @SerializedName("SubmitterLastName")
-    public String SubmitterLastName;
+    public String submitterLastName;
 
     @SerializedName("CustomerLastName")
-    public String CustomerLastName;
+    public String customerLastName;
 
     @SerializedName("ProducerLastName")
-    public String ProducerLastName;
+    public String producerLastName;
 
     @SerializedName("ImporterLastName")
-    public String ImporterLastName;
+    public String importerLastName;
 
     @SerializedName("Barcode")
-    public String Barcode;
+    public String barcode;
 
     @SerializedName("CreatedAt")
-    public String DateCreated;
+    public String dateCreated;
 
     @SerializedName("FinalResult")
-    public float Result;
+    public float result;
 
     @SerializedName("Varietal")
-    public List<String> Varietal;
+    public List<String> varietals;
 }

@@ -3,9 +3,9 @@ package com.dwm.winesearchapp_extern.Pojo.request;
 public class SortParam {
 
     public SortParam(String fieldName, boolean orderAsc) {
-        FieldName = fieldName;
-        OrderAsc = orderAsc;
+        this.fieldName = fieldName;
+        this.orderAsc = orderAsc;
     }
-    public String FieldName;
-    public boolean OrderAsc;
+    public String fieldName;
+    public boolean orderAsc;
 }

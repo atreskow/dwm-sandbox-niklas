@@ -1,70 +1,66 @@
 package com.dwm.winesearchapp_extern;
 
-import android.widget.TextView;
-
 import com.dwm.winesearchapp_extern.Pojo.response.DocumentData;
-import com.dwm.winesearchapp_extern.Pojo.response.WineData;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 public class WineListItem {
 
     public WineListItem(DocumentData data) {
-        Id = data.Id;
-        WineName = data.Name;
-        Producer = data.ProducerCompany;
-        Country = data.Country;
-        Region = data.Region;
-        Varietal = data.Varietal;
-        Award = data.Award;
-        TrophyCode = data.TrophyCode;
-        StorageNumber = data.StorageNumber;
-        Ranking = data.Ranking;
+        id = data.id;
+        wineName = data.name;
+        producer = data.producerCompany;
+        country = data.country;
+        region = data.region;
+        varietal = data.varietals;
+        award = data.award;
+        trophyCode = data.trophyCode;
+        storageNumber = data.storageNumber;
+        ranking = data.ranking;
 
         //------------- Ab hier relevant für Winedetails Activity
 
-        Vintage = data.Year;
-        Category = data.WineCategory;
-        Flavour = data.Flavour;
-        Type = data.Type;
-        Vinification = data.Vinification;
+        vintage = data.year;
+        category = data.wineCategory;
+        flavour = data.flavour;
+        type = data.type;
+        vinification = data.vinification;
 
-        Alcohol = data.Alcohol;
-        Acidity = data.Acidity;
-        Sugar = data.Sugar;
-        Sulfur = data.Sulfur;
-        Organic = data.Organic;
+        alcohol = data.alcohol;
+        acidity = data.acidity;
+        sugar = data.sugar;
+        sulfur = data.sulfur;
+        organic = data.organic;
 
-        WineLink = data.Link;
+        wineLink = data.link;
     }
 
-    public UUID Id;
-    public String WineName;
-    public String Producer;
-    public List<String> Varietal;
-    public String Award;
+    public UUID id;
+    public String wineName;
+    public String producer;
+    public List<String> varietal;
+    public String award;
 
-    public String TrophyCode;
-    public int StorageNumber;
-    public int Ranking;
+    public String trophyCode;
+    public int storageNumber;
+    public int ranking;
 
     //------------- Ab hier relevant für Winedetails Activity
 
-    public String Vintage;
-    public String Category;
-    public String Flavour;
-    public String Type;
-    public String Region;
-    public String Country;
-    public String Vinification;
+    public String vintage;
+    public String category;
+    public String flavour;
+    public String type;
+    public String region;
+    public String country;
+    public String vinification;
 
-    public float Alcohol;
-    public float Acidity;
-    public float Sugar;
-    public float Sulfur;
-    public boolean Organic;
+    public float alcohol;
+    public float acidity;
+    public float sugar;
+    public float sulfur;
+    public boolean organic;
 
-    public String WineLink;
+    public String wineLink;
 }

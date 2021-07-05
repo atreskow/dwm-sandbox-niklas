@@ -13,61 +13,61 @@ public class Session {
         private static WineListItem _selectedListItem;
 
 
-        public static WineListItem GetSelectedListItem() {
+        public static WineListItem getSelectedListItem() {
                 return _selectedListItem;
         }
 
-        public static void SetSelectedListItem(WineListItem selectedListItem) {
+        public static void setSelectedListItem(WineListItem selectedListItem) {
                 _selectedListItem = selectedListItem;
         }
 
-        public static int GetMaxWinesSearch() {
+        public static int getMaxWinesSearch() {
                 return _maxWinesSearch;
         }
 
-        public static void SetMaxWinesSearch(int maxWinesSearch) {
+        public static void setMaxWinesSearch(int maxWinesSearch) {
                 _maxWinesSearch = maxWinesSearch;
         }
 
-        public static boolean AllWinesLoaded(int loaded) {
+        public static boolean allWinesLoaded(int loaded) {
                 return loaded == _maxWinesSearch;
         }
 
-        public static int GetWinesPerPage() {
+        public static int getWinesPerPage() {
                 return _winesPerPage;
         }
 
-        public static void SetWinesPerPage(int winesPerPage) {
+        public static void setWinesPerPage(int winesPerPage) {
                 _winesPerPage = winesPerPage;
         }
 
-        public static String GetWineName() {
+        public static String getWineName() {
                 return _wineName;
         }
 
-        public static void SetWineName(String wineName) {
+        public static void setWineName(String wineName) {
                 _wineName = wineName;
         }
 
-        public static List<FacetQueryGroup> GetFacetQueryGroups() {
+        public static List<FacetQueryGroup> getFacetQueryGroups() {
                 return _facetQueryGroups;
         }
 
-        public static void AddFacetQueryGroupValue(String name, String value) {
+        public static void addFacetQueryGroupValue(String name, String value) {
                 for (FacetQueryGroup group : _facetQueryGroups) {
-                        if (group.FieldName.equals(name)) {
-                                group.Values.add(value);
+                        if (group.fieldName.equals(name)) {
+                                group.values.add(value);
                                 return;
                         }
                 }
                 _facetQueryGroups.add(new FacetQueryGroup(name, value));
         }
 
-        public static void RemoveFacetQueryGroupValue(String name, String value) {
+        public static void removeFacetQueryGroupValue(String name, String value) {
                 for (FacetQueryGroup group : _facetQueryGroups) {
-                        if (group.FieldName.equals(name)) {
-                                group.Values.remove(value);
-                                if (group.Values.size() == 0) {
+                        if (group.fieldName.equals(name)) {
+                                group.values.remove(value);
+                                if (group.values.size() == 0) {
                                         _facetQueryGroups.remove(group);
                                 }
                                 return;
@@ -75,7 +75,7 @@ public class Session {
                 }
         }
 
-        public static void SetFacetQueryGroups(List<FacetQueryGroup> facetQueryGroups) {
+        public static void setFacetQueryGroups(List<FacetQueryGroup> facetQueryGroups) {
                 _facetQueryGroups = facetQueryGroups;
         }
 

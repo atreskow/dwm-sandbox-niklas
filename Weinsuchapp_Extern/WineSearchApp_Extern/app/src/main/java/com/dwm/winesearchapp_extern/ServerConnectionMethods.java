@@ -14,10 +14,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ServerConnectionMethods {
-    private static final Gson _gson = new Gson();
+    private static final Gson GSON = new Gson();
 
-
-    public static JsonObject GetData(String service) {
+    public static JsonObject getData(String service) {
         try {
             URL url = new URL(ServiceLocator.BASE_URL + service);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -39,7 +38,7 @@ public class ServerConnectionMethods {
             }
             result = buf.toString();
 
-            JsonObject jsonObject = _gson.fromJson(result, JsonObject.class);
+            JsonObject jsonObject = GSON.fromJson(result, JsonObject.class);
             return jsonObject;
         } catch (IOException e) {
             e.printStackTrace();
@@ -47,7 +46,7 @@ public class ServerConnectionMethods {
         }
     }
 
-    public static JsonObject PostData(String service, JSONObject data ) {
+    public static JsonObject postData(String service, JSONObject data ) {
         try {
             URL url = new URL(ServiceLocator.BASE_URL + service);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -77,7 +76,7 @@ public class ServerConnectionMethods {
             }
             result = buf.toString();
 
-            JsonObject jsonObject = _gson.fromJson(result, JsonObject.class);
+            JsonObject jsonObject = GSON.fromJson(result, JsonObject.class);
             return jsonObject;
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,11 +1,6 @@
 package com.dwm.winesearchapp_extern;
 
-import android.app.Activity;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Point;
-import android.view.Display;
-import android.widget.LinearLayout;
 
 import com.dwm.winesearchapp_extern.Pojo.Constants;
 import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
@@ -23,7 +18,7 @@ import java.util.Locale;
 
 public class Utils {
 
-    public static <T> JSONObject ParseObjectToJSONObject(T object) {
+    public static <T> JSONObject parseObjectToJSONObject(T object) {
         Gson gson = new GsonBuilder().serializeNulls().create();
         JSONObject bodyData = null;
 
@@ -37,27 +32,27 @@ public class Utils {
         return bodyData;
     }
 
-    public static QueryObjData GenerateQueryObjData() {
+    public static QueryObjData generateQueryObjData() {
         List<String> queryTokens = new ArrayList<>();
-        queryTokens.add("+wine_name:*" + Session.GetWineName() + "*" );
-        QueryObjData queryObjData = new QueryObjData(queryTokens, Session.GetFacetQueryGroups());
+        queryTokens.add("+wine_name:*" + Session.getWineName() + "*" );
+        QueryObjData queryObjData = new QueryObjData(queryTokens, Session.getFacetQueryGroups());
 
         return queryObjData;
     }
 
-    public static OptionData GenerateOptionData(int loaded) {
+    public static OptionData generateOptionData(int loaded) {
         List<SortParam> sortParams = new ArrayList<>();
         sortParams.add(new SortParam("trophy_year", false));
-        OptionData optionData = new OptionData(Session.GetWinesPerPage(),
+        OptionData optionData = new OptionData(Session.getWinesPerPage(),
                 loaded,
                 sortParams,
                 null,
-                Constants.FacetValues,
+                Constants.FACET_VALUES,
                 null);
         return optionData;
     }
 
-    public static String GetHeaderForValue(Context context, String value) {
+    public static String getHeaderForValue(Context context, String value) {
         switch (value) {
             case "trophy_name": return context.getResources().getString(R.string.header_trophy_name);
             case "trophy_year": return context.getResources().getString(R.string.header_trophy_year);
@@ -74,14 +69,14 @@ public class Utils {
         }
     }
 
-    public static List<NavDrawerItem> TransferFacetTrues(String headerText, List<NavDrawerItem> items) {
+    public static List<NavDrawerItem> transferFacetTrues(String headerText, List<NavDrawerItem> items) {
         List<NavDrawerItem> navDrawerItemList = new ArrayList<>();
-        for (FacetQueryGroup facetGroup : Session.GetFacetQueryGroups()) {
-            if (facetGroup.FieldName.equals(headerText)) {
-                for (String value : facetGroup.Values) {
+        for (FacetQueryGroup facetGroup : Session.getFacetQueryGroups()) {
+            if (facetGroup.fieldName.equals(headerText)) {
+                for (String value : facetGroup.values) {
                     for (NavDrawerItem item : items) {
-                        if (value.equals(item.Name)) {
-                            item.Checked = true;
+                        if (value.equals(item.name)) {
+                            item.checked = true;
                             navDrawerItemList.add(item);
                             items.remove(item);
                             break;
@@ -94,15 +89,15 @@ public class Utils {
         return navDrawerItemList;
     }
 
-    public static boolean HasAward (int ranking) {
+    public static boolean hasAward(int ranking) {
         return ranking > 0 && ranking < 4;
     }
 
-    public static boolean IsBlacklistedFacet(String facetName) {
-        return Constants.FacetBlacklist.contains(facetName);
+    public static boolean isBlacklistedFacet(String facetName) {
+        return Constants.FACET_BLACKLIST.contains(facetName);
     }
 
-    public static String GetWineLink(String wineLink) {
+    public static String getWineLink(String wineLink) {
         String lang = Locale.getDefault().getLanguage();
         return Constants.WINE_LINK.replace("{language}", lang) + wineLink;
     }

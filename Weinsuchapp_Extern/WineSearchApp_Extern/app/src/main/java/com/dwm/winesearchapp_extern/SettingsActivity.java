@@ -1,6 +1,5 @@
 package com.dwm.winesearchapp_extern;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -23,9 +22,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewHelper.SetTheme(this);
+        ViewHelper.setTheme(this);
         setContentView(R.layout.activity_settings);
-        ViewHelper.SetupToolbar(this);
+        ViewHelper.setupToolbar(this);
 
         _sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         _editor = _sharedPref.edit();
@@ -51,7 +50,7 @@ public class SettingsActivity extends AppCompatActivity {
     private void reload() {
         Intent i = new Intent(getApplicationContext(), SettingsActivity.class);
         getApplicationContext().startActivity(i);
-        ViewHelper.Finish(this);
+        ViewHelper.finish(this);
     }
 
     private final CompoundButton.OnCheckedChangeListener _darkmodeListener = (radioGroup, isChecked) -> {

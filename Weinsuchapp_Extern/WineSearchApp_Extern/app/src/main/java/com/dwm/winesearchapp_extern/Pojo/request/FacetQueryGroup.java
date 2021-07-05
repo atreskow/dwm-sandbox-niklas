@@ -6,9 +6,9 @@ import java.util.List;
 public class FacetQueryGroup {
 
     public FacetQueryGroup(String fieldName, String value) {
-        FieldName = fieldName;
-        Values.add(value);
+        this.fieldName = fieldName;
+        values.add(value);
     }
-    public String FieldName;
-    public List<String> Values = new ArrayList<>();
+    public String fieldName;
+    public List<String> values = new ArrayList<>();
 }

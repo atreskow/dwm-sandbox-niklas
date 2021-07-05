@@ -5,19 +5,19 @@ import java.util.List;
 public class OptionData {
 
     public OptionData (int top, int skip, List<SortParam> sortParams, List<String> resultAttributes, List<String> facets, List<String> highlightFields) {
-        Top = top;
-        Skip = skip;
-        SortParams = sortParams;
-        ResultAttributes = resultAttributes;
-        Facets = facets;
-        HighlightFields = highlightFields;
+        this.top = top;
+        this.skip = skip;
+        this.sortParams = sortParams;
+        this.resultAttributes = resultAttributes;
+        this.facets = facets;
+        this.highlightFields = highlightFields;
     }
 
-    public int Top;
-    public int Skip;
-    public List<SortParam> SortParams;
-    public List<String> ResultAttributes;
-    public List<String> Facets;
-    public List<String> HighlightFields;
+    public int top;
+    public int skip;
+    public List<SortParam> sortParams;
+    public List<String> resultAttributes;
+    public List<String> facets;
+    public List<String> highlightFields;
 
 }

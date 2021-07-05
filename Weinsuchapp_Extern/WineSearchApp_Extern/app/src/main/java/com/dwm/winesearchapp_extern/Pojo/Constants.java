@@ -9,7 +9,7 @@ public class Constants {
 
     public static final String WINE_LINK = "https://results.wine-trophy.com/{language}/wine/";
 
-    public static final List<String> FacetValues = new ArrayList<>(Arrays.asList(
+    public static final List<String> FACET_VALUES = new ArrayList<>(Arrays.asList(
             "trophy_name",
             "trophy_year",
             "medal_name",
@@ -23,7 +23,7 @@ public class Constants {
             "varietal"
     ));
 
-    public static final List<String> FacetBlacklist = new ArrayList<>(Arrays.asList(
+    public static final List<String> FACET_BLACKLIST = new ArrayList<>(Arrays.asList(
             "Category IV",
             "false"
     ));

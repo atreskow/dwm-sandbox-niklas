@@ -1,6 +1,12 @@
 package com.dwm.winesearchapp_extern.Pojo;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Item {
-    public String Value;
-    public int Count;
+
+    @SerializedName("Value")
+    public String value;
+
+    @SerializedName("Count")
+    public int count;
 }

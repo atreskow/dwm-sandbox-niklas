@@ -37,40 +37,40 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
         RelativeLayout wineItemLayout = view.findViewById(R.id.wineItemLayout);
 
         TextView wineName = view.findViewById(R.id.txtViewWineName);
-        wineName.setText(wineListItem.WineName);
+        wineName.setText(wineListItem.wineName);
 
         TextView producer = view.findViewById(R.id.txtViewProducer);
-        String producerText = String.format(_context.getResources().getString(R.string.winelist_producer), wineListItem.Producer);
+        String producerText = String.format(_context.getResources().getString(R.string.winelist_producer), wineListItem.producer);
         producer.setText(producerText);
 
         TextView origin = view.findViewById(R.id.txtViewOrigin);
-        String region = (wineListItem.Region == null ? "" : wineListItem.Region + ", ") + wineListItem.Country;
+        String region = (wineListItem.region == null ? "" : wineListItem.region + ", ") + wineListItem.country;
         String originText = String.format(_context.getResources().getString(R.string.winelist_origin), region);
         origin.setText(originText);
 
         TextView varietals = view.findViewById(R.id.txtViewVarietal);
-        String varietalDesc = wineListItem.Varietal.size() > 1 ? _context.getString(R.string.winelist_varietals) : _context.getString(R.string.winelist_varietal);
-        String varietalText = String.format(varietalDesc, wineListItem.Varietal.stream().collect(Collectors.joining(", ")));
+        String varietalDesc = wineListItem.varietal.size() > 1 ? _context.getString(R.string.winelist_varietals) : _context.getString(R.string.winelist_varietal);
+        String varietalText = String.format(varietalDesc, wineListItem.varietal.stream().collect(Collectors.joining(", ")));
         varietals.setText(varietalText);
 
         TextView award = view.findViewById(R.id.txtViewTrophy);
-        if (wineListItem.Award != null) {
-            String awardText = String.format(_context.getResources().getString(R.string.winelist_award), wineListItem.Award);
+        if (wineListItem.award != null) {
+            String awardText = String.format(_context.getResources().getString(R.string.winelist_award), wineListItem.award);
             award.setText(awardText);
         }
 
         wineItemLayout.setOnClickListener(v -> {
-            Session.SetSelectedListItem(wineListItem);
+            Session.setSelectedListItem(wineListItem);
             Intent intent = new Intent(_context, WinedetailsActivity.class);
             _context.startActivity(intent);
         });
 
         new Thread(() ->  {
-            String[] imageNames = WineSearchServices.GetBottleImageNames(wineListItem.Id);
+            String[] imageNames = WineSearchServices.getBottleImageNames(wineListItem.id);
             if (imageNames != null && imageNames.length != 0) {
                 for (String imageName : imageNames) {
                     if (imageName.endsWith("F")) {
-                        Bitmap bottleImage = WineSearchServices.GetBottleImageType(wineListItem, "normal", "png", imageName);
+                        Bitmap bottleImage = WineSearchServices.getBottleImageType(wineListItem, "normal", "png", imageName);
                         ((Activity) _context).runOnUiThread(() ->
                                 ((ImageView) view.findViewById(R.id.imageFront)).setImageBitmap(bottleImage)
                         );
@@ -79,8 +79,8 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
             }
 
             boolean medalEnabled = PreferenceManager.getDefaultSharedPreferences(_context.getApplicationContext()).getBoolean("medalPreview", true);
-            if (Utils.HasAward(wineListItem.Ranking) && medalEnabled) {
-                Bitmap medalImage = WineSearchServices.GetMedalImage(wineListItem.TrophyCode, wineListItem.Ranking);
+            if (Utils.hasAward(wineListItem.ranking) && medalEnabled) {
+                Bitmap medalImage = WineSearchServices.getMedalImage(wineListItem.trophyCode, wineListItem.ranking);
                 ((Activity) _context).runOnUiThread(() -> {
                         ((ImageView) view.findViewById(R.id.imageMedal)).setImageBitmap(medalImage);
                 });

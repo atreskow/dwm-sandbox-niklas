@@ -2,7 +2,6 @@ package com.dwm.winesearchapp_extern;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.MenuItem;
@@ -60,21 +59,21 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewHelper.SetTheme(this);
+        ViewHelper.setTheme(this);
         setContentView(R.layout.activity_search);
-        ViewHelper.SetupToolbar(this);
+        ViewHelper.setupToolbar(this);
 
         boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("toolbarBottom", false);
         if (toolbarBottom) {
-            ViewHelper.ChangeSearchPosition(this);
-            ViewHelper.ChangeDrawerGravity(this);
+            ViewHelper.changeSearchPosition(this);
+            ViewHelper.changeDrawerGravity(this);
         }
 
         setupViews();
         setupActionBar();
         setupListener();
 
-        StartNewWineSearch();
+        startNewWineSearch();
     }
 
     @Override
@@ -89,7 +88,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void setupViews() {
         _wineNameTextView = findViewById(R.id.txtStorageNumber);
-        _wineNameTextView.setText(Session.GetWineName());
+        _wineNameTextView.setText(Session.getWineName());
         _searchButton = findViewById(R.id.btnSearch);
         _resetButton = findViewById(R.id.btnReset);
         _drawerLayout = findViewById(R.id.drawer_layout);
@@ -133,7 +132,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 if(firstVisibleItem+visibleItemCount == totalItemCount && totalItemCount!=0)
                 {
-                    if(!_wineListScrollIsLoading && !Session.AllWinesLoaded(_wineListAdapter.getCount()))
+                    if(!_wineListScrollIsLoading && !Session.allWinesLoaded(_wineListAdapter.getCount()))
                     {
                         _wineListScrollIsLoading = true;
                         new Thread(() ->  addWines()).start();
@@ -143,45 +142,45 @@ public class SearchActivity extends AppCompatActivity {
         });
     }
 
-    public void StartNewWineSearch() {
+    public void startNewWineSearch() {
         _wineListAdapter.clear();
         String wineName = _wineNameTextView.getText().toString();
-        Session.SetWineName(wineName);
+        Session.setWineName(wineName);
 
         new Thread(() ->  {
             WineData data = addWines();
             if (data == null) {
-                ViewHelper.ShowToast(this, getResources().getString(R.string.internet_error));
-                ViewHelper.ToggleLoadingAnimation(this, View.GONE);
+                ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
+                ViewHelper.toggleLoadingAnimation(this, View.GONE);
                 return;
             }
-            addFacetsToSidebar(data.ExtendedFacets);
+            addFacetsToSidebar(data.extendedFacets);
         }).start();
     }
 
     //Die Funtkion wird für neue SUchen und zum Erweitern der Wein-Such-Liste aufgerufen
     private WineData addWines() {
-        ViewHelper.ToggleLoadingAnimation(this, View.VISIBLE);
+        ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
 
-        QueryObjData queryObjData = Utils.GenerateQueryObjData();
-        OptionData optionData = Utils.GenerateOptionData(_wineListAdapter.getCount());
+        QueryObjData queryObjData = Utils.generateQueryObjData();
+        OptionData optionData = Utils.generateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
-        WineData wineData = WineSearchServices.GetWineData(getResources().getString(R.string.language), wineSearchData);
+        WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
 
         if (wineData == null) {
             return null;
         }
 
-        List<Hit> wineDataList = wineData.SearchResult.Hits;
+        List<Hit> wineDataList = wineData.searchResult.hits;
         _facetChildList = new ArrayList<>();
 
         //Setzt bei neuer Anfrage die Anzahl der Ergebnisse neu
         if (_wineListAdapter.getCount() == 0) {
-            Session.SetMaxWinesSearch(wineData.SearchResult.TotalHits);
+            Session.setMaxWinesSearch(wineData.searchResult.totalHits);
         }
 
         for (Hit wine : wineDataList) {
-            DocumentData documentData = wine.Document;
+            DocumentData documentData = wine.document;
             WineListItem wineListItem = new WineListItem(documentData);
             _facetChildList.add(wineListItem);
         }
@@ -190,14 +189,14 @@ public class SearchActivity extends AppCompatActivity {
             _wineListAdapter.addAll(_facetChildList);
             _wineListAdapter.notifyDataSetChanged();
             updateSearchBottomText();
-            ViewHelper.ToggleLoadingAnimation(this, View.GONE);
+            ViewHelper.toggleLoadingAnimation(this, View.GONE);
         });
         _wineListScrollIsLoading = false;
         return wineData;
     }
 
     private void updateSearchBottomText() {
-        String text = String.format(getResources().getString(R.string.winelist_bottomText), _wineListAdapter.getCount(), Session.GetMaxWinesSearch());
+        String text = String.format(getResources().getString(R.string.winelist_bottomText), _wineListAdapter.getCount(), Session.getMaxWinesSearch());
         _wineListSearchAmountTextView.setText(text);
     }
 
@@ -206,15 +205,15 @@ public class SearchActivity extends AppCompatActivity {
         _facetHeaderChildMap = new HashMap<>();
 
         for (Facet facet : facets) {
-            String headerText = Utils.GetHeaderForValue(this, facet.Field);
+            String headerText = Utils.getHeaderForValue(this, facet.field);
             _facetHeaderList.add(headerText);
 
             List<NavDrawerItem> menuElements = new ArrayList<>();
-            for (Item item : facet.Items) {
-                if (Utils.IsBlacklistedFacet(item.Value)) {
+            for (Item item : facet.items) {
+                if (Utils.isBlacklistedFacet(item.value)) {
                     continue;
                 }
-                NavDrawerItem dataItem = new NavDrawerItem(item.Value, facet.Field, item.Count);
+                NavDrawerItem dataItem = new NavDrawerItem(item.value, facet.field, item.count);
                 menuElements.add(dataItem);
             }
 
@@ -224,19 +223,19 @@ public class SearchActivity extends AppCompatActivity {
                 continue;
             }
 
-            Collections.sort(menuElements, Comparator.comparing(a -> a.Name));
+            Collections.sort(menuElements, Comparator.comparing(a -> a.name));
             if (headerText.equals(getResources().getString(R.string.header_trophy_year)) || headerText.equals(getResources().getString(R.string.header_wine_vintage))) {
                 Collections.reverse(menuElements);
             }
 
             //Übergibt die booleans der vorherigen Facet Liste
-            menuElements = Utils.TransferFacetTrues(facet.Field, menuElements);
+            menuElements = Utils.transferFacetTrues(facet.field, menuElements);
 
             _facetHeaderChildMap.put(headerText, menuElements);
         }
 
         runOnUiThread(() -> {
-            _resetButton.setVisibility(ViewHelper.GetResetButtonVisbility());
+            _resetButton.setVisibility(ViewHelper.getResetButtonVisbility(_wineNameTextView.getText().toString()));
             _navDrawerAdapter = new NavDrawerAdapter(this, _facetHeaderList, _facetHeaderChildMap);
             _expandableListView.setAdapter(_navDrawerAdapter);
             _drawerLayout.closeDrawers();
@@ -244,16 +243,16 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     private final View.OnClickListener _resetFilterListener = view -> {
-        Session.SetFacetQueryGroups(new ArrayList<>());
-        Session.SetWineName("");
+        Session.setFacetQueryGroups(new ArrayList<>());
+        Session.setWineName("");
         _wineNameTextView.setText("");
-        StartNewWineSearch();
+        startNewWineSearch();
     };
 
     private final View.OnClickListener _searchListener = view -> {
         InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(_wineNameTextView.getWindowToken(), 0);
-        StartNewWineSearch();
+        startNewWineSearch();
     };
 
     private final View.OnClickListener _settingsListener = view -> {
@@ -266,7 +265,7 @@ public class SearchActivity extends AppCompatActivity {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
             imm.hideSoftInputFromWindow(_wineNameTextView.getWindowToken(), 0);
-            StartNewWineSearch();
+            startNewWineSearch();
             handled = true;
         }
         return handled;

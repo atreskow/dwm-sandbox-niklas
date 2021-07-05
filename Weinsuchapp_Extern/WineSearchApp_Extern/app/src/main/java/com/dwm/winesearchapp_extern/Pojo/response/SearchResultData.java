@@ -2,12 +2,21 @@
 package com.dwm.winesearchapp_extern.Pojo.response;
 
 import com.dwm.winesearchapp_extern.Pojo.Facet;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class SearchResultData {
-    public List<String> QueryTokenHits;
-    public List<Hit> Hits;
-    public int TotalHits;
-    public List<Facet> Facets;
+
+    @SerializedName("QueryTokenHits")
+    public List<String> queryTokenHits;
+
+    @SerializedName("Hits")
+    public List<Hit> hits;
+
+    @SerializedName("TotalHits")
+    public int totalHits;
+
+    @SerializedName("Facets")
+    public List<Facet> facets;
 }

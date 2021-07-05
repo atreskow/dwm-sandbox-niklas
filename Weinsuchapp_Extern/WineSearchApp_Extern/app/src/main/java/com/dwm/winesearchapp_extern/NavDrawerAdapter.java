@@ -12,10 +12,8 @@ import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.dwm.winesearchapp_extern.Pojo.request.FacetQueryGroup;
 import com.google.android.material.color.MaterialColors;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -61,22 +59,22 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
         childLayout.setOnClickListener(view -> {
             //Listener ist auf Layout, weshalb das Checken manuell gesetzt werden muss
             childCheckBox.setChecked(!childCheckBox.isChecked());
-            child.Checked = childCheckBox.isChecked();
+            child.checked = childCheckBox.isChecked();
 
-            if (child.Checked) {
-                Session.AddFacetQueryGroupValue(child.Value, child.Name);
+            if (child.checked) {
+                Session.addFacetQueryGroupValue(child.value, child.name);
             }
             else {
-                Session.RemoveFacetQueryGroupValue(child.Value, child.Name);
+                Session.removeFacetQueryGroupValue(child.value, child.name);
             }
 
-            ((SearchActivity) _activity).StartNewWineSearch();
+            ((SearchActivity) _activity).startNewWineSearch();
         });
 
-        String text = String.format(_activity.getResources().getString(R.string.navigation_drawer_item), child.Name, child.Count);
+        String text = String.format(_activity.getResources().getString(R.string.navigation_drawer_item), child.name, child.count);
 
         childTextView.setText(text);
-        childCheckBox.setChecked(child.Checked);
+        childCheckBox.setChecked(child.checked);
 
         return convertView;
     }
@@ -133,7 +131,7 @@ public class NavDrawerAdapter extends BaseExpandableListAdapter {
     private boolean containsChecked(int groupPosition) {
         List<NavDrawerItem> group = getGroupList(groupPosition);
         for (NavDrawerItem item : group) {
-            if (item.Checked) {
+            if (item.checked) {
                 return true;
             }
         }

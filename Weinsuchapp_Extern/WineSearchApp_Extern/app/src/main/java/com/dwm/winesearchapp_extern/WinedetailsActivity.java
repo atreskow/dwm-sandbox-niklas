@@ -1,15 +1,10 @@
 package com.dwm.winesearchapp_extern;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,14 +14,10 @@ import android.widget.TextView;
 import com.google.android.material.color.MaterialColors;
 import com.google.android.material.tabs.TabLayout;
 
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NavUtils;
-import androidx.viewpager.widget.ViewPager;
 
 public class WinedetailsActivity extends AppCompatActivity {
 
@@ -45,9 +36,9 @@ public class WinedetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ViewHelper.SetTheme(this);
+        ViewHelper.setTheme(this);
         setContentView(R.layout.activity_winedetails);
-        ViewHelper.SetupToolbar(this);
+        ViewHelper.setupToolbar(this);
 
         _viewPager = findViewById(R.id.imagePager);
         _descriptionLayout = findViewById(R.id.descriptionLayout);
@@ -70,7 +61,7 @@ public class WinedetailsActivity extends AppCompatActivity {
         _shareButton = findViewById(R.id.btnShare);
         _shareButton.setOnClickListener(_shareButtonListener);
 
-        WineListItem wine = Session.GetSelectedListItem();
+        WineListItem wine = Session.getSelectedListItem();
         addData(wine);
 
         new Thread(() ->  getImages(wine)).start();
@@ -82,10 +73,10 @@ public class WinedetailsActivity extends AppCompatActivity {
     }
 
     private void getImages(WineListItem wine) {
-        String[] imageNames = WineSearchServices.GetBottleImageNames(wine.Id);
+        String[] imageNames = WineSearchServices.getBottleImageNames(wine.id);
 
-        if (Utils.HasAward(wine.Ranking)) {
-            Bitmap medalImage = WineSearchServices.GetMedalImage(wine.TrophyCode, wine.Ranking);
+        if (Utils.hasAward(wine.ranking)) {
+            Bitmap medalImage = WineSearchServices.getMedalImage(wine.trophyCode, wine.ranking);
             runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setImageBitmap(medalImage));
         }
         else {
@@ -95,7 +86,7 @@ public class WinedetailsActivity extends AppCompatActivity {
         if (imageNames != null && imageNames.length != 0) {
             Bitmap[] bottleImages = new Bitmap[2];
             for (String imageName : imageNames) {
-                Bitmap bottleImage = WineSearchServices.GetBottleImageType(wine, "big", "png", imageName);
+                Bitmap bottleImage = WineSearchServices.getBottleImageType(wine, "big", "png", imageName);
                 if (imageName.endsWith("F")) {
                     bottleImages[0] = bottleImage;
                 }
@@ -123,65 +114,37 @@ public class WinedetailsActivity extends AppCompatActivity {
 
     private void addData(WineListItem wine) {
 
-        if (wine.Award != null) {
-            String[] trophySplit = wine.Award.split(" - ");
+        if (wine.award != null) {
+            String[] trophySplit = wine.award.split(" - ");
 
-            ViewHelper.SetValue(R.id.txtTrophy_value, trophySplit[1], this);
-            ViewHelper.SetValue(R.id.txtMedalName_value, trophySplit[0], this);
+            ViewHelper.setValue(R.id.txtTrophy_value, trophySplit[1], this);
+            ViewHelper.setValue(R.id.txtMedalName_value, trophySplit[0], this);
         }
 
-        ViewHelper.SetValue(R.id.txtName_value, wine.WineName, this);
-        ViewHelper.SetValue(R.id.txtYear_value, wine.Vintage, this);
-        ViewHelper.SetValue(R.id.txtProducer_value, wine.Producer, this);
-        ViewHelper.SetValue(R.id.txtCountry_value, wine.Country, this);
-        ViewHelper.SetValue(R.id.txtRegion_value, wine.Region, this);
-        ViewHelper.SetValue(R.id.txtCategory_value, wine.Category, this);
-        ViewHelper.SetValue(R.id.txtFlavour_value, wine.Flavour, this);
-        ViewHelper.SetValue(R.id.txtType_value, wine.Type, this);
-        ViewHelper.SetValue(R.id.txtVinification_value, wine.Vinification, this);
-        ViewHelper.SetValue(R.id.txtOrganic_value, wine.Organic, this);
-        ViewHelper.SetValue(R.id.txtSugar_value, wine.Sugar, "g/l", this);
-        ViewHelper.SetValue(R.id.txtAcidity_value, wine.Acidity, "g/l", this);
-        ViewHelper.SetValue(R.id.txtSulfur_value, wine.Sulfur, "mg/l", this);
-        ViewHelper.SetValue(R.id.txtAlcohol_value, wine.Alcohol, "%", this);
+        ViewHelper.setValue(R.id.txtName_value, wine.wineName, this);
+        ViewHelper.setValue(R.id.txtYear_value, wine.vintage, this);
+        ViewHelper.setValue(R.id.txtProducer_value, wine.producer, this);
+        ViewHelper.setValue(R.id.txtCountry_value, wine.country, this);
+        ViewHelper.setValue(R.id.txtRegion_value, wine.region, this);
+        ViewHelper.setValue(R.id.txtCategory_value, wine.category, this);
+        ViewHelper.setValue(R.id.txtFlavour_value, wine.flavour, this);
+        ViewHelper.setValue(R.id.txtType_value, wine.type, this);
+        ViewHelper.setValue(R.id.txtVinification_value, wine.vinification, this);
+        ViewHelper.setValue(R.id.txtOrganic_value, wine.organic, this);
+        ViewHelper.setValue(R.id.txtSugar_value, wine.sugar, "g/l", this);
+        ViewHelper.setValue(R.id.txtAcidity_value, wine.acidity, "g/l", this);
+        ViewHelper.setValue(R.id.txtSulfur_value, wine.sulfur, "mg/l", this);
+        ViewHelper.setValue(R.id.txtAlcohol_value, wine.alcohol, "%", this);
 
-        String varietalText = wine.Varietal.size() > 1 ? getResources().getString(R.string.varietals) : getResources().getString(R.string.varietal);
-        ViewHelper.SetValue(R.id.txtVarietal, varietalText, this);
-        ViewHelper.SetValue(R.id.txtVarietal_value, wine.Varietal.stream().collect(Collectors.joining(", ")),this);
+        String varietalText = wine.varietal.size() > 1 ? getResources().getString(R.string.varietals) : getResources().getString(R.string.varietal);
+        ViewHelper.setValue(R.id.txtVarietal, varietalText, this);
+        ViewHelper.setValue(R.id.txtVarietal_value, wine.varietal.stream().collect(Collectors.joining(", ")),this);
 
-        if (wine.Region == null || wine.Region.isEmpty()) {
+        if (wine.region == null || wine.region.isEmpty()) {
             findViewById(R.id.txtRegion).setVisibility(View.GONE);
             findViewById(R.id.txtRegion_value).setVisibility(View.GONE);
         }
     }
-
-    private final View.OnClickListener _descriptionListener = view -> {
-        openCloseDescription(R.id.descriptionHeader, R.id.descriptionText);
-    };
-
-    private final View.OnClickListener _producerListener = view -> {
-        openCloseDescription(R.id.producerHeader, R.id.producerText);
-    };
-
-    private final View.OnClickListener _wineRegionListener = view -> {
-        openCloseDescription(R.id.wineRegionHeader, R.id.wineRegionText);
-    };
-
-    private final View.OnClickListener _grapeInformationListener = view -> {
-        openCloseDescription(R.id.grapeInformationHeader, R.id.grapeInformationText);
-    };
-
-    private final View.OnClickListener _availabilityListener = view -> {
-        openCloseDescription(R.id.availabilityHeader, R.id.availabilityText);
-    };
-
-    private final View.OnClickListener _shareButtonListener = view -> {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, Utils.GetWineLink(Session.GetSelectedListItem().WineLink));
-        sendIntent.setType("text/plain");
-        startActivity(Intent.createChooser(sendIntent, getResources().getString(R.string.share)));
-    };
 
     private void openCloseDescription(int headerRes, int textRes) {
         _descriptionHeader.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
@@ -208,4 +171,32 @@ public class WinedetailsActivity extends AppCompatActivity {
             header.setTextColor(MaterialColors.getColor(this, R.attr.textColor, Color.BLACK));
         }
     }
+
+    private final View.OnClickListener _descriptionListener = view -> {
+        openCloseDescription(R.id.descriptionHeader, R.id.descriptionText);
+    };
+
+    private final View.OnClickListener _producerListener = view -> {
+        openCloseDescription(R.id.producerHeader, R.id.producerText);
+    };
+
+    private final View.OnClickListener _wineRegionListener = view -> {
+        openCloseDescription(R.id.wineRegionHeader, R.id.wineRegionText);
+    };
+
+    private final View.OnClickListener _grapeInformationListener = view -> {
+        openCloseDescription(R.id.grapeInformationHeader, R.id.grapeInformationText);
+    };
+
+    private final View.OnClickListener _availabilityListener = view -> {
+        openCloseDescription(R.id.availabilityHeader, R.id.availabilityText);
+    };
+
+    private final View.OnClickListener _shareButtonListener = view -> {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, Utils.getWineLink(Session.getSelectedListItem().wineLink));
+        sendIntent.setType("text/plain");
+        startActivity(Intent.createChooser(sendIntent, getResources().getString(R.string.share)));
+    };
 }

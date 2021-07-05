@@ -3,10 +3,10 @@ package com.dwm.winesearchapp_extern.Pojo.request;
 public class WineSearchData {
 
     public WineSearchData(QueryObjData queryObj, OptionData optionData) {
-        QueryObj = queryObj;
-        Options = optionData;
+        this.queryObj = queryObj;
+        options = optionData;
     }
 
-    public QueryObjData QueryObj;
-    public OptionData Options;
+    public QueryObjData queryObj;
+    public OptionData options;
 }
