@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import com.ablanco.zoomy.Zoomy;
+
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
@@ -45,6 +47,9 @@ public class BottleImagePagerAdapter extends PagerAdapter {
 
         ImageView imageView = (ImageView) itemView.findViewById(R.id.bottleImage);
         imageView.setImageBitmap(_images[position]);
+
+        Zoomy.Builder builder = new Zoomy.Builder((Activity) _context).target(imageView);
+        builder.register();
 
         Objects.requireNonNull(container).addView(itemView);
 
