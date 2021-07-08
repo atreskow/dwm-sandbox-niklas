@@ -62,6 +62,8 @@ public class WineListAdapter extends ArrayAdapter<WineListItem> {
         wineItemLayout.setOnClickListener(v -> {
             Session.setSelectedListItem(wineListItem);
             Intent intent = new Intent(_context, WinedetailsActivity.class);
+            String parentClass = _context.getPackageName() + "." + ((Activity) _context).getClass().getSimpleName();
+            intent.putExtra("ParentClassSource", parentClass);
             _context.startActivity(intent);
         });
 

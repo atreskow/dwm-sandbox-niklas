@@ -22,6 +22,9 @@
         <activity android:name="com.dwm.winesearchapp_extern.SettingsActivity"
             android:parentActivityName=".SearchActivity">
         </activity>
+        <activity android:name="com.dwm.winesearchapp_extern.ProducerActivity"
+            android:parentActivityName=".WinedetailsActivity">
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

@@ -4,7 +4,7 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.dwm.winesearchapp"
+        applicationId 'com.dwm.winesearchapp_extern'
         minSdkVersion 24
         targetSdkVersion 29
         versionCode 1

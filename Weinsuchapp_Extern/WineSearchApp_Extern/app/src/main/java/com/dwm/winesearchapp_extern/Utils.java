@@ -40,6 +40,15 @@ public class Utils {
         return queryObjData;
     }
 
+    public static QueryObjData generateQueryObjData(String producer) {
+        List<String> queryTokens = new ArrayList<>();
+        List<FacetQueryGroup> facetQueryGroups = new ArrayList<>();
+        facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
+        QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups);
+
+        return queryObjData;
+    }
+
     public static OptionData generateOptionData(int loaded) {
         List<SortParam> sortParams = new ArrayList<>();
         sortParams.add(new SortParam("trophy_year", false));

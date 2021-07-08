@@ -1,5 +1,6 @@
 package com.dwm.winesearchapp_extern;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -61,6 +62,8 @@ public class WinedetailsActivity extends AppCompatActivity {
         _shareButton = findViewById(R.id.btnShare);
         _shareButton.setOnClickListener(_shareButtonListener);
 
+        findViewById(R.id.layoutProducer).setOnClickListener(_producerListListener);
+
         WineListItem wine = Session.getSelectedListItem();
         addData(wine);
 
@@ -70,6 +73,26 @@ public class WinedetailsActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         NavUtils.navigateUpFromSameTask(this);
+    }
+
+    @Override
+    public Intent getParentActivityIntent() {
+        Intent parentIntent= getIntent();
+        String className = parentIntent.getStringExtra("ParentClassSource");
+
+        if (className == null) {
+            className = getPackageName() + "." + "SearchActivity";
+        }
+
+        Intent newIntent=null;
+        try {
+            //you need to define the class with package name
+            newIntent = new Intent(this, Class.forName(className));
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return newIntent;
     }
 
     private void getImages(WineListItem wine) {
@@ -190,6 +213,11 @@ public class WinedetailsActivity extends AppCompatActivity {
 
     private final View.OnClickListener _availabilityListener = view -> {
         openCloseDescription(R.id.availabilityHeader, R.id.availabilityText);
+    };
+
+    private final View.OnClickListener _producerListListener = view -> {
+        Intent intent = new Intent(this, ProducerActivity.class);
+        startActivity(intent);
     };
 
     private final View.OnClickListener _shareButtonListener = view -> {

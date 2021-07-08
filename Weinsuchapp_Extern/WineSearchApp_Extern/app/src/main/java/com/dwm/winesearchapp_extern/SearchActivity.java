@@ -49,10 +49,10 @@ public class SearchActivity extends AppCompatActivity {
     private ExpandableListView _expandableListView;
     private NavDrawerAdapter _navDrawerAdapter;
     private ArrayList<String> _facetHeaderList;
-    private List<WineListItem> _facetChildList;
     private HashMap<String, List<NavDrawerItem>> _facetHeaderChildMap;
 
     private WineListAdapter _wineListAdapter;
+    private List<WineListItem> _wineItemList;
     private ListView _wineListView;
     private boolean _wineListScrollIsLoading = false;
 
@@ -172,7 +172,7 @@ public class SearchActivity extends AppCompatActivity {
         }
 
         List<Hit> wineDataList = wineData.searchResult.hits;
-        _facetChildList = new ArrayList<>();
+        _wineItemList = new ArrayList<>();
 
         //Setzt bei neuer Anfrage die Anzahl der Ergebnisse neu
         if (_wineListAdapter.getCount() == 0) {
@@ -182,11 +182,11 @@ public class SearchActivity extends AppCompatActivity {
         for (Hit wine : wineDataList) {
             DocumentData documentData = wine.document;
             WineListItem wineListItem = new WineListItem(documentData);
-            _facetChildList.add(wineListItem);
+            _wineItemList.add(wineListItem);
         }
 
         runOnUiThread(() -> {
-            _wineListAdapter.addAll(_facetChildList);
+            _wineListAdapter.addAll(_wineItemList);
             _wineListAdapter.notifyDataSetChanged();
             updateSearchBottomText();
             ViewHelper.toggleLoadingAnimation(this, View.GONE);
