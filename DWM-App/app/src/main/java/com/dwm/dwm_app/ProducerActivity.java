@@ -111,7 +111,7 @@ public class ProducerActivity extends AppCompatActivity {
     }
 
     private int getWines() {
-        QueryObjData queryObjData = Utils.generateQueryObjData(_producer);
+        QueryObjData queryObjData = Utils.generateQueryObjData(_producer, true);
         OptionData optionData = Utils.generateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
 
@@ -147,7 +147,7 @@ public class ProducerActivity extends AppCompatActivity {
     }
 
     private void getMedalAmount(int totalHits) {
-        QueryObjData queryObjData = Utils.generateQueryObjData(_producer);
+        QueryObjData queryObjData = Utils.generateQueryObjData(_producer, true);
         OptionData optionData = Utils.generateOptionData(0, totalHits);
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
 

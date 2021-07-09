@@ -8,9 +8,10 @@ import java.util.List;
 public class Session {
         private static int _maxWinesSearch;
         private static int _winesPerPage = 10;
-        private static String _wineName = null;
+        private static String _searchText = null;
         private static List<FacetQueryGroup> _facetQueryGroups = new ArrayList<>();
         private static WineListItem _selectedListItem;
+        private static int _selectedSpinnerSearch = 0;
 
 
         public static WineListItem getSelectedListItem() {
@@ -19,6 +20,14 @@ public class Session {
 
         public static void setSelectedListItem(WineListItem selectedListItem) {
                 _selectedListItem = selectedListItem;
+        }
+
+        public static int getSelectedSpinnerSearch() {
+                return _selectedSpinnerSearch;
+        }
+
+        public static void setSelectedSpinnerSearch(int selectedSpinnerSearch) {
+                _selectedSpinnerSearch = selectedSpinnerSearch;
         }
 
         public static int getMaxWinesSearch() {
@@ -41,12 +50,12 @@ public class Session {
                 _winesPerPage = winesPerPage;
         }
 
-        public static String getWineName() {
-                return _wineName;
+        public static String getSearchText() {
+                return _searchText;
         }
 
-        public static void setWineName(String wineName) {
-                _wineName = wineName;
+        public static void setSearchText(String wineName) {
+                _searchText = wineName;
         }
 
         public static List<FacetQueryGroup> getFacetQueryGroups() {

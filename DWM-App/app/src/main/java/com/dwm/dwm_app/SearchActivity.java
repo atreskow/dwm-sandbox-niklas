@@ -9,11 +9,14 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -43,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     private Button _searchButton;
     private Button _resetButton;
     private ImageView _settingsImageView;
+    private Spinner _searchSpinner;
 
     private ActionBarDrawerToggle _actionBarDrawerToggle;
     private DrawerLayout _drawerLayout;
@@ -92,7 +96,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private void setupViews() {
         _wineNameTextView = findViewById(R.id.txtStorageNumber);
-        _wineNameTextView.setText(Session.getWineName());
+        _wineNameTextView.setText(Session.getSearchText());
         _searchButton = findViewById(R.id.btnSearch);
         _resetButton = findViewById(R.id.btnReset);
         _drawerLayout = findViewById(R.id.drawer_layout);
@@ -100,6 +104,13 @@ public class SearchActivity extends AppCompatActivity {
         _wineListView = findViewById(R.id.wineList);
         _wineListSearchAmountTextView = findViewById(R.id.txtViewBottom);
         _settingsImageView = findViewById(R.id.settings);
+
+        _searchSpinner = findViewById(R.id.spinnerSearch);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.spinner_item,
+                getResources().getStringArray(R.array.search_array));
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        _searchSpinner.setAdapter(adapter);
+        _searchSpinner.setSelection(Session.getSelectedSpinnerSearch());
     }
 
     private void setupActionBar() {
@@ -123,6 +134,7 @@ public class SearchActivity extends AppCompatActivity {
         _resetButton.setOnClickListener(_resetFilterListener);
         _wineNameTextView.setOnEditorActionListener(_searchEnterListener);
         _settingsImageView.setOnClickListener(_settingsListener);
+        _searchSpinner.setOnItemSelectedListener(_spinnerSelectionListener);
 
         _wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
         _wineListView.setAdapter(_wineListAdapter);
@@ -149,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
     public void startNewWineSearch() {
         _wineListAdapter.clear();
         String wineName = _wineNameTextView.getText().toString();
-        Session.setWineName(wineName);
+        Session.setSearchText(wineName);
 
         new Thread(() ->  {
             WineData data = addWines();
@@ -166,10 +178,19 @@ public class SearchActivity extends AppCompatActivity {
     private WineData addWines() {
         ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
 
-        QueryObjData queryObjData = Utils.generateQueryObjData();
+        String spinnerSelected = _searchSpinner.getSelectedItem().toString();
+        QueryObjData queryObjData;
+        if (spinnerSelected.equals(getResources().getStringArray(R.array.search_array)[0])) {
+            queryObjData = Utils.generateQueryObjData();
+        }
+        else {
+            queryObjData = Utils.generateQueryObjData(Session.getSearchText(), false);
+        }
         OptionData optionData = Utils.generateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
         WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
+
+        Session.getFacetQueryGroups().removeIf(f -> f.fieldName.equals("producer_company"));
 
         if (wineData == null) {
             return null;
@@ -249,7 +270,7 @@ public class SearchActivity extends AppCompatActivity {
     private final View.OnClickListener _resetFilterListener = view -> {
         Session.setFacetQueryGroups(new ArrayList<>());
         Session.getFacetQueryGroups().add(Utils.getRankedOnlyFacetGroup());
-        Session.setWineName("");
+        Session.setSearchText("");
         _wineNameTextView.setText("");
         startNewWineSearch();
     };
@@ -263,6 +284,17 @@ public class SearchActivity extends AppCompatActivity {
     private final View.OnClickListener _settingsListener = view -> {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    };
+
+    private final AdapterView.OnItemSelectedListener _spinnerSelectionListener = new AdapterView.OnItemSelectedListener() {
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+            Session.setSelectedSpinnerSearch(i);
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+        }
     };
 
     private final TextView.OnEditorActionListener _searchEnterListener = (v, actionId, event) -> {

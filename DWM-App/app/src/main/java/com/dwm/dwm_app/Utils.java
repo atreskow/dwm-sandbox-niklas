@@ -13,6 +13,7 @@ import com.google.gson.GsonBuilder;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,17 +35,24 @@ public class Utils {
 
     public static QueryObjData generateQueryObjData() {
         List<String> queryTokens = new ArrayList<>();
-        queryTokens.add("+wine_name:*" + Session.getWineName() + "*" );
+        queryTokens.add("+wine_name:*" + Session.getSearchText() + "*" );
         QueryObjData queryObjData = new QueryObjData(queryTokens, Session.getFacetQueryGroups());
-
         return queryObjData;
     }
 
-    public static QueryObjData generateQueryObjData(String producer) {
+    public static QueryObjData generateQueryObjData(String producer, boolean producerPage) {
         List<String> queryTokens = new ArrayList<>();
-        List<FacetQueryGroup> facetQueryGroups = new ArrayList<>();
+        List<FacetQueryGroup> facetQueryGroups = null;
+
+        if (producerPage) {
+            facetQueryGroups = new ArrayList<>();
+            facetQueryGroups.add(getRankedOnlyFacetGroup());
+        }
+        else {
+            facetQueryGroups = Session.getFacetQueryGroups();
+        }
+
         facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
-        facetQueryGroups.add(getRankedOnlyFacetGroup());
         QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups);
 
         return queryObjData;
