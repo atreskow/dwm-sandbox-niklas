@@ -18,10 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?attr/bgColor"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/toolbar_whitespace"
@@ -32,28 +29,109 @@
 
         <LinearLayout
             android:id="@+id/linearLayoutSearch"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="?attr/bgColor"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:orientation="horizontal"
-            android:padding="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+            android:orientation="vertical">
 
             <TextView
                 android:id="@+id/txtViewProducer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textStyle="bold"
                 android:gravity="center"
-                android:padding="5dp"
+                android:padding="10dp"
                 android:textColor="?attr/textColor"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <View android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="5dp"
+                android:background="?attr/dividerColor" />
+
+            <LinearLayout
+                android:id="@+id/layoutGrandGold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtGrandGold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="textEnd"
+                    android:text="@string/grand_gold"
+                    android:textColor="?attr/textColor"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/txtGrandGold_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="5dp"
+                    android:textColor="?attr/textColor"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutGold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtGold"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="textEnd"
+                    android:text="@string/gold"
+                    android:textColor="?attr/textColor"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/txtGold_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="5dp"
+                    android:textColor="?attr/textColor"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutSilver"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtSilver"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="textEnd"
+                    android:text="@string/silver"
+                    android:textColor="?attr/textColor"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <TextView
+                    android:id="@+id/txtSilver_value"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:textAlignment="textStart"
+                    android:layout_marginStart="5dp"
+                    android:textColor="?attr/textColor"
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+            </LinearLayout>
+
+            <View android:layout_width="fill_parent"
+                android:layout_height="5dp" />
 
         </LinearLayout>
 

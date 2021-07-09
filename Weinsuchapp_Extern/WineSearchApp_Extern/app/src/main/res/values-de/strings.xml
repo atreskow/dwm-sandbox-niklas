@@ -21,6 +21,10 @@
     <string name="yes">Ja</string>
     <string name="no">Nein</string>
 
+    <string name="grand_gold">Großes Gold:</string>
+    <string name="gold">Gold:</string>
+    <string name="silver">Silber:</string>
+
     <string name="language">de</string>
 
     <string name="settings_darkmode">Dunkelmodus aktiviert:</string>

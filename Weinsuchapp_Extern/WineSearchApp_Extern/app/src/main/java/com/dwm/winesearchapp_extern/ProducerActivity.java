@@ -27,6 +27,10 @@ public class ProducerActivity extends AppCompatActivity {
     private TextView _producerNameTextView;
     private TextView _wineListSearchAmountTextView;
 
+    private TextView _grandGoldCount;
+    private TextView _goldCount;
+    private TextView _silverCount;
+
     private WineListAdapter _wineListAdapter;
     private List<WineListItem> _wineItemList;
     private ListView _wineListView;
@@ -44,10 +48,8 @@ public class ProducerActivity extends AppCompatActivity {
         boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("toolbarBottom", false);
         if (toolbarBottom) {
             ViewHelper.changeSearchPosition(this);
-            ViewHelper.changeDrawerGravity(this);
         }
 
-        Intent intent = getIntent();
         _producer = Session.getSelectedListItem().producer;
 
         setupViews();
@@ -55,7 +57,7 @@ public class ProducerActivity extends AppCompatActivity {
 
         _producerNameTextView.setText(_producer);
 
-        startWineSearch(_producer);
+        startWineSearch();
     }
 
     public void onBackPressed() {
@@ -66,6 +68,10 @@ public class ProducerActivity extends AppCompatActivity {
         _producerNameTextView = findViewById(R.id.txtViewProducer);
         _wineListView = findViewById(R.id.wineList);
         _wineListSearchAmountTextView = findViewById(R.id.txtViewBottom);
+
+        _grandGoldCount = findViewById(R.id.txtGrandGold_value);
+        _goldCount = findViewById(R.id.txtGold_value);
+        _silverCount = findViewById(R.id.txtSilver_value);
     }
 
     private void setupListener() {
@@ -85,50 +91,109 @@ public class ProducerActivity extends AppCompatActivity {
                     if(!_wineListScrollIsLoading && !Session.allWinesLoaded(_wineListAdapter.getCount()))
                     {
                         _wineListScrollIsLoading = true;
-                        startWineSearch(_producer);
+                        ViewHelper.toggleLoadingAnimation(ProducerActivity.this, View.VISIBLE);
+                        new Thread(() -> {
+                            getWines();
+                            ViewHelper.toggleLoadingAnimation(ProducerActivity.this, View.GONE);
+                        }).start();
                     }
                 }
             }
         });
     }
 
-    public void startWineSearch(String producer) {
+    public void startWineSearch() {
         ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
 
-        QueryObjData queryObjData = Utils.generateQueryObjData(producer);
+        new Thread(() ->  {
+            int totalHits = getWines();
+            getMedalAmount(totalHits);
+        }).start();
+    }
+
+    private int getWines() {
+        QueryObjData queryObjData = Utils.generateQueryObjData(_producer);
         OptionData optionData = Utils.generateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
 
-        new Thread(() ->  {
-            WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
-            if (wineData == null) {
-                ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
-                ViewHelper.toggleLoadingAnimation(this, View.GONE);
-                return;
+        WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
+
+        if (wineData == null) {
+            ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
+            ViewHelper.toggleLoadingAnimation(this, View.GONE);
+            return 0;
+        }
+
+        List<Hit> wineDataList = wineData.searchResult.hits;
+        _wineItemList = new ArrayList<>();
+        if (_wineListAdapter.getCount() == 0) {
+            Session.setMaxWinesSearch(wineData.searchResult.totalHits);
+        }
+
+        for (Hit wine : wineDataList) {
+            DocumentData documentData = wine.document;
+            WineListItem wineListItem = new WineListItem(documentData);
+            _wineItemList.add(wineListItem);
+        }
+
+        runOnUiThread(() -> {
+            _wineListAdapter.addAll(_wineItemList);
+            _wineListAdapter.notifyDataSetChanged();
+            updateSearchBottomText();
+            ViewHelper.toggleLoadingAnimation(this, View.GONE);
+        });
+        _wineListScrollIsLoading = false;
+
+        return wineData.searchResult.totalHits;
+    }
+
+    private void getMedalAmount(int totalHits) {
+        QueryObjData queryObjData = Utils.generateQueryObjData(_producer);
+        OptionData optionData = Utils.generateOptionData(0, totalHits);
+        WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
+
+        WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
+
+        if (wineData == null) {
+            ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
+            ViewHelper.toggleLoadingAnimation(this, View.GONE);
+            return;
+        }
+
+        int grandGold = 0;
+        int gold = 0;
+        int silver = 0;
+
+        List<Hit> wineDataList = wineData.searchResult.hits;
+
+        for (Hit wine : wineDataList) {
+            DocumentData documentData = wine.document;
+            switch (documentData.ranking) {
+                case 1: grandGold++;
+                        break;
+                case 2: gold++;
+                        break;
+                case 3: silver++;
+                        break;
             }
+        }
 
-            List<Hit> wineDataList = wineData.searchResult.hits;
-            _wineItemList = new ArrayList<>();
+        //"lambda variables must be final" ........
+        String finalGrandGold = String.valueOf(grandGold);
+        String finalGold = String.valueOf(gold);
+        String finalSilver = String.valueOf(silver);
 
-            //Setzt bei neuer Anfrage die Anzahl der Ergebnisse neu
-            if (_wineListAdapter.getCount() == 0) {
-                Session.setMaxWinesSearch(wineData.searchResult.totalHits);
-            }
+        runOnUiThread(() -> {
+            _grandGoldCount.setText(finalGrandGold);
+            _goldCount.setText(finalGold);
+            _silverCount.setText(finalSilver);
 
-            for (Hit wine : wineDataList) {
-                DocumentData documentData = wine.document;
-                WineListItem wineListItem = new WineListItem(documentData);
-                _wineItemList.add(wineListItem);
-            }
+            ViewHelper.setVisibility(findViewById(R.id.layoutGrandGold), !finalGrandGold.equals("0"));
+            ViewHelper.setVisibility(findViewById(R.id.layoutGold), !finalGold.equals("0"));
+            ViewHelper.setVisibility(findViewById(R.id.layoutSilver), !finalSilver.equals("0"));
+        });
 
-            runOnUiThread(() -> {
-                _wineListAdapter.addAll(_wineItemList);
-                _wineListAdapter.notifyDataSetChanged();
-                updateSearchBottomText();
-                ViewHelper.toggleLoadingAnimation(this, View.GONE);
-            });
-            _wineListScrollIsLoading = false;
-        }).start();
+        ViewHelper.toggleLoadingAnimation(this, View.GONE);
     }
 
     private void updateSearchBottomText() {

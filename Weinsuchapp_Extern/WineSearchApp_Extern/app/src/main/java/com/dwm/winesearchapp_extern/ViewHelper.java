@@ -151,4 +151,8 @@ public class ViewHelper {
 
         return ( (float) imageViewHeight / (float) bitmap.getHeight() );
     }
+
+    public static void setVisibility(View view, boolean visible) {
+        view.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
 }
