@@ -78,5 +78,4 @@ public class Session {
         public static void setFacetQueryGroups(List<FacetQueryGroup> facetQueryGroups) {
                 _facetQueryGroups = facetQueryGroups;
         }
-
 }

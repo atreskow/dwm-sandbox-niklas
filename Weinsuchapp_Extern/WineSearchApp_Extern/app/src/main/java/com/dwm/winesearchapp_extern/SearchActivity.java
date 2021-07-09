@@ -63,6 +63,10 @@ public class SearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_search);
         ViewHelper.setupToolbar(this);
 
+        if (Session.getFacetQueryGroups().size() == 0) {
+            Session.getFacetQueryGroups().add(Utils.getRankedOnlyFacetGroup());
+        }
+
         boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("toolbarBottom", false);
         if (toolbarBottom) {
             ViewHelper.changeSearchPosition(this);
@@ -244,6 +248,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private final View.OnClickListener _resetFilterListener = view -> {
         Session.setFacetQueryGroups(new ArrayList<>());
+        Session.getFacetQueryGroups().add(Utils.getRankedOnlyFacetGroup());
         Session.setWineName("");
         _wineNameTextView.setText("");
         startNewWineSearch();

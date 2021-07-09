@@ -44,6 +44,7 @@ public class Utils {
         List<String> queryTokens = new ArrayList<>();
         List<FacetQueryGroup> facetQueryGroups = new ArrayList<>();
         facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
+        facetQueryGroups.add(getRankedOnlyFacetGroup());
         QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups);
 
         return queryObjData;
@@ -57,6 +58,18 @@ public class Utils {
                 sortParams,
                 null,
                 Constants.FACET_VALUES,
+                null);
+        return optionData;
+    }
+
+    public static OptionData generateOptionData(int loaded, int amount) {
+        List<SortParam> sortParams = new ArrayList<>();
+        sortParams.add(new SortParam("trophy_year", false));
+        OptionData optionData = new OptionData(amount,
+                loaded,
+                sortParams,
+                null,
+                new ArrayList<>(),
                 null);
         return optionData;
     }
@@ -109,5 +122,12 @@ public class Utils {
     public static String getWineLink(String wineLink) {
         String lang = Locale.getDefault().getLanguage();
         return Constants.WINE_LINK.replace("{language}", lang) + wineLink;
+    }
+
+    public static FacetQueryGroup getRankedOnlyFacetGroup() {
+        FacetQueryGroup facetQueryGroup = new FacetQueryGroup("medal_rank", "1");
+        facetQueryGroup.values.add("2");
+        facetQueryGroup.values.add("3");
+        return facetQueryGroup;
     }
 }

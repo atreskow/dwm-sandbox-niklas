@@ -201,11 +201,20 @@
                         android:id="@+id/txtProducer_value"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+                        android:layout_weight="2.5"
                         android:textAlignment="textStart"
                         android:textStyle="bold"
                         android:textColor="?attr/textColor"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                    <ImageView
+                        android:id="@+id/producerLinkImageView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:paddingRight="10dp"
+                        android:src="@drawable/outline_read_more_24"
+                        android:layout_gravity="center"/>
                 </LinearLayout>
 
 
