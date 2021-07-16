@@ -9,6 +9,9 @@
     </style>
 
     <style name="LightTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <item name="textColor">@color/textPrimary</item>
         <item name="bgColor">@color/colorPrimary</item>
         <item name="bgColor2">@color/colorSecondary</item>
@@ -17,6 +20,9 @@
     </style>
 
     <style name="DarkTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
         <item name="textColor">@color/textPrimaryDark</item>
         <item name="bgColor">@color/colorPrimaryDark</item>
         <item name="bgColor2">@color/colorSecondaryDark</item>

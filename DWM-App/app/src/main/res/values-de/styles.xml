@@ -1,13 +1,34 @@
 <resources>
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
+
     <style name="ToolbarColoredBackArrow" parent="AppTheme">
         <item name="android:textColorSecondary">#ffffff</item>
     </style>
 
+    <style name="LightTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
+        <item name="textColor">@color/textPrimary</item>
+        <item name="bgColor">@color/colorPrimary</item>
+        <item name="bgColor2">@color/colorSecondary</item>
+        <item name="toolbarColor">@color/toolbarPrimary</item>
+        <item name="dividerColor">@color/colorSecondaryDark</item>
+    </style>
+
+    <style name="DarkTheme" parent="AppTheme">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <item name="textColor">@color/textPrimaryDark</item>
+        <item name="bgColor">@color/colorPrimaryDark</item>
+        <item name="bgColor2">@color/colorSecondaryDark</item>
+        <item name="toolbarColor">@color/toolbarPrimaryDark</item>
+        <item name="dividerColor">@color/colorSecondary</item>
+        <item name="android:textColorHint">@color/colorSecondary</item>
+        <item name="android:buttonTint">@color/textPrimaryDark</item>
+    </style>
 </resources>
