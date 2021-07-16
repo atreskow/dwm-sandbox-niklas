@@ -39,7 +39,7 @@
                 android:text=""
                 android:textAlignment="center" />
 
-             <com.dwm.dwm_app.HeightWrappingViewPager
+             <com.dwm.dwm_app.adapters.HeightWrappingViewPager
                 android:id="@+id/imagePager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

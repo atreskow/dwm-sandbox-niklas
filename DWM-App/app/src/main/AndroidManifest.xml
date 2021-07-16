@@ -10,20 +10,20 @@
         android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name="com.dwm.dwm_app.SearchActivity">
+        <activity android:name="com.dwm.dwm_app.activities.SearchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dwm.dwm_app.WinedetailsActivity"
-            android:parentActivityName="com.dwm.dwm_app.SearchActivity">
+        <activity android:name="com.dwm.dwm_app.activities.WinedetailsActivity"
+            android:parentActivityName="com.dwm.dwm_app.activities.SearchActivity">
         </activity>
-        <activity android:name="com.dwm.dwm_app.SettingsActivity"
-            android:parentActivityName="com.dwm.dwm_app.SearchActivity">
+        <activity android:name="com.dwm.dwm_app.activities.SettingsActivity"
+            android:parentActivityName="com.dwm.dwm_app.activities.SearchActivity">
         </activity>
-        <activity android:name="com.dwm.dwm_app.ProducerActivity"
-            android:parentActivityName="com.dwm.dwm_app.WinedetailsActivity">
+        <activity android:name="com.dwm.dwm_app.activities.ProducerActivity"
+            android:parentActivityName="com.dwm.dwm_app.activities.WinedetailsActivity">
         </activity>
     </application>
 

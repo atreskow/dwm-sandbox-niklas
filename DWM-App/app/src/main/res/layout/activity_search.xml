@@ -173,7 +173,8 @@
             android:background="?attr/bgColor"
             android:dividerHeight="1dp"
             android:divider="?attr/dividerColor"
-            android:childDivider="?attr/dividerColor"/>
+            android:childDivider="?attr/dividerColor"
+            android:groupIndicator="@null"/>
 
     </LinearLayout>
 
