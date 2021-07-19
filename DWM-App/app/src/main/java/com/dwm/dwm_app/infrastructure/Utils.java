@@ -33,26 +33,15 @@ public class Utils {
         return bodyData;
     }
 
-    public static QueryObjData generateQueryObjData() {
+    public static QueryObjData generateQueryObjData(String queryToken, String value) {
         List<String> queryTokens = new ArrayList<>();
-        queryTokens.add("+wine_name:*" + Session.getSearchText() + "*" );
+        queryTokens.add(String.format("+%s:*%s*", queryToken, value));
         QueryObjData queryObjData = new QueryObjData(queryTokens, Session.getFacetQueryGroups());
         return queryObjData;
     }
 
-    public static QueryObjData generateQueryObjData(String producer, boolean producerPage) {
+    public static QueryObjData generateQueryObjData(List<FacetQueryGroup> facetQueryGroups) {
         List<String> queryTokens = new ArrayList<>();
-        List<FacetQueryGroup> facetQueryGroups = null;
-
-        if (producerPage) {
-            facetQueryGroups = new ArrayList<>();
-            facetQueryGroups.add(getRankedOnlyFacetGroup());
-        }
-        else {
-            facetQueryGroups = Session.getFacetQueryGroups();
-        }
-
-        facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
         QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups);
 
         return queryObjData;

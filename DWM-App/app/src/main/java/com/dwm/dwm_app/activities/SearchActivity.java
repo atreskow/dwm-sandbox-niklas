@@ -25,6 +25,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.dwm.dwm_app.adapters.NavDrawerAdapter;
 import com.dwm.dwm_app.adapters.NavDrawerItem;
+import com.dwm.dwm_app.infrastructure.Constants;
 import com.dwm.dwm_app.server_connection.response.Facet;
 import com.dwm.dwm_app.server_connection.response.Item;
 import com.dwm.dwm_app.server_connection.request.OptionData;
@@ -160,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
                     if(!_wineListScrollIsLoading && !Session.allWinesLoaded(_wineListAdapter.getCount()))
                     {
                         _wineListScrollIsLoading = true;
-                        new Thread(() ->  addWines()).start();
+                        new Thread(() ->  getWines()).start();
                     }
                 }
             }
@@ -169,42 +170,35 @@ public class SearchActivity extends AppCompatActivity {
 
     public void startNewWineSearch() {
         _wineListAdapter.clear();
-        String wineName = _wineNameTextView.getText().toString();
-        Session.setSearchText(wineName);
+        String searchText = _wineNameTextView.getText().toString();
+        Session.setSearchText(searchText);
 
         new Thread(() ->  {
-            WineData data = addWines();
+            WineData data = getWines();
             if (data == null) {
                 ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
                 ViewHelper.toggleLoadingAnimation(this, View.GONE);
                 return;
             }
+            addWines(data);
             addFacetsToSidebar(data.extendedFacets);
         }).start();
     }
 
-    //Die Funtkion wird für neue SUchen und zum Erweitern der Wein-Such-Liste aufgerufen
-    private WineData addWines() {
+    private WineData getWines() {
         ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
 
-        String spinnerSelected = _searchSpinner.getSelectedItem().toString();
-        QueryObjData queryObjData;
-        if (spinnerSelected.equals(getResources().getStringArray(R.array.search_array)[0])) {
-            queryObjData = Utils.generateQueryObjData();
-        }
-        else {
-            queryObjData = Utils.generateQueryObjData(Session.getSearchText(), false);
-        }
+        String queryParam = Constants.QUERY_PARAMS.get(_searchSpinner.getSelectedItemPosition());
+        QueryObjData queryObjData = Utils.generateQueryObjData(queryParam, Session.getSearchText());
+
         OptionData optionData = Utils.generateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
         WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
 
-        Session.getFacetQueryGroups().removeIf(f -> f.fieldName.equals("producer_company"));
+        return wineData;
+    }
 
-        if (wineData == null) {
-            return null;
-        }
-
+    private void addWines(WineData wineData) {
         List<Hit> wineDataList = wineData.searchResult.hits;
         _wineItemList = new ArrayList<>();
 
@@ -226,7 +220,6 @@ public class SearchActivity extends AppCompatActivity {
             ViewHelper.toggleLoadingAnimation(this, View.GONE);
         });
         _wineListScrollIsLoading = false;
-        return wineData;
     }
 
     private void updateSearchBottomText() {

@@ -22,6 +22,12 @@ public class Constants {
             "varietal"
     ));
 
+    //Liste MUSS Reihenfolge der String Liste aus res/values/strings.xml entsprechen!
+    public static final List<String> QUERY_PARAMS = new ArrayList<>(Arrays.asList(
+            "wine_name",
+            "producer_company"
+    ));
+
     public static final List<String> FACET_BLACKLIST = new ArrayList<>(Arrays.asList(
             "Category IV",
             "false"

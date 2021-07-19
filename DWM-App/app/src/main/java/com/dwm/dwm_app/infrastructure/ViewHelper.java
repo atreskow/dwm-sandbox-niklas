@@ -136,7 +136,7 @@ public class ViewHelper {
 
     public static int getResetButtonVisbility(String input) {
         int textlength = input.length();
-        return Session.getFacetQueryGroups().size() > 0 || textlength > 0 ? View.VISIBLE : View.GONE;
+        return Session.getFacetQueryGroups().size() > 1 || textlength > 0 ? View.VISIBLE : View.GONE;
     }
 
     public static float getBitmapScalingFactor(Activity activity, Bitmap bitmap, ImageView imageView) {

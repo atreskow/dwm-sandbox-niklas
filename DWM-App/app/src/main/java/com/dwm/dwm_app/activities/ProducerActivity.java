@@ -7,6 +7,7 @@ import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.dwm.dwm_app.server_connection.request.FacetQueryGroup;
 import com.dwm.dwm_app.server_connection.request.OptionData;
 import com.dwm.dwm_app.server_connection.request.QueryObjData;
 import com.dwm.dwm_app.server_connection.request.WineSearchData;
@@ -42,7 +43,7 @@ public class ProducerActivity extends AppCompatActivity {
     private ListView _wineListView;
     private boolean _wineListScrollIsLoading = false;
 
-    private String _producer;
+    private List<FacetQueryGroup> facetQueryGroups = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,12 +57,14 @@ public class ProducerActivity extends AppCompatActivity {
             ViewHelper.changeSearchPosition(this);
         }
 
-        _producer = Session.getSelectedListItem().producer;
+        String producer = Session.getSelectedListItem().producer;
+        facetQueryGroups.add(Utils.getRankedOnlyFacetGroup());
+        facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
 
         setupViews();
         setupListener();
 
-        _producerNameTextView.setText(_producer);
+        _producerNameTextView.setText(producer);
 
         startWineSearch();
     }
@@ -112,26 +115,31 @@ public class ProducerActivity extends AppCompatActivity {
         ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
 
         new Thread(() ->  {
-            int totalHits = getWines();
+            WineData wineData = getWines();
+            if (wineData == null) {
+                ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
+                ViewHelper.toggleLoadingAnimation(this, View.GONE);
+                return;
+            }
+            int totalHits = addWines(wineData);
             getMedalAmount(totalHits);
         }).start();
     }
 
-    private int getWines() {
-        QueryObjData queryObjData = Utils.generateQueryObjData(_producer, true);
+    private WineData getWines() {
+        QueryObjData queryObjData = Utils.generateQueryObjData(facetQueryGroups);
         OptionData optionData = Utils.generateOptionData(_wineListAdapter.getCount());
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
 
         WineData wineData = WineSearchServices.getWineData(getResources().getString(R.string.language), wineSearchData);
 
-        if (wineData == null) {
-            ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
-            ViewHelper.toggleLoadingAnimation(this, View.GONE);
-            return 0;
-        }
+        return wineData;
+    }
 
+    private int addWines(WineData wineData) {
         List<Hit> wineDataList = wineData.searchResult.hits;
         _wineItemList = new ArrayList<>();
+
         if (_wineListAdapter.getCount() == 0) {
             Session.setMaxWinesSearch(wineData.searchResult.totalHits);
         }
@@ -154,7 +162,7 @@ public class ProducerActivity extends AppCompatActivity {
     }
 
     private void getMedalAmount(int totalHits) {
-        QueryObjData queryObjData = Utils.generateQueryObjData(_producer, true);
+        QueryObjData queryObjData = Utils.generateQueryObjData(facetQueryGroups);
         OptionData optionData = Utils.generateOptionData(0, totalHits);
         WineSearchData wineSearchData = new WineSearchData(queryObjData, optionData);
 
