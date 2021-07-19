@@ -1,9 +1,12 @@
 package com.dwm.dwm_app.activities;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +26,7 @@ import com.dwm.dwm_app.adapters.WineListItem;
 import com.dwm.dwm_app.server_connection.WineSearchServices;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -60,13 +64,15 @@ public class ProducerActivity extends AppCompatActivity {
         String producer = Session.getSelectedListItem().producer;
         facetQueryGroups.add(Utils.getRankedOnlyFacetGroup());
         facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
+        List<String> medalValues = new ArrayList<>(Arrays.asList("Grand Gold", "Gold", "Silver", "No Selection = No Wine")); 
+        facetQueryGroups.add(new FacetQueryGroup("medal_name", medalValues));
 
         setupViews();
         setupListener();
 
         _producerNameTextView.setText(producer);
 
-        startWineSearch();
+        startInitialWineSearch();
     }
 
     public void onBackPressed() {
@@ -85,6 +91,10 @@ public class ProducerActivity extends AppCompatActivity {
 
     private void setupListener() {
 
+        findViewById(R.id.layoutGrandGold).setOnClickListener(_grandGoldListener);
+        findViewById(R.id.layoutGold).setOnClickListener(_goldListener);
+        findViewById(R.id.layoutSilver).setOnClickListener(_silverListener);
+
         _wineListAdapter = new WineListAdapter(this, R.layout.wine_list_item);
         _wineListView.setAdapter(_wineListAdapter);
         _wineListView.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -100,30 +110,30 @@ public class ProducerActivity extends AppCompatActivity {
                     if(!_wineListScrollIsLoading && !Session.allWinesLoaded(_wineListAdapter.getCount()))
                     {
                         _wineListScrollIsLoading = true;
-                        ViewHelper.toggleLoadingAnimation(ProducerActivity.this, View.VISIBLE);
-                        new Thread(() -> {
-                            getWines();
-                            ViewHelper.toggleLoadingAnimation(ProducerActivity.this, View.GONE);
-                        }).start();
+                        new Thread(() -> startWineSearch()).start();
                     }
                 }
             }
         });
     }
 
-    public void startWineSearch() {
-        ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
-
+    public void startInitialWineSearch() {
         new Thread(() ->  {
-            WineData wineData = getWines();
-            if (wineData == null) {
-                ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
-                ViewHelper.toggleLoadingAnimation(this, View.GONE);
-                return;
-            }
-            int totalHits = addWines(wineData);
+            int totalHits = startWineSearch();
             getMedalAmount(totalHits);
         }).start();
+    }
+
+    public int startWineSearch() {
+        ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
+
+        WineData wineData = getWines();
+        if (wineData == null) {
+            ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
+            ViewHelper.toggleLoadingAnimation(this, View.GONE);
+            return 0;
+        }
+        return addWines(wineData);
     }
 
     private WineData getWines() {
@@ -213,5 +223,35 @@ public class ProducerActivity extends AppCompatActivity {
     private void updateSearchBottomText() {
         String text = String.format(getResources().getString(R.string.winelist_bottomText), _wineListAdapter.getCount(), Session.getMaxWinesSearch());
         _wineListSearchAmountTextView.setText(text);
+    }
+
+    private final View.OnClickListener _grandGoldListener = view -> {
+        CheckBox grandGoldCheckbox = findViewById(R.id.checkBoxGrandGold);
+        checkBoxStatusChange(grandGoldCheckbox, "Grand Gold");
+    };
+
+    private final View.OnClickListener _goldListener = view -> {
+        CheckBox goldCheckBox = findViewById(R.id.checkBoxGold);
+        checkBoxStatusChange(goldCheckBox, "Gold");
+    };
+
+    private final View.OnClickListener _silverListener = view -> {
+        CheckBox silverCheckBox = findViewById(R.id.checkBoxSilver);
+        checkBoxStatusChange(silverCheckBox, "Silver");
+    };
+
+    private void checkBoxStatusChange(CheckBox checkBox, String value) {
+        ViewHelper.toggleLoadingAnimation(this, View.VISIBLE);
+
+        if (checkBox.isChecked()) {
+            Utils.removeFacetQueryGroupValue(facetQueryGroups, "medal_name", value);
+        }
+        else {
+            Utils.addFacetQueryGroupValue(facetQueryGroups, "medal_name", value);
+        }
+        checkBox.setChecked(!checkBox.isChecked());
+        _wineListAdapter.clear();
+
+        new Thread(() -> startWineSearch()).start();
     }
 }

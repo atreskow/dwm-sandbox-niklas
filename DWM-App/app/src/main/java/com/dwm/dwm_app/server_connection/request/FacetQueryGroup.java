@@ -10,6 +10,11 @@ public class FacetQueryGroup {
         values.add(value);
     }
 
+    public FacetQueryGroup(String fieldName, List<String> value) {
+        this.fieldName = fieldName;
+        values = value;
+    }
+
     public String fieldName;
     public List<String> values = new ArrayList<>();
 }

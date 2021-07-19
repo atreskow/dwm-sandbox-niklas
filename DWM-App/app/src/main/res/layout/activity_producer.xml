@@ -53,13 +53,15 @@
                 android:id="@+id/layoutGrandGold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtGrandGold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
                     android:textAlignment="textEnd"
                     android:text="@string/grand_gold"
                     android:textColor="?attr/textColor"
@@ -69,24 +71,36 @@
                     android:id="@+id/txtGrandGold_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textAlignment="textStart"
                     android:layout_marginStart="5dp"
                     android:textColor="?attr/textColor"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxGrandGold"
+                    android:clickable="false"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:textAlignment="textStart"
+                    android:textColor="?attr/textColor"
+                    android:checked="true"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutGold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtGold"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
                     android:textAlignment="textEnd"
                     android:text="@string/gold"
                     android:textColor="?attr/textColor"
@@ -96,24 +110,36 @@
                     android:id="@+id/txtGold_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textAlignment="textStart"
                     android:layout_marginStart="5dp"
                     android:textColor="?attr/textColor"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxGold"
+                    android:clickable="false"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:textAlignment="textStart"
+                    android:textColor="?attr/textColor"
+                    android:checked="true"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutSilver"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:clickable="true"
+                android:focusable="true"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/txtSilver"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="4"
                     android:textAlignment="textEnd"
                     android:text="@string/silver"
                     android:textColor="?attr/textColor"
@@ -123,11 +149,21 @@
                     android:id="@+id/txtSilver_value"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
+                    android:layout_weight="1"
                     android:textAlignment="textStart"
                     android:layout_marginStart="5dp"
                     android:textColor="?attr/textColor"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
+
+                <CheckBox
+                    android:id="@+id/checkBoxSilver"
+                    android:clickable="false"
+                    android:layout_weight="2"
+                    android:layout_width="wrap_content"
+                    android:textAlignment="textStart"
+                    android:textColor="?attr/textColor"
+                    android:checked="true"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
 
             <View android:layout_width="fill_parent"

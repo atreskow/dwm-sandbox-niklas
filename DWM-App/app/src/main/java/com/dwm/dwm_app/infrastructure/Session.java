@@ -64,25 +64,11 @@ public class Session {
         }
 
         public static void addFacetQueryGroupValue(String name, String value) {
-                for (FacetQueryGroup group : _facetQueryGroups) {
-                        if (group.fieldName.equals(name)) {
-                                group.values.add(value);
-                                return;
-                        }
-                }
-                _facetQueryGroups.add(new FacetQueryGroup(name, value));
+                Utils.addFacetQueryGroupValue(_facetQueryGroups, name, value);
         }
 
         public static void removeFacetQueryGroupValue(String name, String value) {
-                for (FacetQueryGroup group : _facetQueryGroups) {
-                        if (group.fieldName.equals(name)) {
-                                group.values.remove(value);
-                                if (group.values.size() == 0) {
-                                        _facetQueryGroups.remove(group);
-                                }
-                                return;
-                        }
-                }
+                Utils.removeFacetQueryGroupValue(_facetQueryGroups, name, value);
         }
 
         public static void setFacetQueryGroups(List<FacetQueryGroup> facetQueryGroups) {

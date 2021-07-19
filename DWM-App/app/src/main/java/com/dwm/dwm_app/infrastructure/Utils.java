@@ -127,4 +127,26 @@ public class Utils {
         facetQueryGroup.values.add("3");
         return facetQueryGroup;
     }
+
+    public static void addFacetQueryGroupValue(List<FacetQueryGroup> facetQueryGroups, String name, String value) {
+        for (FacetQueryGroup group : facetQueryGroups) {
+            if (group.fieldName.equals(name)) {
+                group.values.add(value);
+                return;
+            }
+        }
+        facetQueryGroups.add(new FacetQueryGroup(name, value));
+    }
+
+    public static void removeFacetQueryGroupValue(List<FacetQueryGroup> facetQueryGroups, String name, String value) {
+        for (FacetQueryGroup group : facetQueryGroups) {
+            if (group.fieldName.equals(name)) {
+                group.values.remove(value);
+                if (group.values.size() == 0) {
+                    facetQueryGroups.remove(group);
+                }
+                return;
+            }
+        }
+    }
 }
