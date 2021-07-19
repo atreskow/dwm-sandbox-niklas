@@ -40,6 +40,13 @@ public class Utils {
         return queryObjData;
     }
 
+    public static QueryObjData generateQueryObjData(String queryToken, float start, float end) {
+        List<String> queryTokens = new ArrayList<>();
+        queryTokens.add(String.format("+%s:[%f TO %f]", queryToken, start, end));
+        QueryObjData queryObjData = new QueryObjData(queryTokens, Session.getFacetQueryGroups());
+        return queryObjData;
+    }
+
     public static QueryObjData generateQueryObjData(List<FacetQueryGroup> facetQueryGroups) {
         List<String> queryTokens = new ArrayList<>();
         QueryObjData queryObjData = new QueryObjData(queryTokens, facetQueryGroups);

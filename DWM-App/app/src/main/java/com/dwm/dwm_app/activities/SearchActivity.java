@@ -161,7 +161,7 @@ public class SearchActivity extends AppCompatActivity {
                     if(!_wineListScrollIsLoading && !Session.allWinesLoaded(_wineListAdapter.getCount()))
                     {
                         _wineListScrollIsLoading = true;
-                        new Thread(() ->  getWines()).start();
+                        new Thread(() ->  startWineSearch()).start();
                     }
                 }
             }
@@ -174,15 +174,22 @@ public class SearchActivity extends AppCompatActivity {
         Session.setSearchText(searchText);
 
         new Thread(() ->  {
-            WineData data = getWines();
-            if (data == null) {
-                ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
-                ViewHelper.toggleLoadingAnimation(this, View.GONE);
-                return;
-            }
-            addWines(data);
+            WineData data = startWineSearch();
+            if (data == null) return;
             addFacetsToSidebar(data.extendedFacets);
         }).start();
+    }
+
+    public WineData startWineSearch() {
+        WineData data = getWines();
+        if (data == null) {
+            _wineListScrollIsLoading = false;
+            ViewHelper.showToast(this, getResources().getString(R.string.internet_error));
+            ViewHelper.toggleLoadingAnimation(this, View.GONE);
+            return null;
+        }
+        addWines(data);
+        return data;
     }
 
     private WineData getWines() {

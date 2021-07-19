@@ -64,7 +64,7 @@ public class ProducerActivity extends AppCompatActivity {
         String producer = Session.getSelectedListItem().producer;
         facetQueryGroups.add(Utils.getRankedOnlyFacetGroup());
         facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
-        List<String> medalValues = new ArrayList<>(Arrays.asList("Grand Gold", "Gold", "Silver", "No Selection = No Wine")); 
+        List<String> medalValues = new ArrayList<>(Arrays.asList("Grand Gold", "Gold", "Silver", "No Selection = No Wine"));
         facetQueryGroups.add(new FacetQueryGroup("medal_name", medalValues));
 
         setupViews();
