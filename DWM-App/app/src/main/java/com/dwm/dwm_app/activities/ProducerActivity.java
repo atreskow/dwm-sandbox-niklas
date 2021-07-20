@@ -1,10 +1,8 @@
 package com.dwm.dwm_app.activities;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -62,7 +60,7 @@ public class ProducerActivity extends AppCompatActivity {
         }
 
         String producer = Session.getSelectedListItem().producer;
-        facetQueryGroups.add(Utils.getRankedOnlyFacetGroup());
+        facetQueryGroups.add(Utils.getPublishedOnlyFacetGroup());
         facetQueryGroups.add(new FacetQueryGroup("producer_company", producer));
         List<String> medalValues = new ArrayList<>(Arrays.asList("Grand Gold", "Gold", "Silver", "No Selection = No Wine"));
         facetQueryGroups.add(new FacetQueryGroup("medal_name", medalValues));

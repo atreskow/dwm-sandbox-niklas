@@ -78,7 +78,7 @@ public class SearchActivity extends AppCompatActivity {
         ViewHelper.setupToolbar(this);
 
         if (Session.getFacetQueryGroups().size() == 0) {
-            Session.getFacetQueryGroups().add(Utils.getRankedOnlyFacetGroup());
+            Session.getFacetQueryGroups().add(Utils.getPublishedOnlyFacetGroup());
         }
 
         boolean toolbarBottom = PreferenceManager.getDefaultSharedPreferences(getApplicationContext()).getBoolean("toolbarBottom", false);
@@ -278,7 +278,7 @@ public class SearchActivity extends AppCompatActivity {
 
     private final View.OnClickListener _resetFilterListener = view -> {
         Session.setFacetQueryGroups(new ArrayList<>());
-        Session.getFacetQueryGroups().add(Utils.getRankedOnlyFacetGroup());
+        Session.getFacetQueryGroups().add(Utils.getPublishedOnlyFacetGroup());
         Session.setSearchText("");
         _wineNameTextView.setText("");
         startNewWineSearch();

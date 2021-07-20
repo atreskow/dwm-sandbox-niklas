@@ -128,11 +128,8 @@ public class Utils {
         return Constants.WINE_LINK.replace("{language}", lang) + wineLink;
     }
 
-    public static FacetQueryGroup getRankedOnlyFacetGroup() {
-        FacetQueryGroup facetQueryGroup = new FacetQueryGroup("medal_rank", "1");
-        facetQueryGroup.values.add("2");
-        facetQueryGroup.values.add("3");
-        return facetQueryGroup;
+    public static FacetQueryGroup getPublishedOnlyFacetGroup() {
+        return new FacetQueryGroup("is_published_for_public", "true");
     }
 
     public static void addFacetQueryGroupValue(List<FacetQueryGroup> facetQueryGroups, String name, String value) {
