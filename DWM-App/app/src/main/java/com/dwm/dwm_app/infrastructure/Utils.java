@@ -1,6 +1,9 @@
 package com.dwm.dwm_app.infrastructure;
 
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 
 import com.dwm.dwm_app.adapters.NavDrawerItem;
 import com.dwm.dwm_app.R;
@@ -151,6 +154,24 @@ public class Utils {
                 }
                 return;
             }
+        }
+    }
+
+    public static void detectNightMode(Context context) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        switch (nightModeFlags) {
+            case Configuration.UI_MODE_NIGHT_YES:
+                editor.putBoolean("darkmodeEnabled", true);
+                editor.commit();
+                break;
+
+            case Configuration.UI_MODE_NIGHT_NO:
+                editor.putBoolean("darkmodeEnabled", false);
+                editor.commit();
+                break;
         }
     }
 }

@@ -73,6 +73,10 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (!Session.getStartupCompleted()) {
+            Utils.detectNightMode(this);
+            Session.setStartupCompleted(true);
+        }
         ViewHelper.setTheme(this);
         setContentView(R.layout.activity_search);
         ViewHelper.setupToolbar(this);

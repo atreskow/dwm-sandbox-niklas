@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Session {
+        private static boolean _startupCompleted = false;
         private static int _maxWinesSearch;
         private static int _winesPerPage = 10;
         private static String _searchText = null;
@@ -14,6 +15,14 @@ public class Session {
         private static WineListItem _selectedListItem;
         private static int _selectedSpinnerSearch = 0;
 
+
+        public static boolean getStartupCompleted() {
+                return _startupCompleted;
+        }
+
+        public static void setStartupCompleted(boolean completed) {
+                _startupCompleted = completed;
+        }
 
         public static WineListItem getSelectedListItem() {
                 return _selectedListItem;
