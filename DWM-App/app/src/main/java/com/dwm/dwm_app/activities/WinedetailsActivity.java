@@ -115,16 +115,19 @@ public class WinedetailsActivity extends AppCompatActivity {
 
         if (imageNames != null && imageNames.length != 0) {
             Bitmap[] bottleImages = new Bitmap[2];
+            String[] bottleNames = new String[2];
             for (String imageName : imageNames) {
-                Bitmap bottleImage = WineSearchServices.getBottleImageType(wine, "big", "png", imageName);
+                Bitmap bottleImage = WineSearchServices.getBottleImageType(wine, "normal", "png", imageName);
                 if (imageName.endsWith("F")) {
                     bottleImages[0] = bottleImage;
+                    bottleNames[0] = imageName;
                 }
                 else {
                     bottleImages[1] = bottleImage;
+                    bottleNames[1] = imageName;
                 }
             }
-            _bottleImagePagerAdapter = new BottleImagePagerAdapter(this, bottleImages);
+            _bottleImagePagerAdapter = new BottleImagePagerAdapter(this, bottleImages, bottleNames, wine);
 
             runOnUiThread(() -> {
                 _viewPager.setAdapter(_bottleImagePagerAdapter);
