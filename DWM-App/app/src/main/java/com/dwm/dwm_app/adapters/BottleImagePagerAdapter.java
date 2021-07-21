@@ -78,15 +78,23 @@ public class BottleImagePagerAdapter extends PagerAdapter {
 
             new Thread(() -> {
                 Bitmap bottleImage = WineSearchServices.getBottleImageType(_wine, "big", "png", _names[position]);
+                if (bottleImage == null) {
+                    ViewHelper.showToast((Activity) _context, _context.getResources().getString(R.string.internet_error));
+                    ViewHelper.toggleLoadingAnimation((Activity) _context, View.GONE);
+                    return;
+                }
                 ((Activity)_context).runOnUiThread(() -> {
                     SubsamplingScaleImageView popupImageView = popupView.findViewById(R.id.popupBottleImage);
-                    RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-                    popupImageView.setLayoutParams(layoutParams);
                     popupImageView.setImage(ImageSource.bitmap(bottleImage));
                     popupView.findViewById(R.id.popupLoadingPanel).setVisibility(View.GONE);
                 });
 
             }).start();
+
+            ImageView closeIcon = popupView.findViewById(R.id.closeIcon);
+            closeIcon.setOnClickListener(view1 -> {
+                popupWindow.dismiss();
+            });
 
             popupWindow.setOnDismissListener(() -> {
                 ViewHelper.clearDim(root);
