@@ -33,6 +33,9 @@ public class BottleImagePagerAdapter extends PagerAdapter {
     WineListItem _wine;
     LayoutInflater mLayoutInflater;
 
+    private static final int FRONT_IMAGE = 0;
+    private static final int BACK_IMAGE = 1;
+
     public BottleImagePagerAdapter(Context context, Bitmap[] images, String[] names, WineListItem wine) {
         this._context = context;
         this._images = images;
@@ -76,20 +79,16 @@ public class BottleImagePagerAdapter extends PagerAdapter {
             PopupWindow popupWindow = new PopupWindow(popupView, width, height, focusable);
             popupWindow.showAtLocation(((Activity)_context).findViewById(R.id.mainLayout), Gravity.CENTER, 0, 0);
 
-            new Thread(() -> {
-                Bitmap bottleImage = WineSearchServices.getBottleImageType(_wine, "big", "png", _names[position]);
-                if (bottleImage == null) {
-                    ViewHelper.showToast((Activity) _context, _context.getResources().getString(R.string.internet_error));
-                    ViewHelper.toggleLoadingAnimation((Activity) _context, View.GONE);
-                    return;
-                }
-                ((Activity)_context).runOnUiThread(() -> {
-                    SubsamplingScaleImageView popupImageView = popupView.findViewById(R.id.popupBottleImage);
-                    popupImageView.setImage(ImageSource.bitmap(bottleImage));
-                    popupView.findViewById(R.id.popupLoadingPanel).setVisibility(View.GONE);
-                });
+            setImage(position, popupView);
 
-            }).start();
+            popupView.findViewById(R.id.nextIcon).setOnClickListener(view12 -> {
+                popupView.findViewById(R.id.popupLoadingPanel).setVisibility(View.VISIBLE);
+                setImage(BACK_IMAGE, popupView);
+            });
+            popupView.findViewById(R.id.previousIcon).setOnClickListener(view12 -> {
+                popupView.findViewById(R.id.popupLoadingPanel).setVisibility(View.VISIBLE);
+                setImage(FRONT_IMAGE, popupView);
+            });
 
             ImageView closeIcon = popupView.findViewById(R.id.closeIcon);
             closeIcon.setOnClickListener(view1 -> {
@@ -109,5 +108,31 @@ public class BottleImagePagerAdapter extends PagerAdapter {
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         container.removeView((LinearLayout) object);
+    }
+
+    private void setImage(int position, View popupView) {
+        new Thread(() -> {
+            Bitmap bottleImage = WineSearchServices.getBottleImageType(_wine, "big", "png", _names[position]);
+            if (bottleImage == null) {
+                ViewHelper.showToast((Activity) _context, _context.getResources().getString(R.string.internet_error));
+                popupView.findViewById(R.id.popupLoadingPanel).setVisibility(View.GONE);
+                ViewHelper.toggleLoadingAnimation((Activity) _context, View.GONE);
+                return;
+            }
+            ((Activity)_context).runOnUiThread(() -> {
+                SubsamplingScaleImageView popupImageView = popupView.findViewById(R.id.popupBottleImage);
+                popupImageView.setImage(ImageSource.bitmap(bottleImage));
+                if (position == FRONT_IMAGE) {
+                    popupView.findViewById(R.id.nextIcon).setVisibility(View.VISIBLE);
+                    popupView.findViewById(R.id.previousIcon).setVisibility(View.GONE);
+                }
+                else {
+                    popupView.findViewById(R.id.nextIcon).setVisibility(View.GONE);
+                    popupView.findViewById(R.id.previousIcon).setVisibility(View.VISIBLE);
+                }
+                popupView.findViewById(R.id.popupLoadingPanel).setVisibility(View.GONE);
+            });
+
+        }).start();
     }
 }

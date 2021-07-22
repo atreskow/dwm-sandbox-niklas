@@ -105,14 +105,6 @@ public class WinedetailsActivity extends AppCompatActivity {
     private void getImages(WineListItem wine) {
         String[] imageNames = WineSearchServices.getBottleImageNames(wine.id);
 
-        if (Utils.hasAward(wine.ranking)) {
-            Bitmap medalImage = WineSearchServices.getMedalImage(wine.trophyCode, wine.ranking);
-            runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setImageBitmap(medalImage));
-        }
-        else {
-            runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setVisibility(View.GONE));
-        }
-
         if (imageNames != null && imageNames.length != 0) {
             Bitmap[] bottleImages = new Bitmap[2];
             String[] bottleNames = new String[2];
@@ -141,6 +133,14 @@ public class WinedetailsActivity extends AppCompatActivity {
                 findViewById(R.id.tabDots).setVisibility(View.GONE);
                 _viewPager.setVisibility(View.GONE);
             });
+        }
+
+        if (Utils.hasAward(wine.ranking)) {
+            Bitmap medalImage = WineSearchServices.getMedalImage(wine.trophyCode, wine.ranking);
+            runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setImageBitmap(medalImage));
+        }
+        else {
+            runOnUiThread(() -> ((ImageView) findViewById(R.id.imageMedal)).setVisibility(View.GONE));
         }
 
     }

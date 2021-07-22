@@ -29,6 +29,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
+        android:clickable="true"
+        android:focusable="true"
         android:src="@drawable/close_icon" />
+
+    <ImageView
+        android:id="@+id/nextIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/navigate_next" />
+
+    <ImageView
+        android:id="@+id/previousIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/navigate_before" />
 
 </RelativeLayout>
