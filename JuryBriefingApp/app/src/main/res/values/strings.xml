@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name"></string>
+    <string name="app_short_name">DWM</string>
+    <string name="version">v1.2</string>
+</resources>
