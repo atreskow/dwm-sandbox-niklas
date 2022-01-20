@@ -13,6 +13,7 @@ import com.example.jurybriefingapp.networking.PresentationServices;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.UUID;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -30,6 +31,9 @@ public class StartActivity extends AppCompatActivity {
         List<RoomData> roomData = PresentationServices.GetRoomData(this);
         if (roomData != null && roomData.stream().anyMatch(o -> o.Status == 0)) {
             Intent i  = new Intent(this, RoomActivity.class);
+            /*RoomData data = new RoomData();
+            data.RoomNumber = 1 ;
+            data.Slide = 1;*/
             i.putExtra("roomData", (Serializable) roomData);
             startActivity(i);
         }

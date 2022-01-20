@@ -24,6 +24,7 @@ public class RoomActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         List<RoomData> roomData = (List<RoomData>) i.getSerializableExtra("roomData");
+        //RoomData room = (RoomData) i.getSerializableExtra("roomData");
         LinearLayout layout = findViewById(R.id.linearlayout);
 
         for (RoomData room : roomData) {
