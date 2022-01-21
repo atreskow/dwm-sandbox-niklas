@@ -67,4 +67,12 @@ public class Utils {
             zipInputStream.close();
         }
     }
+
+    public static void DeleteFilesInDirectory(File dir) {
+        for (File file : dir.listFiles()) {
+            if (!file.isDirectory()) {
+                file.delete();
+            }
+        }
+    }
 }
