@@ -14,7 +14,6 @@ import com.example.jurybriefingapp.networking.PresentationServices;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.UUID;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -29,7 +28,7 @@ public class StartActivity extends AppCompatActivity {
     }
 
     private void getRooms() {
-        List<RoomData> roomData = PresentationServices.GetRoomData(this);
+        List<RoomData> roomData = PresentationServices.GetRoomsData(this);
         if (roomData != null && Utils.RoomListHasPresentation(roomData)) {
             if (roomData.size() == 1) {
                 Intent i  = new Intent(this, PresentationActivity.class);

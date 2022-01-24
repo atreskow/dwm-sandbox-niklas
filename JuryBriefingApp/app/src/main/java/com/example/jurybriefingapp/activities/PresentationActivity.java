@@ -1,8 +1,10 @@
 package com.example.jurybriefingapp.activities;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import androidx.preference.PreferenceManager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -51,6 +53,8 @@ public class PresentationActivity extends AppCompatActivity {
     private ClientTransport _clientTransport;
     private boolean _signalRConnected = true;
 
+    private SharedPreferences _sharedPref;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,18 +67,19 @@ public class PresentationActivity extends AppCompatActivity {
         _progressBar = findViewById(R.id.progressBar);
         _progressLayout = findViewById(R.id.progressLayout);
 
+        _sharedPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         String root = this.getFilesDir().toString();
         _fileDirectory = new File(root + "/" + Constants.SLIDES_DIR + "/");
 
         setupSignalR();
 
         new Thread(() -> {
-            boolean updateSlides = checkPresentationVersion();
             if(!_fileDirectory.exists()){
                 _fileDirectory.mkdir();
             }
 
-            if (updateSlides || _fileDirectory.listFiles().length == 0) {
+            if (!isUpToDateSlidesVersion() || _fileDirectory.listFiles().length == 0) {
                 runSlidesProgressThread();
                 getSlides();
             }
@@ -93,13 +98,15 @@ public class PresentationActivity extends AppCompatActivity {
         _hubConnection.disconnect();
     }
 
-    private boolean checkPresentationVersion() {
-        //Ask Server for Version
-        if ("Local Version".equals("Server Version")) {
-            return false;
+    private boolean isUpToDateSlidesVersion() {
+        String slidesLocalVersion = _sharedPref.getString(Constants.SLIDES_VERSION_TITLE, "");
+        String slidesServerVersion = "PresentationServices.SlidesVersion()";
+
+        if (slidesLocalVersion.equals(slidesServerVersion)) {
+            return true;
         }
         else {
-            return true;
+            return false;
         }
     }
 
@@ -114,6 +121,20 @@ public class PresentationActivity extends AppCompatActivity {
                     SignalRFuture<Void> signalRFuture = _hubConnection.start(_clientTransport);
                     try {
                         signalRFuture.get();
+
+                        //Nach Disconnect könnte es sein, dass Events nicht angekommen sind (anderer Slide, Präsentation fertig, andere Präsentation)
+                        _roomData = PresentationServices.GetRoomData(this, _roomData.Id);
+                        if (_roomData.Status == 1) {
+                            startWebViewActivity();
+                        }
+                        else if (!isUpToDateSlidesVersion()) {
+                            getSlides();
+                            addSlides();
+                            showSlideImage();
+                        }
+                        else {
+                            showSlideImage();
+                        }
                     } catch (InterruptedException | ExecutionException e) {
                         e.printStackTrace();
                     }
@@ -161,6 +182,8 @@ public class PresentationActivity extends AppCompatActivity {
     }
 
     private void getSlides() {
+        String slidesVersion = "PresentationServices.getSlidesVersion()";
+
         DownloadData data = PresentationServices.GetJurySlideZip(this);
         ZipInputStream stream = Utils.Base64ToZipStream(data.FileData);
         try {
@@ -169,6 +192,10 @@ public class PresentationActivity extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        SharedPreferences.Editor _editor = _sharedPref.edit();
+        _editor.putString(Constants.SLIDES_VERSION_TITLE, slidesVersion);
+        _editor.commit();
     }
 
     private void addSlides() {
@@ -207,11 +234,7 @@ public class PresentationActivity extends AppCompatActivity {
 
         _hubProxy.on("goToStartPage", (tastingRoomId) -> {
             if (tastingRoomId.equals(_roomData.Id)) {
-                Intent intent  = new Intent(this, WebViewActivity.class);
-                startActivity(intent);
-                ViewHelper.Finish(this);
-                _signalRConnected = false;
-                _hubConnection.disconnect();
+                startWebViewActivity();
             }
         }, UUID.class);
 
@@ -228,6 +251,13 @@ public class PresentationActivity extends AppCompatActivity {
                 ViewHelper.ShowToast(this, "Ping");
             });
         });
+    }
 
+    private void startWebViewActivity() {
+        Intent intent  = new Intent(this, WebViewActivity.class);
+        startActivity(intent);
+        ViewHelper.Finish(this);
+        _signalRConnected = false;
+        _hubConnection.disconnect();
     }
 }

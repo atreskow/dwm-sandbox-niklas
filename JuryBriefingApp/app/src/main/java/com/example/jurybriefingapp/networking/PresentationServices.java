@@ -10,12 +10,13 @@ import com.google.gson.JsonObject;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 
 public class PresentationServices {
 
     private static final Gson gson = new Gson();
 
-    public static List<RoomData> GetRoomData(Activity activity) {
+    public static List<RoomData> GetRoomsData(Activity activity) {
         JsonObject jsonObject = null;
         try {
             jsonObject = ServerConnectionMethods.GetData(ServiceLocator.GET_TASTING_ROOMS);
@@ -23,7 +24,41 @@ public class PresentationServices {
             return Arrays.asList(roomData);
         } catch (Exception e) {
             if (handleStatus(jsonObject, activity, e.toString())) {
-                return GetRoomData(activity);
+                return GetRoomsData(activity);
+            }
+            else {
+                return null;
+            }
+        }
+    }
+
+    public static RoomData GetRoomData(Activity activity, UUID uuid) {
+        String serviceUrl = ServiceLocator.GET_TASTING_ROOM
+                .replace("{id}", uuid.toString());
+        JsonObject jsonObject = null;
+        try {
+            jsonObject = ServerConnectionMethods.GetData(serviceUrl);
+            RoomData roomData = gson.fromJson(jsonObject.get("value").toString(), RoomData.class);
+            return roomData;
+        } catch (Exception e) {
+            if (handleStatus(jsonObject, activity, e.toString())) {
+                return GetRoomData(activity, uuid);
+            }
+            else {
+                return null;
+            }
+        }
+    }
+
+    public static String GetSlidesVersion(Activity activity) {
+        JsonObject jsonObject = null;
+        try {
+            jsonObject = ServerConnectionMethods.GetData(ServiceLocator.GET_SLIDES_VERSION);
+            String slidesVersion = gson.fromJson(jsonObject.get("value").toString(), String.class);
+            return slidesVersion;
+        } catch (Exception e) {
+            if (handleStatus(jsonObject, activity, e.toString())) {
+                return GetSlidesVersion(activity);
             }
             else {
                 return null;
