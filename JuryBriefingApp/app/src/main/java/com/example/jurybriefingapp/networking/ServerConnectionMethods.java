@@ -1,5 +1,6 @@
 package com.example.jurybriefingapp.networking;
 
+import com.example.jurybriefingapp.Session;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
@@ -31,10 +32,13 @@ public class ServerConnectionMethods {
             String result;
             BufferedInputStream bis = new BufferedInputStream(connection.getInputStream());
             ByteArrayOutputStream buf = new ByteArrayOutputStream();
+            Session.FileSize = connection.getContentLength();
+            Session.Loaded = buf.size();
             int result2 = bis.read();
             while (result2 != -1) {
                 buf.write((byte) result2);
                 result2 = bis.read();
+                Session.Loaded = buf.size();
             }
             result = buf.toString();
 

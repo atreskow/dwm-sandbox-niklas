@@ -3,12 +3,16 @@ package com.example.jurybriefingapp.activities;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jurybriefingapp.Constants;
 import com.example.jurybriefingapp.R;
+import com.example.jurybriefingapp.Session;
 import com.example.jurybriefingapp.Utils;
 import com.example.jurybriefingapp.ViewHelper;
 import com.example.jurybriefingapp.networking.DownloadData;
@@ -36,6 +40,8 @@ public class PresentationActivity extends AppCompatActivity {
 
     private List<File> _slides;
     private ImageView _slideView;
+    private ProgressBar _progressBar;
+    private RelativeLayout _progressLayout;
     private RoomData _roomData;
 
     private File _fileDirectory;
@@ -54,6 +60,8 @@ public class PresentationActivity extends AppCompatActivity {
         Intent i = getIntent();
         _roomData = (RoomData) i.getSerializableExtra("roomData");
         _slideView = findViewById(R.id.presentationSlide);
+        _progressBar = findViewById(R.id.progressBar);
+        _progressLayout = findViewById(R.id.progressLayout);
 
         String root = this.getFilesDir().toString();
         _fileDirectory = new File(root + "/" + Constants.SLIDES_DIR + "/");
@@ -66,7 +74,8 @@ public class PresentationActivity extends AppCompatActivity {
                 _fileDirectory.mkdir();
             }
 
-            if (!updateSlides || _fileDirectory.listFiles().length == 0) {
+            if (updateSlides || _fileDirectory.listFiles().length == 0) {
+                runSlidesProgressThread();
                 getSlides();
             }
 
@@ -115,6 +124,28 @@ public class PresentationActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+        }).start();
+    }
+
+    private void runSlidesProgressThread() {
+        Session.FileSize = 1;
+        Session.Loaded = 0;
+        _progressLayout.setVisibility(View.VISIBLE);
+        new Thread(() -> {
+            while (Session.Loaded < Session.FileSize) {
+                int percent = Math.round((float) Session.Loaded / Session.FileSize * 100.0f);
+                runOnUiThread(() -> {
+                    _progressBar.setProgress(percent);
+                });
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            runOnUiThread(() -> {
+                _progressLayout.setVisibility(View.GONE);
+            });
         }).start();
     }
 

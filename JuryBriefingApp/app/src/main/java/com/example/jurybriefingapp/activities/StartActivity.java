@@ -31,9 +31,16 @@ public class StartActivity extends AppCompatActivity {
     private void getRooms() {
         List<RoomData> roomData = PresentationServices.GetRoomData(this);
         if (roomData != null && Utils.RoomListHasPresentation(roomData)) {
-            Intent i  = new Intent(this, RoomActivity.class);
-            i.putExtra("roomData", (Serializable) roomData);
-            startActivity(i);
+            if (roomData.size() == 1) {
+                Intent i  = new Intent(this, PresentationActivity.class);
+                i.putExtra("roomData", (Serializable) roomData.get(0));
+                startActivity(i);
+            }
+            else {
+                Intent i  = new Intent(this, RoomActivity.class);
+                i.putExtra("roomData", (Serializable) roomData);
+                startActivity(i);
+            }
         }
         else {
             Intent i  = new Intent(this, WebViewActivity.class);
