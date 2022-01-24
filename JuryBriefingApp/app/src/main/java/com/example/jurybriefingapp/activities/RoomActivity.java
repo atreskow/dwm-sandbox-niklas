@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jurybriefingapp.R;
+import com.example.jurybriefingapp.ViewHelper;
 import com.example.jurybriefingapp.networking.RoomData;
 
 import java.io.Serializable;
@@ -24,7 +25,6 @@ public class RoomActivity extends AppCompatActivity {
 
         Intent i = getIntent();
         List<RoomData> roomData = (List<RoomData>) i.getSerializableExtra("roomData");
-        //RoomData room = (RoomData) i.getSerializableExtra("roomData");
         LinearLayout layout = findViewById(R.id.linearlayout);
 
         for (RoomData room : roomData) {
@@ -34,9 +34,15 @@ public class RoomActivity extends AppCompatActivity {
             button.setLayoutParams(params);
             button.setText(String.valueOf(room.RoomNumber));
             button.setOnClickListener(view -> {
-                Intent intent  = new Intent(this, PresentationActivity.class);
-                intent.putExtra("roomData", room);
-                startActivity(intent);
+                if (room.Status == 0) {
+                    Intent intent  = new Intent(this, PresentationActivity.class);
+                    intent.putExtra("roomData", room);
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent  = new Intent(this, WebViewActivity.class);
+                    startActivity(intent);
+                }
             });
 
             layout.addView(button);

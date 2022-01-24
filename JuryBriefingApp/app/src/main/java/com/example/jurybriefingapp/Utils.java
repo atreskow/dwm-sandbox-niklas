@@ -7,6 +7,8 @@ import android.os.Environment;
 import android.util.Base64;
 import android.util.Log;
 
+import com.example.jurybriefingapp.networking.RoomData;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -74,5 +76,15 @@ public class Utils {
                 file.delete();
             }
         }
+    }
+
+
+    public static boolean RoomListHasPresentation(List<RoomData> rooms) {
+        for (RoomData room : rooms) {
+            if (room.Status == 0) {
+                return true;
+            }
+        }
+        return false;
     }
 }

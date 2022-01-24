@@ -19,6 +19,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
@@ -142,7 +143,7 @@ public class PresentationActivity extends AppCompatActivity {
     private void addSlides() {
         _slides = new ArrayList<>();
         _slides.addAll(Arrays.asList(_fileDirectory.listFiles()));
-        _slides.sort((f1, f2) -> {
+        Collections.sort(_slides, (f1, f2) -> {
             int i1 = Integer.parseInt(f1.getName().split("\\.")[0]);
             int i2 = Integer.parseInt(f2.getName().split("\\.")[0]);
             return Integer.compare(i1, i2);

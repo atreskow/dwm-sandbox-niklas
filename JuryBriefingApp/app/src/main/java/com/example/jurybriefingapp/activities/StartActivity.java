@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.jurybriefingapp.R;
+import com.example.jurybriefingapp.Utils;
 import com.example.jurybriefingapp.networking.RoomData;
 import com.example.jurybriefingapp.ViewHelper;
 import com.example.jurybriefingapp.networking.PresentationServices;
@@ -29,11 +30,8 @@ public class StartActivity extends AppCompatActivity {
 
     private void getRooms() {
         List<RoomData> roomData = PresentationServices.GetRoomData(this);
-        if (roomData != null && roomData.stream().anyMatch(o -> o.Status == 0)) {
+        if (roomData != null && Utils.RoomListHasPresentation(roomData)) {
             Intent i  = new Intent(this, RoomActivity.class);
-            /*RoomData data = new RoomData();
-            data.RoomNumber = 1 ;
-            data.Slide = 1;*/
             i.putExtra("roomData", (Serializable) roomData);
             startActivity(i);
         }
