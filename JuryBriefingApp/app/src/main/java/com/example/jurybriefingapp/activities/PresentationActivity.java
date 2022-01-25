@@ -100,7 +100,7 @@ public class PresentationActivity extends AppCompatActivity {
 
     private boolean isUpToDateSlidesVersion() {
         String slidesLocalVersion = _sharedPref.getString(Constants.SLIDES_VERSION_TITLE, "");
-        String slidesServerVersion = "PresentationServices.SlidesVersion()";
+        String slidesServerVersion = PresentationServices.GetSlidesChecksum(this);
 
         if (slidesLocalVersion.equals(slidesServerVersion)) {
             return true;
@@ -151,7 +151,9 @@ public class PresentationActivity extends AppCompatActivity {
     private void runSlidesProgressThread() {
         Session.FileSize = 1;
         Session.Loaded = 0;
-        _progressLayout.setVisibility(View.VISIBLE);
+        runOnUiThread(() -> {
+            _progressLayout.setVisibility(View.VISIBLE);
+        });
         new Thread(() -> {
             while (Session.Loaded < Session.FileSize) {
                 int percent = Math.round((float) Session.Loaded / Session.FileSize * 100.0f);
@@ -182,7 +184,7 @@ public class PresentationActivity extends AppCompatActivity {
     }
 
     private void getSlides() {
-        String slidesVersion = "PresentationServices.getSlidesVersion()";
+        String slidesVersion = PresentationServices.GetSlidesChecksum(this);
 
         DownloadData data = PresentationServices.GetJurySlideZip(this);
         ZipInputStream stream = Utils.Base64ToZipStream(data.FileData);
@@ -209,7 +211,7 @@ public class PresentationActivity extends AppCompatActivity {
     }
 
     private void setupSignalR() {
-        _hubConnection = new HubConnection(ServiceLocator.SIGNALR_URL);
+        _hubConnection = new HubConnection(ServiceLocator.BASE_URL + ServiceLocator.SIGNALR);
         _hubProxy = _hubConnection.createHubProxy(ServiceLocator.SLIDES_HUB);
         _clientTransport = new ServerSentEventsTransport(_hubConnection.getLogger());
 

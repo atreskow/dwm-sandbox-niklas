@@ -50,15 +50,15 @@ public class PresentationServices {
         }
     }
 
-    public static String GetSlidesVersion(Activity activity) {
+    public static String GetSlidesChecksum(Activity activity) {
         JsonObject jsonObject = null;
         try {
-            jsonObject = ServerConnectionMethods.GetData(ServiceLocator.GET_SLIDES_VERSION);
+            jsonObject = ServerConnectionMethods.GetData(ServiceLocator.BRIEFING_SLIDES_CHECKSUM);
             String slidesVersion = gson.fromJson(jsonObject.get("value").toString(), String.class);
             return slidesVersion;
         } catch (Exception e) {
             if (handleStatus(jsonObject, activity, e.toString())) {
-                return GetSlidesVersion(activity);
+                return GetSlidesChecksum(activity);
             }
             else {
                 return null;
@@ -69,7 +69,7 @@ public class PresentationServices {
     public static int GetJuryBriefingSlidesCount(Activity activity) {
         JsonObject jsonObject = null;
         try {
-            jsonObject = ServerConnectionMethods.GetData(ServiceLocator.JURY_BRIEFING_SLIDES_COUNT);
+            jsonObject = ServerConnectionMethods.GetData(ServiceLocator.BRIEFING_SLIDES_COUNT);
             int roomData = gson.fromJson(jsonObject.get("value").toString(), int.class);
             return roomData;
         } catch (Exception e) {
@@ -83,7 +83,7 @@ public class PresentationServices {
     }
 
     public static Bitmap GetJurySlideBitmap(Activity activity, int slideNumber) {
-        String serviceUrl = ServiceLocator.GET_JURY_BRIEFING_SLIDE
+        String serviceUrl = ServiceLocator.GET_BRIEFING_SLIDE
                 .replace("{slideNumber}", String.valueOf(slideNumber));
         JsonObject jsonObject = null;
         try {
@@ -103,7 +103,7 @@ public class PresentationServices {
     }
 
     public static String GetJurySlideBase64(Activity activity, int slideNumber) {
-        String serviceUrl = ServiceLocator.GET_JURY_BRIEFING_SLIDE
+        String serviceUrl = ServiceLocator.GET_BRIEFING_SLIDE
                 .replace("{slideNumber}", String.valueOf(slideNumber));
         JsonObject jsonObject = null;
         try {
